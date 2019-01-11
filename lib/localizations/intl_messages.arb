@@ -1,0 +1,66 @@
+{
+  "@@last_modified": "2019-01-11T11:54:31.939462",
+  "@@locale": "fr",
+  "members": "Membres",
+  "@members": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newMemberNameHint": "Nom",
+  "@newMemberNameHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMember": "Ajouter membre",
+  "@addMember": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editMember": "Editer membre",
+  "@editMember": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "saveChanges": "Enregistrer les changements",
+  "@saveChanges": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteMember": "Supprimer un membre",
+  "@deleteMember": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "memberDetails": "Détails du membre",
+  "@memberDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "memberDeleted": "\"{member}\" supprimé",
+  "@memberDeleted": {
+    "type": "text",
+    "placeholders": {
+      "member": {}
+    }
+  },
+  "undo": "Retour",
+  "@undo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteMemberConfirmation": "Supprimer ce membre?",
+  "@deleteMemberConfirmation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "Supprimer",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Annuler",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
