@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class ArchSampleKeys {
+
   // Home Screens
   static final homeScreen = const Key('__homeScreen__');
   static final addTodoFab = const Key('__addTodoFab__');
@@ -15,6 +16,14 @@ class ArchSampleKeys {
       (String id) => Key('TodoItem__${id}__Checkbox');
   static final todoItemTask = (String id) => Key('TodoItem__${id}__Task');
   static final todoItemNote = (String id) => Key('TodoItem__${id}__Note');
+
+  // Members
+  static final memberList = const Key('__memberList__');
+  static final memberScreen = const Key('__memberScreen__');
+  static final addMemberFab = const Key('__addMemberFab__');
+  static final membersLoading = const Key('__membersLoading__');
+  static final memberItem = (String id) => Key('MemberItem__${id}');
+
 
   // Tabs
   static final tabs = const Key('__tabs__');

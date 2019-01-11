@@ -5,8 +5,12 @@ import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/localization.dart';
 import 'package:ccis_app/ccis_app.dart';
+import 'package:ccis_app/screens/members/member_screen.dart';
 
-void main() => runApp(Injector(
+void main(
+  {@required UserRepository userRepository}
+  ) => runApp(Injector(
+    userRepository: userRepository,
   child: MembersBlocProvider(
       bloc: MembersListBloc(),
       child: MaterialApp(
@@ -19,8 +23,8 @@ void main() => runApp(Injector(
         routes: {
           ArchSampleRoutes.members: (context) {
             return MemberScreen(
-              repository: Inj
-            )
+              repository: Injector.of(context).userRepository,
+            );
           }
         },
       ))
