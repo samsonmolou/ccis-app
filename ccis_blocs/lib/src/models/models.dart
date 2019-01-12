@@ -1,0 +1,1 @@
+export 'package:ccis_blocs/src/models/member.dart';

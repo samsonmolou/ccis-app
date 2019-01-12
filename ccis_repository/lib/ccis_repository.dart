@@ -1,4 +1,5 @@
 library ccis_repository;
 
-export 'src/user_entity.dart';
-export 'src/user_repository.dart';
+export 'package:ccis_repository/src/entity/entity.dart';
+export 'package:ccis_repository/src/repository/repository.dart';
+export 'package:ccis_repository/src/reactive_repository/reactive_repository.dart';

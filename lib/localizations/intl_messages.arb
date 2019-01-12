@@ -1,6 +1,7 @@
 {
   "@@last_modified": "2019-01-11T11:54:31.939462",
   "@@locale": "fr",
+  "@@locale": "en",
   "members": "Membres",
   "@members": {
     "type": "text",

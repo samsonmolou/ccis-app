@@ -7,7 +7,7 @@ class BlocLocalizations {
     return Localizations.of<BlocLocalizations>(context, BlocLocalizations);
   }
 
-  String get appTitle => "CCIS";
+  String get appTitle => "CCIS App";
 }
 
 class InheritedWidgetLocalizationsDelegate
@@ -21,5 +21,5 @@ class InheritedWidgetLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("fr");
+      locale.languageCode.toLowerCase().contains("en");
 }

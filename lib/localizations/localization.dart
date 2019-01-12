@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:ccis_app/localizations/messages_all.dart';
@@ -118,5 +119,5 @@ class ArchSampleLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("fr");
+      locale.languageCode.toLowerCase().contains("en");
 }

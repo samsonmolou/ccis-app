@@ -1,0 +1,1 @@
+export 'package:ccis_repository_flutter/src/file_storage/member_file_storage.dart';

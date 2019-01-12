@@ -12,6 +12,7 @@ dependencies:
     path: ../ccis_repository
   flutter:
     sdk: flutter
+  rxdart: 0.18.0
 
 dev_dependencies:
   flutter_test:

@@ -23,6 +23,8 @@ class ArchSampleKeys {
   static final addMemberFab = const Key('__addMemberFab__');
   static final membersLoading = const Key('__membersLoading__');
   static final memberItem = (String id) => Key('MemberItem__${id}');
+  static final memberItemHead = (String id) => Key('MemberItem__${id}__Head');
+  static final memberItemSubhead = (String id) => Key('MemberItem__${id}__Subhead');
 
 
   // Tabs
