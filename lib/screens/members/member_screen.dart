@@ -71,7 +71,9 @@ class MemberScreenState extends State<MemberScreen> {
               ),
               floatingActionButton: FloatingActionButton(
                   key: ArchSampleKeys.addMemberFab,
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.pushNamed(context, ArchSampleRoutes.addMember);
+                  },
                   child: Icon(Icons.add),
                   tooltip: ArchSampleLocalizations.of(context).addMember,
               ),

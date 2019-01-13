@@ -36,7 +36,8 @@ class MemberList extends StatelessWidget {
 
           },
         );
-      }
+      },
+
     );
   }
 }

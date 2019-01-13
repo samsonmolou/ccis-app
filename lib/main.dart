@@ -6,6 +6,7 @@ import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/localization.dart';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/members/member_screen.dart';
+import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_app/localization.dart';
 
 void main({
@@ -31,7 +32,12 @@ void main({
                       .of(context)
                       .userRepository,
                 );
-              }
+              },
+              ArchSampleRoutes.addMember: (context) {
+                return MemberAddEditScreen(
+                  addMember: MembersBlocProvider.of(context).addMember.add,
+                );
+              },
             },
           ))
   ));

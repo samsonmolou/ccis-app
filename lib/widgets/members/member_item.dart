@@ -36,6 +36,7 @@ class MemberItem extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.subhead,
         ),
+
       ),
     );
   }

@@ -57,13 +57,19 @@ class ArchSampleKeys {
   static final detailsTodoItemTask = Key('DetailsTodo__Task');
   static final detailsTodoItemNote = Key('DetailsTodo__Note');
 
-  // Add Screen
-  static final addTodoScreen = const Key('__addTodoScreen__');
-  static final saveNewTodo = const Key('__saveNewTodo__');
-  static final taskField = const Key('__taskField__');
-  static final noteField = const Key('__noteField__');
+  // Add Member Screen
+  static final addMemberScreen = const Key('__addMemberScreen__');
+  static final saveNewMember = const Key('__saveNewMember__');
+  static final firstNameField = const Key('__firstNameField__');
+  static final secondNameField = const Key('__secondNameField__');
+  static final phoneNumberField = const Key('__phoneNumberField__');
+  static final residenceField = const Key('__residenceField__');
+  static final bedroomNumberField = const Key('__bedroomNumberField__');
+  static final communityField = const Key('__communityField__');
+  static final studyField = const Key('__studyField__');
 
-  // Edit Screen
-  static final editTodoScreen = const Key('__editTodoScreen__');
-  static final saveTodoFab = const Key('__saveTodoFab__');
+
+  // Edit Member Screen
+  static final editMemberScreen = const Key('__editMemberScreen__');
+  static final saveMemberFab = const Key('__saveMemberFab__');
 }

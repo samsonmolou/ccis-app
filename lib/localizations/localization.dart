@@ -28,9 +28,51 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
-  String get newMemberNameHint => Intl.message(
+  String get newMemberFirstNameHint => Intl.message(
     'Nom',
-    name: 'newMemberNameHint',
+    name: 'newMemberFirstNameHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberSecondNameHint => Intl.message(
+    'Prénoms',
+    name: 'newMemberSecondNameHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberPhoneNumberHint => Intl.message(
+    'Numéro de téléphone',
+    name: 'newMemberPhoneNumberHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberResidenceHint => Intl.message(
+    'Résidence',
+    name: 'newMemberResidenceHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberBedroomNumberHint => Intl.message(
+    'Numéro de chambre',
+    name: 'newMemberBedroomNumberHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberCommunityHint => Intl.message(
+    'Communauté',
+    name: 'newMemberCommunityHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberStudyHint => Intl.message(
+    'Filière',
+    name: 'newMemberStudyHint',
     args: [],
     locale: locale.toString(),
   );
@@ -100,12 +142,21 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get emptyMemberError => Intl.message(
+    'Veuillez entrer un texte',
+    name: 'emptyMemberError',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get cancel => Intl.message(
     'Annuler',
     name: 'cancel',
     args: [],
     locale: locale.toString(),
   );
+
+
 }
 
 class ArchSampleLocalizationsDelegate
