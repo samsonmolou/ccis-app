@@ -22,6 +22,8 @@ class MemberDetailScreen extends StatefulWidget {
 
 class MemberDetailScreenState extends State<MemberDetailScreen> {
   MemberBloc memberBloc;
+  final double _appBarHeight = 256.0;
+
 
   @override
   void initState() {
@@ -44,10 +46,47 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
 
         final member = snapshot.data;
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(ArchSampleLocalizations.of(context).memberDetails),
-          ),
+        return CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              expandedHeight: _appBarHeight,
+              pinned: true,
+              actions: <Widget>[
+                IconButton(
+                  key: ArchSampleKeys.deleteMemberButton,
+                  tooltip: ArchSampleLocalizations.of(context).deleteMember,
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    memberBloc.deleteMember.add(member.id);
+                    Navigator.pop(context, member);
+                  },
+                )
+              ],
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(member.firstName + ' ' + member.secondName),
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Image.asset(
+                      'img/img_member_128.png',
+                      package: 'ccis_assets',
+                      fit: BoxFit.cover,
+                      height: 1,
+                      width: 1,
+                      scale: 1,
+                    ),
+                    const DecoratedBox(decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment(0.0, -1.0),
+                          end: Alignment(0.0, -0.4),
+                          colors: <Color>[Color(0x60000000), Color(0x00000000)],
+                      )
+                    ))
+                  ],
+                ),
+              ),
+            )
+          ],
         );
       },
     );
