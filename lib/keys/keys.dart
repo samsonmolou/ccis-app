@@ -49,13 +49,13 @@ class ArchSampleKeys {
   static final statsNumActive = const Key('__statsActiveItems__');
   static final statsNumCompleted = const Key('__statsCompletedItems__');
 
-  // Details Screen
-  static final editTodoFab = const Key('__editTodoFab__');
-  static final deleteTodoButton = const Key('__deleteTodoFab__');
-  static final todoDetailsScreen = const Key('__todoDetailsScreen__');
-  static final detailsTodoItemCheckbox = Key('DetailsTodo__Checkbox');
-  static final detailsTodoItemTask = Key('DetailsTodo__Task');
-  static final detailsTodoItemNote = Key('DetailsTodo__Note');
+  // MemberDetails Screen
+  static final editMemberFab = const Key('__editMemberFab__');
+  static final deleteMemberButton = const Key('__deleteMemberFab__');
+  static final memberDetailsScreen = const Key('__memberDetailsScreen__');
+  static final detailsMemberItemFirstName = Key('DetailsMember__FirstName');
+  static final detailsMemberItemSecondName = Key('DetailsMember__SecondName');
+  static final detailsMemberItemPhoneNumber = Key('DetailsMember__PhoneNumber');
 
   // Add Member Screen
   static final addMemberScreen = const Key('__addMemberScreen__');

@@ -72,7 +72,7 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).newMemberSecondNameHint,
-                  icon: Icon(Icons.more_horiz),
+                  icon: Icon(Icons.person),
 
                 ),
                 validator: (val) => val.trim().isEmpty

@@ -25,7 +25,7 @@ class MemberItem extends StatelessWidget {
           child: new Text(member.firstName[0] + member.secondName[0]),
         ),
         title: Text(
-          member.firstName + ' ' + member.secondName,
+          member.firstName + " " + member.secondName,
           key: ArchSampleKeys.memberItemHead(member.id),
           style: Theme.of(context).textTheme.title,
         ),

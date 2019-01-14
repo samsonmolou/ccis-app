@@ -8,10 +8,11 @@ import 'package:ccis_blocs/src/interactors/members_interactor.dart';
 class MembersListBloc {
   // Inputs
   final Sink<Member> addMember;
+  final Sink<String> deleteMember;
+  final Sink<Member> updateMember;
 
   // Outputs
   final Stream<List<Member>> members;
-
 
   // Cleanup
   final List<StreamSubscription<dynamic>> _subscriptions;
@@ -24,6 +25,8 @@ class MembersListBloc {
     // publicly so users can send information to the Bloc. We'll use the Streams
     // internally to react to that user input.
     final addMemberController = StreamController<Member>(sync: true);
+    final deleteMemberController = StreamController<String>(sync: true);
+    final updateMemberController = StreamController<Member>(sync: true);
 
     // In some cases, we need to simply route user interactions to our data
     // layer. In this case, we'll listen to the streams. In order to clean
@@ -32,10 +35,14 @@ class MembersListBloc {
     final subscriptions = <StreamSubscription<dynamic>>[
       // When a user adds an item, add it to the repository
       addMemberController.stream.listen(interactor.addNewMember),
+      deleteMemberController.stream.listen(interactor.deleteMember),
+      updateMemberController.stream.listen(interactor.updateMember)
     ];
 
     return MembersListBloc._(
       addMemberController,
+      deleteMemberController,
+      updateMemberController,
       interactor.members,
       subscriptions,
     );
@@ -43,6 +50,8 @@ class MembersListBloc {
 
   MembersListBloc._(
       this.addMember,
+      this.deleteMember,
+      this.updateMember,
       this.members,
       this._subscriptions);
 
@@ -50,6 +59,9 @@ class MembersListBloc {
   // subscriptions. This ensures we free up resources and don't trigger odd
   // bugs.
   void close() {
+    addMember.close();
+    deleteMember.close();
+    updateMember.close();
     _subscriptions.forEach((subscriptions) => subscriptions.cancel());
   }
 

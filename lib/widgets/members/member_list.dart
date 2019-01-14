@@ -6,6 +6,7 @@ import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/widgets/members/member_item.dart';
+import 'package:ccis_app/screens/members/member_detail_screen.dart';
 
 class MemberList extends StatelessWidget {
   MemberList({Key key}) : super(key: key);
@@ -30,14 +31,56 @@ class MemberList extends StatelessWidget {
         return MemberItem(
           member: member,
           onDismissed: (direction) {
-
+            _removeMember(context, member);
           },
           onTap: () {
-
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) {
+                  return MemberDetailScreen(
+                    memberId: member.id,
+                    initBloc: () =>
+                        MemberBloc(Injector.of(context).membersInteractor),
+                  );
+                },
+              ),
+            ).then((todo) {
+              if (member is Member) {
+                _showUndoSnackbar(context, todo);
+              }
+            });
           },
         );
       },
 
     );
+  }
+
+  void _removeMember(BuildContext context, Member member) {
+    MembersBlocProvider.of(context).deleteMember.add(member.id);
+
+    _showUndoSnackbar(context, member);
+  }
+
+  void _showUndoSnackbar(BuildContext context, Member member) {
+    final snackBar = SnackBar(
+      key: ArchSampleKeys.snackbar,
+      duration: Duration(seconds: 2),
+      backgroundColor: Theme.of(context).backgroundColor,
+      content: Text(
+        ArchSampleLocalizations.of(context).memberDeleted(member.id),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      action: SnackBarAction(
+        key: ArchSampleKeys.snackbarAction(member.id),
+        label: ArchSampleLocalizations.of(context).undo,
+        onPressed: () {
+          MembersBlocProvider.of(context).addMember.add(member);
+        },
+      ),
+    );
+
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 }

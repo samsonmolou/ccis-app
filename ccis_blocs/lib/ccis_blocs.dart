@@ -1,6 +1,5 @@
 library ccis_blocs;
 
-export 'src/blocs/members_list_bloc.dart';
-export 'src/blocs/user_bloc.dart';
+export 'package:ccis_blocs/src/blocs/blocs.dart';
 export 'src/interactors/members_interactor.dart';
 export 'src/models/models.dart';
