@@ -148,7 +148,7 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyMemberError
                     : null,
-                onSaved: (value) => _bedroomNumber = value,
+                onSaved: (value) => _study = value,
               ),
             ],
           ),

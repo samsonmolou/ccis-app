@@ -25,6 +25,7 @@ flutter:
   assets:
    - img/img_member_512.png
    - img/img_member_128.png
+   - img/default-user-img.jpg
 
   #  - images/a_dot_ham.jpeg
   #

@@ -68,7 +68,7 @@ class MemberList extends StatelessWidget {
       duration: Duration(seconds: 2),
       backgroundColor: Theme.of(context).backgroundColor,
       content: Text(
-        ArchSampleLocalizations.of(context).memberDeleted(member.id),
+        ArchSampleLocalizations.of(context).memberDeleted(member.fullName),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),

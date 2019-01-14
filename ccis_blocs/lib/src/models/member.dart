@@ -103,4 +103,6 @@ class Member {
       study: entity.study
     );
   }
+
+  String get fullName => firstName + ' ' + secondName;
 }
