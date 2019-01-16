@@ -3,15 +3,20 @@ import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/ccis_app.dart';
 
 
-class SearchMemberSearchDelegate extends SearchDelegate<int> {
-  final List<int> _data = List<int>.generate(100001, (int i) => i).reversed.toList();
-  final List<int> _history = <int>[42607, 85604, 66374, 44, 174];
+class SearchMemberSearchDelegate extends SearchDelegate<String> {
+  final List<String> _data = <String>['Molou Samson', 'Livai Ackerman', 'Mikasa Ackerman'];
+  final List<String> _history = <String>[];
 
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return Theme.of(context);
+  }
 
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      tooltip: 'Back',
+      tooltip: ArchSampleLocalizations.of(context).back,
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
@@ -25,13 +30,13 @@ class SearchMemberSearchDelegate extends SearchDelegate<int> {
   @override
   Widget buildSuggestions(BuildContext context) {
 
-    final Iterable<int> suggestions = query.isEmpty
+    final Iterable<String> suggestions = query.isEmpty
         ? _history
-        : _data.where((int i) => '$i'.startsWith(query));
+        : _data.where((String i) => '$i'.contains(query));
 
     return _SuggestionList(
       query: query,
-      suggestions: suggestions.map<String>((int i) => '$i').toList(),
+      suggestions: suggestions.map<String>((String i) => '$i').toList(),
       onSelected: (String suggestion) {
         query = suggestion;
         showResults(context);
@@ -41,7 +46,7 @@ class SearchMemberSearchDelegate extends SearchDelegate<int> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final int searched = int.tryParse(query);
+    final String searched = query;
     if (searched == null || !_data.contains(searched)) {
       return Center(
         child: Text(
@@ -60,12 +65,12 @@ class SearchMemberSearchDelegate extends SearchDelegate<int> {
         ),
         _ResultCard(
           title: 'Next integer',
-          integer: searched + 1,
+          integer: searched,
           searchDelegate: this,
         ),
         _ResultCard(
           title: 'Previous integer',
-          integer: searched - 1,
+          integer: searched,
           searchDelegate: this,
         ),
       ],
@@ -75,22 +80,15 @@ class SearchMemberSearchDelegate extends SearchDelegate<int> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
-      query.isEmpty
-          ? IconButton(
-        tooltip: 'Voice Search',
-        icon: const Icon(Icons.mic),
-        onPressed: () {
-          query = 'TODO: implement voice input';
-        },
-      )
-          : IconButton(
-        tooltip: 'Clear',
+      IconButton(
+        tooltip: ArchSampleLocalizations.of(context).clear,
         icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
           showSuggestions(context);
         },
       )
+
     ];
   }
 }
@@ -98,9 +96,9 @@ class SearchMemberSearchDelegate extends SearchDelegate<int> {
 class _ResultCard extends StatelessWidget {
   const _ResultCard({this.integer, this.title, this.searchDelegate});
 
-  final int integer;
+  final String integer;
   final String title;
-  final SearchDelegate<int> searchDelegate;
+  final SearchDelegate<String> searchDelegate;
 
   @override
   Widget build(BuildContext context) {
