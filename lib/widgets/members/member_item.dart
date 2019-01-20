@@ -19,6 +19,18 @@ class MemberItem extends StatelessWidget {
     return Dismissible(
       key: ArchSampleKeys.memberItem(member.id),
       onDismissed: onDismissed,
+      background: Container(
+          color: Theme.of(context).primaryColor,
+          child: const ListTile(
+              leading: Icon(Icons.delete, color: Colors.white, size: 36.0)
+          )
+      ),
+      secondaryBackground: Container(
+          color: Theme.of(context).primaryColor,
+          child: const ListTile(
+              leading: Icon(Icons.delete, color: Colors.white, size: 36.0)
+          )
+      ),
       child: ListTile(
         onTap: onTap,
         leading: CircleAvatar(
@@ -30,7 +42,7 @@ class MemberItem extends StatelessWidget {
           style: Theme.of(context).textTheme.title,
         ),
         subtitle: Text(
-          member.residence + member.bedroomNumber + " - " + member.community,
+          member.residenceBedroom + " - " + member.community + " - " + member.phoneNumber,
           key: ArchSampleKeys.memberItemSubhead(member.id),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

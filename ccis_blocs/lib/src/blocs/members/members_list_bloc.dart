@@ -82,12 +82,10 @@ class MembersListBloc {
 
   static List<Member> _searchMembers(List<Member> members, String query) {
     final Iterable<Member> suggestions = members.where(
-        (member) => member.firstName.contains(query)
-            || member.secondName.contains(query)
+        (member) => member.fullName.contains(query)
             || member.study.contains(query)
             || member.community.contains(query)
-            || member.residence.contains(query)
-            || member.bedroomNumber.contains(query)
+            || member.residenceBedroom.contains(query)
             || member.phoneNumber.contains(query)
     );
 

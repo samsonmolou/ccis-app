@@ -44,9 +44,9 @@ class MemberList extends StatelessWidget {
                   );
                 },
               ),
-            ).then((todo) {
+            ).then((member) {
               if (member is Member) {
-                _showUndoSnackbar(context, todo);
+                _showUndoSnackbar(context, member);
               }
             });
           },

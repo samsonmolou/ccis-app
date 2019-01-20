@@ -4,10 +4,10 @@ import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/widgets/shared/loading.dart';
 
-class SearchMemberSearchDelegate extends SearchDelegate<String> {
-  final List<String> _data = <String>['Molou Samson', 'Livai Ackerman', 'Mikasa Ackerman'];
-  final List<String> _history = <String>[];
+import 'package:ccis_app/screens/members/member_detail_screen.dart';
+import 'package:ccis_app/helpers/dependency_injection.dart';
 
+class SearchMemberSearchDelegate extends SearchDelegate<String> {
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -40,56 +40,27 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
       stream: MembersBlocProvider.of(context).searchMemberResult,
       builder: (context, snapshot) => snapshot.hasData ? _SuggestionList(
           query: query,
-          onSelected: (String suggestion) {
-            query = suggestion;
-            showResults(context);
+          onSelected: (String memberSuggestionId) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) {
+                return MemberDetailScreen(
+                  memberId: memberSuggestionId,
+                  initBloc: () =>
+                    MemberBloc(Injector.of(context).membersInteractor),
+                );
+                },
+                ),
+            );
           },
           membersSuggestions: snapshot.data,
         ) : LoadingSpinner(key: ArchSampleKeys.membersLoading),
     );
-    /*
-    return _SuggestionList(
-      query: query,
-      suggestions: suggestions.map<String>((String i) => '$i').toList(),
-      onSelected: (String suggestion) {
-        query = suggestion;
-        showResults(context);
-      },
-    ); */
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    final String searched = query;
-    if (searched == null || !_data.contains(searched)) {
-      return Center(
-        child: Text(
-          '"$query"\n is not a valid integer between 0 and 100,000.\nTry again.',
-          textAlign: TextAlign.center,
-        ),
-      );
-    }
 
-
-    return ListView(
-      children: <Widget>[
-        _ResultCard(
-          title: 'This integer',
-          integer: searched,
-          searchDelegate: this,
-        ),
-        _ResultCard(
-          title: 'Next integer',
-          integer: searched,
-          searchDelegate: this,
-        ),
-        _ResultCard(
-          title: 'Previous integer',
-          integer: searched,
-          searchDelegate: this,
-        ),
-      ],
-    );
   }
 
   @override
@@ -155,19 +126,27 @@ class _SuggestionList extends StatelessWidget {
       itemCount: membersSuggestions.length,
       itemBuilder: (BuildContext context, int i) {
         final Member memberSuggestion = membersSuggestions[i];
+
         return ListTile(
-          leading: query.isEmpty ? const Icon(Icons.history) : const Icon(null),
+          leading: null,
           title: RichText(
             text: TextSpan(
               text: memberSuggestion.fullName.substring(0, query.length),
               style: theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
               children: <TextSpan>[
                 TextSpan(
-                  text: ' ' + memberSuggestion.fullName.substring(query.length),
+                  text: memberSuggestion.fullName.substring(query.length),
                   style: theme.textTheme.subhead,
                 ),
               ],
             ),
+          ),
+          subtitle: Text(
+            memberSuggestion.residenceBedroom + " - " + memberSuggestion.community + " - " + memberSuggestion.phoneNumber,
+            key: ArchSampleKeys.memberItemSubhead(memberSuggestion.id),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.subhead,
           ),
           onTap: () {
             onSelected(memberSuggestion.id);

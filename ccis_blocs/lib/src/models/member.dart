@@ -105,4 +105,6 @@ class Member {
   }
 
   String get fullName => firstName + ' ' + secondName;
+
+  String get residenceBedroom => residence + '-' + bedroomNumber;
 }
