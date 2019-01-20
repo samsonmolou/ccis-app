@@ -74,7 +74,7 @@ class MemberList extends StatelessWidget {
       ),
       action: SnackBarAction(
         key: ArchSampleKeys.snackbarAction(member.id),
-        label: ArchSampleLocalizations.of(context).undo,
+        label: ArchSampleLocalizations.of(context).cancel,
         onPressed: () {
           MembersBlocProvider.of(context).addMember.add(member);
         },

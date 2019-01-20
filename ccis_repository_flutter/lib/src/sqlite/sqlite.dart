@@ -1,0 +1,1 @@
+export 'package:ccis_repository_flutter/src/sqlite/member_sqlite.dart';

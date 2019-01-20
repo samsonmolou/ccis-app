@@ -11,6 +11,8 @@ import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_app/widgets/members/member_list.dart';
+import 'package:ccis_app/widgets/members/member_search.dart';
+
 
 enum AppTab { members }
 
@@ -29,6 +31,7 @@ class MemberScreen extends StatefulWidget {
 class MemberScreenState extends State<MemberScreen> {
   UserBloc usersBloc;
   StreamController<AppTab> tabController;
+  final SearchMemberSearchDelegate _delegate = SearchMemberSearchDelegate();
 
   @override
   void initState() {
@@ -90,8 +93,18 @@ class MemberScreenState extends State<MemberScreen> {
       ) {
     if (!hasData) return [];
 
-    return [
 
+    return [
+      IconButton(
+        tooltip: ArchSampleLocalizations.of(context).searchMember,
+        icon: const Icon(Icons.search),
+        onPressed: () async {
+          final String selected = await showSearch<String>(
+            context: context,
+            delegate: _delegate,
+          );
+        },
+      )
     ];
   }
 }

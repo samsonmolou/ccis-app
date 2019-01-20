@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:flutter/services.dart';
 
+
 class MemberDetailScreen extends StatefulWidget {
   final String memberId;
   final MemberBloc Function() initBloc;
@@ -67,7 +68,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                   )
                 ],
                 flexibleSpace: FlexibleSpaceBar(
-                  title: Text(member.fullName),
+                  title: Text(member.firstName + ' ' + member.secondName),
                   background: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[

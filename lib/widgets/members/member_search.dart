@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/ccis_app.dart';
-
+import 'package:ccis_app/providers/members_bloc_provider.dart';
+import 'package:ccis_app/widgets/shared/loading.dart';
 
 class SearchMemberSearchDelegate extends SearchDelegate<String> {
   final List<String> _data = <String>['Molou Samson', 'Livai Ackerman', 'Mikasa Ackerman'];
@@ -30,10 +31,23 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
 
-    final Iterable<String> suggestions = query.isEmpty
-        ? _history
-        : _data.where((String i) => '$i'.contains(query));
+    if(query.isEmpty || query.length < 3)
+      return new Container();
 
+    MembersBlocProvider.of(context).searchMember.add(query);
+
+    return StreamBuilder<List<Member>>(
+      stream: MembersBlocProvider.of(context).searchMemberResult,
+      builder: (context, snapshot) => snapshot.hasData ? _SuggestionList(
+          query: query,
+          onSelected: (String suggestion) {
+            query = suggestion;
+            showResults(context);
+          },
+          membersSuggestions: snapshot.data,
+        ) : LoadingSpinner(key: ArchSampleKeys.membersLoading),
+    );
+    /*
     return _SuggestionList(
       query: query,
       suggestions: suggestions.map<String>((String i) => '$i').toList(),
@@ -41,7 +55,7 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
         query = suggestion;
         showResults(context);
       },
-    );
+    ); */
   }
 
   @override
@@ -55,6 +69,7 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
         ),
       );
     }
+
 
     return ListView(
       children: <Widget>[
@@ -80,15 +95,16 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
-      IconButton(
-        tooltip: ArchSampleLocalizations.of(context).clear,
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-          showSuggestions(context);
-        },
-      )
-
+      query.isEmpty
+          ? Icon(null)
+          : IconButton(
+              tooltip: ArchSampleLocalizations.of(context).clear,
+              icon: const Icon(Icons.clear),
+              onPressed: () {
+                query = '';
+                showSuggestions(context);
+              },
+            )
     ];
   }
 }
@@ -126,35 +142,35 @@ class _ResultCard extends StatelessWidget {
 }
 
 class _SuggestionList extends StatelessWidget {
-  const _SuggestionList({this.suggestions, this.query, this.onSelected});
+  const _SuggestionList({this.query, this.onSelected, this.membersSuggestions});
 
-  final List<String> suggestions;
   final String query;
   final ValueChanged<String> onSelected;
+  final List<Member> membersSuggestions;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return ListView.builder(
-      itemCount: suggestions.length,
+      itemCount: membersSuggestions.length,
       itemBuilder: (BuildContext context, int i) {
-        final String suggestion = suggestions[i];
+        final Member memberSuggestion = membersSuggestions[i];
         return ListTile(
           leading: query.isEmpty ? const Icon(Icons.history) : const Icon(null),
           title: RichText(
             text: TextSpan(
-              text: suggestion.substring(0, query.length),
+              text: memberSuggestion.fullName.substring(0, query.length),
               style: theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
               children: <TextSpan>[
                 TextSpan(
-                  text: suggestion.substring(query.length),
+                  text: ' ' + memberSuggestion.fullName.substring(query.length),
                   style: theme.textTheme.subhead,
                 ),
               ],
             ),
           ),
           onTap: () {
-            onSelected(suggestion);
+            onSelected(memberSuggestion.id);
           },
         );
       },

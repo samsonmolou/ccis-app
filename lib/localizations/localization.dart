@@ -122,8 +122,29 @@ class ArchSampleLocalizations {
   );
 
   String get undo => Intl.message(
-    'Retour',
+    'Annuler',
     name: 'undo',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get back => Intl.message(
+    'Retour',
+    name: 'back',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get searchMember => Intl.message(
+    'Rechercher un membre',
+    name: 'searchMember',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get clear => Intl.message(
+    'Effacer',
+    name: 'clear',
     args: [],
     locale: locale.toString(),
   );

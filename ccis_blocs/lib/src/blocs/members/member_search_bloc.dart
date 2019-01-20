@@ -4,43 +4,30 @@ import 'dart:async';
 import 'package:ccis_blocs/src/models/models.dart';
 import 'package:ccis_blocs/src/interactors/members_interactor.dart';
 
-
-class MembersListBloc {
-  // Data
-
+class MemberSearchBloc {
   // Inputs
-  final Sink<Member> addMember;
-  final Sink<String> deleteMember;
-  final Sink<Member> updateMember;
-  final Sink<String> searchMember;
+  Sink<String> searchMember;
 
   // Outputs
-  final Stream<List<Member>> members;
   final Stream<List<Member>> searchMemberResult;
 
-  // Cleanup
+  //Cleanup
   final List<StreamSubscription<dynamic>> _subscriptions;
 
-  factory MembersListBloc(MembersInteractor interactor) {
+  factory MemberSearchBloc(MembersInteractor interactor) {
     // We'll use a series of StreamControllers to glue together our inputs and
     // outputs.
     //
     // StreamControllers have both a Sink and a Stream. We'll expose the Sinks
     // publicly so users can send information to the Bloc. We'll use the Streams
     // internally to react to that user input.
-    final addMemberController = StreamController<Member>(sync: true);
-    final deleteMemberController = StreamController<String>(sync: true);
-    final updateMemberController = StreamController<Member>(sync: true);
     final searchMemberController = BehaviorSubject<String>(sync: true);
+
     // In some cases, we need to simply route user interactions to our data
     // layer. In this case, we'll listen to the streams. In order to clean
     // these subscriptions up, we'll pop them in a list and ensure we cancel
     // all of them in the `close` method when they are no longer needed.
     final subscriptions = <StreamSubscription<dynamic>>[
-      // When a user adds an item, add it to the repository
-      addMemberController.stream.listen(interactor.addNewMember),
-      deleteMemberController.stream.listen(interactor.deleteMember),
-      updateMemberController.stream.listen(interactor.updateMember),
 
     ];
 
@@ -52,57 +39,37 @@ class MembersListBloc {
     // so the Stream can be listened to multiple times
     final searchMemberResultController = BehaviorSubject<List<Member>>();
 
-    Observable
-      .combineLatest2<List<Member>, String, List<Member>>(
+    Observable.combineLatest2<List<Member>, String, List<Member>>(
       interactor.members,
       searchMemberController.stream,
       _searchMembers,
     )
       .pipe(searchMemberResultController);
 
-    return MembersListBloc._(
-      addMemberController,
-      deleteMemberController,
-      updateMemberController,
+    return MemberSearchBloc._(
       searchMemberController,
       searchMemberResultController,
-      interactor.members,
-      subscriptions,
+      subscriptions
     );
+
   }
 
-  MembersListBloc._(
-      this.addMember,
-      this.deleteMember,
-      this.updateMember,
+  MemberSearchBloc._(
       this.searchMember,
       this.searchMemberResult,
-      this.members,
-      this._subscriptions);
+      this._subscriptions
+      );
 
   static List<Member> _searchMembers(List<Member> members, String query) {
-    final Iterable<Member> suggestions = members.where(
-        (member) => member.firstName.contains(query)
-            || member.secondName.contains(query)
-            || member.study.contains(query)
-            || member.community.contains(query)
-            || member.residence.contains(query)
-            || member.bedroomNumber.contains(query)
-            || member.phoneNumber.contains(query)
-    );
 
-    return suggestions.toList();
+    return members.toList();
   }
 
   // This method should close down all sinks and cancel all stream
   // subscriptions. This ensures we free up resources and don't trigger odd
   // bugs.
   void close() {
-    addMember.close();
-    deleteMember.close();
-    updateMember.close();
     searchMember.close();
-    _subscriptions.forEach((subscriptions) => subscriptions.cancel());
+    _subscriptions.forEach((subscription) => subscription.cancel());
   }
-
 }
