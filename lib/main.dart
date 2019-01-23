@@ -38,7 +38,7 @@ void main(
               },
               ArchSampleRoutes.importMembers: (context) {
                 return MembersImportScreen(
-                  importMembers: MembersBlocProvider.of(context).importMembers.add,
+
                 );
               },
               ArchSampleRoutes.exportMembers: (context) {
