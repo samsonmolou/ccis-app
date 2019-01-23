@@ -8,15 +8,12 @@ import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 
 void main() {
   app.main(
-    membersInteractor: MembersInteractor(
-      ReactiveMembersRepositoryFlutter(
+    membersInteractor: MembersInteractor(ReactiveMembersRepositoryFlutter(
         repository: MembersRepositoryFlutter(
             fileStorage: MemberFileStorage(
-              '__bloc_local_storage',
-              getApplicationDocumentsDirectory,
-            ))
-      )
-    ),
+      '__bloc_local_storage',
+      getApplicationDocumentsDirectory,
+    )))),
     userRepository: AnonymousUserRepository(),
   );
 }

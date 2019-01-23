@@ -9,12 +9,8 @@ class MemberAddEditScreen extends StatefulWidget {
   final Function(Member) addMember;
   final Function(Member) updateTodo;
 
-  MemberAddEditScreen({
-    Key key,
-    this.member,
-    this.addMember,
-    this.updateTodo
-  }) : super(key: key ?? ArchSampleKeys.addMemberScreen);
+  MemberAddEditScreen({Key key, this.member, this.addMember, this.updateTodo})
+      : super(key: key ?? ArchSampleKeys.addMemberScreen);
 
   @override
   _MemberAddEditScreen createState() => _MemberAddEditScreen();
@@ -52,12 +48,16 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: widget.member != null ? widget.member.firstName : '',
+                initialValue:
+                    widget.member != null ? widget.member.firstName : '',
                 key: ArchSampleKeys.firstNameField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newMemberFirstNameHint,
+                  hintText: ArchSampleLocalizations.of(context)
+                      .newMemberFirstNameHint,
+                  labelText: ArchSampleLocalizations.of(context)
+                      .newMemberFirstNameLabel,
                   icon: Icon(Icons.person),
                 ),
                 validator: (val) => val.trim().isEmpty
@@ -66,14 +66,17 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 onSaved: (value) => _firstName = value,
               ),
               TextFormField(
-                initialValue: widget.member != null ? widget.member.secondName : '',
+                initialValue:
+                    widget.member != null ? widget.member.secondName : '',
                 key: ArchSampleKeys.secondNameField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newMemberSecondNameHint,
+                  hintText: ArchSampleLocalizations.of(context)
+                      .newMemberSecondNameHint,
+                  labelText: ArchSampleLocalizations.of(context)
+                      .newMemberSecondNameLabel,
                   icon: Icon(Icons.person),
-
                 ),
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyMemberError
@@ -81,12 +84,16 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 onSaved: (value) => _secondName = value,
               ),
               TextFormField(
-                initialValue: widget.member != null ? widget.member.phoneNumber : '',
+                initialValue:
+                    widget.member != null ? widget.member.phoneNumber : '',
                 key: ArchSampleKeys.phoneNumberField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newMemberPhoneNumberHint,
+                  hintText: ArchSampleLocalizations.of(context)
+                      .newMemberPhoneNumberHint,
+                  labelText: ArchSampleLocalizations.of(context)
+                      .newMemberPhoneNumberLabel,
                   icon: Icon(Icons.phone),
                 ),
                 validator: (val) => val.trim().isEmpty
@@ -95,12 +102,16 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 onSaved: (value) => _phoneNumber = value,
               ),
               TextFormField(
-                initialValue: widget.member != null ? widget.member.residence : '',
+                initialValue:
+                    widget.member != null ? widget.member.residence : '',
                 key: ArchSampleKeys.secondNameField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newMemberResidenceHint,
+                  hintText: ArchSampleLocalizations.of(context)
+                      .newMemberResidenceHint,
+                  labelText: ArchSampleLocalizations.of(context)
+                      .newMemberResidenceLabel,
                   icon: Icon(Icons.home),
                 ),
                 validator: (val) => val.trim().isEmpty
@@ -109,12 +120,16 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 onSaved: (value) => _residence = value,
               ),
               TextFormField(
-                initialValue: widget.member != null ? widget.member.bedroomNumber : '',
+                initialValue:
+                    widget.member != null ? widget.member.bedroomNumber : '',
                 key: ArchSampleKeys.bedroomNumberField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newMemberBedroomNumberHint,
+                  hintText: ArchSampleLocalizations.of(context)
+                      .newMemberBedroomNumberHint,
+                  labelText: ArchSampleLocalizations.of(context)
+                      .newMemberBedroomNumberLabel,
                   icon: Icon(Icons.hotel),
                 ),
                 validator: (val) => val.trim().isEmpty
@@ -123,12 +138,16 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 onSaved: (value) => _bedroomNumber = value,
               ),
               TextFormField(
-                initialValue: widget.member != null ? widget.member.community : '',
+                initialValue:
+                    widget.member != null ? widget.member.community : '',
                 key: ArchSampleKeys.communityField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newMemberCommunityHint,
+                  hintText: ArchSampleLocalizations.of(context)
+                      .newMemberCommunityHint,
+                  labelText: ArchSampleLocalizations.of(context)
+                      .newMemberCommunityLabel,
                   icon: Icon(Icons.people),
                 ),
                 validator: (val) => val.trim().isEmpty
@@ -142,7 +161,10 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newMemberStudyHint,
+                  hintText:
+                      ArchSampleLocalizations.of(context).newMemberStudyHint,
+                  labelText:
+                      ArchSampleLocalizations.of(context).newMemberStudyLabel,
                   icon: Icon(Icons.school),
                 ),
                 validator: (val) => val.trim().isEmpty
@@ -155,8 +177,9 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key:
-        isEditing ? ArchSampleKeys.saveMemberFab : ArchSampleKeys.saveNewMember,
+        key: isEditing
+            ? ArchSampleKeys.saveMemberFab
+            : ArchSampleKeys.saveNewMember,
         tooltip: isEditing
             ? ArchSampleLocalizations.of(context).saveChanges
             : ArchSampleLocalizations.of(context).addMember,
@@ -174,9 +197,7 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                   residence: _residence,
                   bedroomNumber: _bedroomNumber,
                   community: _community,
-                  study: _study
-                )
-              );
+                  study: _study));
             } else {
               widget.addMember(Member(
                   firstName: _firstName,
@@ -185,9 +206,7 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                   residence: _residence,
                   bedroomNumber: _bedroomNumber,
                   community: _community,
-                  study: _study
-                )
-              );
+                  study: _study));
             }
             Navigator.pop(context);
           }

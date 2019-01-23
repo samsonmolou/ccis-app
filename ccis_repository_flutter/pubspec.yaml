@@ -13,8 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: 0.18.0
-  sqflite: any
-  path_provider: any
+  sqflite:
+  path_provider:
 
 dev_dependencies:
   flutter_test:

@@ -23,6 +23,7 @@ class MembersInteractor {
     }).where((member) => member != null);
   }
 
+
   Future<void> updateMember(Member member) => repository.updateMember(member.toEntity());
 
   Future<void> addNewMember(Member member) => repository.addNewMember(member.toEntity());

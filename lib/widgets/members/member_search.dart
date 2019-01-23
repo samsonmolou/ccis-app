@@ -58,9 +58,10 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
     );
   }
 
+
   @override
   Widget buildResults(BuildContext context) {
-
+    return Column();
   }
 
   @override
@@ -80,37 +81,6 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
   }
 }
 
-class _ResultCard extends StatelessWidget {
-  const _ResultCard({this.integer, this.title, this.searchDelegate});
-
-  final String integer;
-  final String title;
-  final SearchDelegate<String> searchDelegate;
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return GestureDetector(
-      onTap: () {
-        searchDelegate.close(context, integer);
-      },
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Text(title),
-              Text(
-                '$integer',
-                style: theme.textTheme.headline.copyWith(fontSize: 72.0),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _SuggestionList extends StatelessWidget {
   const _SuggestionList({this.query, this.onSelected, this.membersSuggestions});

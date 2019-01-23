@@ -28,7 +28,7 @@ class MemberItem extends StatelessWidget {
       secondaryBackground: Container(
           color: Theme.of(context).primaryColor,
           child: const ListTile(
-              leading: Icon(Icons.delete, color: Colors.white, size: 36.0)
+              trailing: Icon(Icons.edit, color: Colors.white, size: 36.0)
           )
       ),
       child: ListTile(

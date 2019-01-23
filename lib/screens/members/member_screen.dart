@@ -10,6 +10,7 @@ import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/widgets/shared/loading.dart';
+import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_app/widgets/members/member_list.dart';
 import 'package:ccis_app/widgets/members/member_search.dart';
 
@@ -61,12 +62,14 @@ class MemberScreenState extends State<MemberScreen> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(ArchSampleLocalizations.of(context).members),
+                
                 actions: _buildActions(
                   membersBloc,
                   activeTabSnapshot,
                   userSnapshot.hasData,
                 ),
               ),
+              drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
               body: userSnapshot.hasData
                   ? MemberList()
                   : LoadingSpinner(
@@ -99,7 +102,7 @@ class MemberScreenState extends State<MemberScreen> {
         tooltip: ArchSampleLocalizations.of(context).searchMember,
         icon: const Icon(Icons.search),
         onPressed: () async {
-          final String selected = await showSearch<String>(
+          await showSearch<String>(
             context: context,
             delegate: _delegate,
           );

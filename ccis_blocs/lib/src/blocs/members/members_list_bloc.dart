@@ -13,6 +13,7 @@ class MembersListBloc {
   final Sink<String> deleteMember;
   final Sink<Member> updateMember;
   final Sink<String> searchMember;
+  final Sink<String> importMembers;
 
   // Outputs
   final Stream<List<Member>> members;

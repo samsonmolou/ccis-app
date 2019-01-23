@@ -13,6 +13,8 @@ dependencies:
   rxdart: 0.18.0
   ccis_repository:
     path: ../ccis_repository
+  sqflite:
+  file_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:

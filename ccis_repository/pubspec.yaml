@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: 0.18.0
+  sqflite:
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,9 @@ import 'package:flutter/widgets.dart';
 
 class ArchSampleKeys {
 
+  //Drawer
+  static final navigationDrawer = const Key('__navigationDrawer__');
+
   // Home Screens
   static final homeScreen = const Key('__homeScreen__');
   static final addTodoFab = const Key('__addTodoFab__');
@@ -72,4 +75,10 @@ class ArchSampleKeys {
   // Edit Member Screen
   static final editMemberScreen = const Key('__editMemberScreen__');
   static final saveMemberFab = const Key('__saveMemberFab__');
+
+  // Member Export Screen
+  static final membersExportScreen = const Key('__membersExportScreen__');
+
+  // Member Import Screen
+  static final membersImportScreen = const Key('__membersImportScreen__');
 }

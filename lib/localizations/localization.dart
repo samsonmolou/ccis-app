@@ -21,6 +21,76 @@ class ArchSampleLocalizations {
         context, ArchSampleLocalizations);
   }
 
+  String get home => Intl.message(
+    'Accueil',
+    name: 'home',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get exit => Intl.message(
+    'Quitter',
+    name: 'exit',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get exportMembers => Intl.message(
+    'Exporter les membres',
+    name: 'exportMembers',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get importMembers => Intl.message(
+    'Importer des membres',
+    name: 'importMembers',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get chooseFileToImport => Intl.message(
+    'Sélectionner le fichier à importer',
+    name: 'chooseFileToImport',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get chooseFile => Intl.message(
+    'Sélectionner le fichier',
+    name: 'chooseFileToImport',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get fileName => Intl.message(
+    'NOM DU FICHIER SÉLECTIONNÉ',
+    name: 'fileName',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get stepOne => Intl.message(
+    'Étape 1',
+    name: 'stepOne',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get stepTwo => Intl.message(
+    'Étape 2',
+    name: 'stepTwo',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get processingImport => Intl.message(
+    'Traitement',
+    name: 'processingImport',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get members => Intl.message(
     'Membres',
     name: 'members',
@@ -29,50 +99,106 @@ class ArchSampleLocalizations {
   );
 
   String get newMemberFirstNameHint => Intl.message(
-    'Nom',
+    'Quel est votre nom ?',
     name: 'newMemberFirstNameHint',
     args: [],
     locale: locale.toString(),
   );
 
   String get newMemberSecondNameHint => Intl.message(
-    'Prénoms',
+    'Quel est votre prénom ?',
     name: 'newMemberSecondNameHint',
     args: [],
     locale: locale.toString(),
   );
 
   String get newMemberPhoneNumberHint => Intl.message(
-    'Numéro de téléphone',
+    'Quel est votre numéro de téléphone ?',
     name: 'newMemberPhoneNumberHint',
     args: [],
     locale: locale.toString(),
   );
 
+  String get startMemberImport => Intl.message(
+    "Démarrer l'importation",
+    name: 'startMemberImport',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberResidenceHint => Intl.message(
-    'Résidence',
+    'Quelle est votre résidence ?',
     name: 'newMemberResidenceHint',
     args: [],
     locale: locale.toString(),
   );
 
   String get newMemberBedroomNumberHint => Intl.message(
-    'Numéro de chambre',
+    'Quel est votre numéro de chambre ?',
     name: 'newMemberBedroomNumberHint',
     args: [],
     locale: locale.toString(),
   );
 
   String get newMemberCommunityHint => Intl.message(
-    'Communauté',
+    'Vous appartenez à quelle communauté ?',
     name: 'newMemberCommunityHint',
     args: [],
     locale: locale.toString(),
   );
 
   String get newMemberStudyHint => Intl.message(
-    'Filière',
+    'Quel est votre filière ?',
     name: 'newMemberStudyHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberFirstNameLabel => Intl.message(
+    'Nom',
+    name: 'newMemberFirstNameLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberSecondNameLabel => Intl.message(
+    'Prénoms',
+    name: 'newMemberSecondNameLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberPhoneNumberLabel => Intl.message(
+    'Numéro de téléphone',
+    name: 'newMemberPhoneNumberLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberResidenceLabel => Intl.message(
+    'Résidence',
+    name: 'newMemberResidenceLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberBedroomNumberLabel => Intl.message(
+    'Numéro de chambre',
+    name: 'newMemberBedroomNumberLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberCommunityLabel => Intl.message(
+    'Communauté',
+    name: 'newMemberCommunityLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newMemberStudyLabel => Intl.message(
+    'Filière',
+    name: 'newMemberStudyLabel',
     args: [],
     locale: locale.toString(),
   );

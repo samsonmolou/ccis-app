@@ -1,12 +1,13 @@
 import 'package:ccis_app/helpers/dependency_injection.dart';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/widgets/members/member_item.dart';
 import 'package:ccis_app/screens/members/member_detail_screen.dart';
+import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
+
 
 class MemberList extends StatelessWidget {
   MemberList({Key key}) : super(key: key);
@@ -60,6 +61,22 @@ class MemberList extends StatelessWidget {
     MembersBlocProvider.of(context).deleteMember.add(member.id);
 
     _showUndoSnackbar(context, member);
+  }
+
+  void _editMember(BuildContext context, Member member) {
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return MemberAddEditScreen(
+            member: member,
+            updateTodo: MembersBlocProvider.of(context).updateMember.add,
+            key: ArchSampleKeys.editMemberScreen,
+          );
+        },
+      ),
+    );
+
   }
 
   void _showUndoSnackbar(BuildContext context, Member member) {

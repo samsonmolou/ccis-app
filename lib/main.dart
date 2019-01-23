@@ -6,13 +6,13 @@ import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/localization.dart';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/members/member_screen.dart';
+import 'package:ccis_app/screens/members/member_export_screen.dart';
+import 'package:ccis_app/screens/members/member_import_screen.dart';
 import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
-import 'package:ccis_app/localization.dart';
 
-void main({
-  @required MembersInteractor membersInteractor,
-  @required UserRepository userRepository
-}) {
+void main(
+    {@required MembersInteractor membersInteractor,
+    @required UserRepository userRepository}) {
   runApp(Injector(
       membersInteractor: membersInteractor,
       userRepository: userRepository,
@@ -28,9 +28,7 @@ void main({
             routes: {
               ArchSampleRoutes.members: (context) {
                 return MemberScreen(
-                  repository: Injector
-                      .of(context)
-                      .userRepository,
+                  repository: Injector.of(context).userRepository,
                 );
               },
               ArchSampleRoutes.addMember: (context) {
@@ -38,7 +36,16 @@ void main({
                   addMember: MembersBlocProvider.of(context).addMember.add,
                 );
               },
+              ArchSampleRoutes.importMembers: (context) {
+                return MembersImportScreen(
+                  importMembers: MembersBlocProvider.of(context).importMembers.add,
+                );
+              },
+              ArchSampleRoutes.exportMembers: (context) {
+                return MembersExportScreen(
+                  repository: Injector.of(context).userRepository,
+                );
+              },
             },
-          ))
-  ));
+          ))));
 }

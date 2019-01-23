@@ -16,6 +16,19 @@ abstract class MembersRepository {
   /// error, it attempts to load the Members from a Web Client.
   Future<List<MemberEntity>> loadMembers();
 
-  // Persists todos to local disk and the web
+  /// Loads members first from Sqflite. If they don't exist or encounter an
+  /// error, it attempts to load the Members from a Web Client.
+  Future<List<MemberEntity>> getAllMembers();
+
+  /// Persists members to local disk and the web
   Future saveMembers(List<MemberEntity> members);
+
+  /// Persists member to sqflite member table
+  Future newMember(MemberEntity member);
+
+  /// Update member into sqlflite member table
+  Future updateMember(MemberEntity member);
+
+  /// Delete member into sqflite member table
+  Future deleteMember(String memberId);
 }

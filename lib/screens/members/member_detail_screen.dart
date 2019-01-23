@@ -99,7 +99,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                         MemberItem(
                           lines: <String>[
                             member.phoneNumber,
-                            ArchSampleLocalizations.of(context).newMemberPhoneNumberHint
+                            ArchSampleLocalizations.of(context).newMemberPhoneNumberLabel
                           ],
                         ),
                       ],
@@ -111,7 +111,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                       MemberItem(
                         lines: <String>[
                           member.residence,
-                          ArchSampleLocalizations.of(context).newMemberResidenceHint
+                          ArchSampleLocalizations.of(context).newMemberResidenceLabel
                         ],
                       ),
                     ],
@@ -122,7 +122,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                       MemberItem(
                         lines: <String>[
                           member.bedroomNumber,
-                          ArchSampleLocalizations.of(context).newMemberBedroomNumberHint
+                          ArchSampleLocalizations.of(context).newMemberBedroomNumberLabel
                         ],
                       ),
                     ],
@@ -133,7 +133,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                       MemberItem(
                         lines: <String>[
                           member.community,
-                          ArchSampleLocalizations.of(context).newMemberCommunityHint
+                          ArchSampleLocalizations.of(context).newMemberCommunityLabel
                         ],
                       ),
                     ],
@@ -144,7 +144,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                       MemberItem(
                         lines: <String>[
                           member.study,
-                          ArchSampleLocalizations.of(context).newMemberStudyHint
+                          ArchSampleLocalizations.of(context).newMemberStudyLabel
                         ],
                       ),
                     ],

@@ -24,7 +24,7 @@ class ReactiveMembersRepositoryFlutter implements ReactiveMembersRepository {
       ..addAll(_subject.value ?? [])
       ..add(member)));
 
-    await _repository.saveMembers(_subject.value);
+    await _repository.newMember(member);
   }
 
   @override
@@ -43,15 +43,15 @@ class ReactiveMembersRepositoryFlutter implements ReactiveMembersRepository {
 
   @override
   Stream<List<MemberEntity>> members() {
-    if (!_loaded) _loadMembers();
+    if (!_loaded) _getAllMembers();
 
     return _subject.stream;
   }
 
-  void _loadMembers() {
+  void _getAllMembers() {
     _loaded = true;
 
-    _repository.loadMembers().then((entities) {
+    _repository.getAllMembers().then((entities) {
       _subject.add(List<MemberEntity>.unmodifiable(
       []..addAll(_subject.value ?? [])..addAll(entities),
       ));
