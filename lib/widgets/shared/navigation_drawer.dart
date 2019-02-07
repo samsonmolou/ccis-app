@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:ccis_app/ccis_app.dart';
+import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
+import 'package:ccis_app/screens/members/member_import_screen.dart';
+import 'package:ccis_blocs/ccis_blocs.dart';
+import 'package:flutter/material.dart';
 
 class NavigationDrawer extends StatelessWidget {
   NavigationDrawer({Key key}) : super(key: key);
@@ -43,7 +46,18 @@ class NavigationDrawer extends StatelessWidget {
               ListTile(
                 title: Text(ArchSampleLocalizations.of(context).importMembers),
                 onTap: () {
-                  Navigator.pushNamed(context, ArchSampleRoutes.importMembers);
+                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return MembersImportScreen(
+                            initBloc: () =>
+                                MembersImportBloc(Injector.of(context).membersInteractor),
+                          );
+                        },
+                      )
+                  );
+                  //Navigator.pushNamed(context, ArchSampleRoutes.importMembers);
                 },
               )
             ],

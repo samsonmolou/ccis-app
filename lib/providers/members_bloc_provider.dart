@@ -1,6 +1,6 @@
+import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_blocs/ccis_blocs.dart';
 
 class MembersBlocProvider extends StatefulWidget {
   final Widget child;

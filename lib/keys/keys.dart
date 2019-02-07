@@ -81,4 +81,5 @@ class ArchSampleKeys {
 
   // Member Import Screen
   static final membersImportScreen = const Key('__membersImportScreen__');
+  static final importedMembersList = const Key('__importedMembersList__');
 }

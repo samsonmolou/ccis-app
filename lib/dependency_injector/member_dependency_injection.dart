@@ -1,9 +1,9 @@
 library dependency_injector;
 
 import 'package:ccis_blocs/ccis_blocs.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
-import 'package:ccis_repository/ccis_repository.dart';
 
 class Injector extends InheritedWidget {
   final MembersInteractor membersInteractor;

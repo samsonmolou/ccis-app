@@ -1,3 +1,6 @@
+import 'package:ccis_repository/src/entity/community_entity.dart';
+import 'package:ccis_repository/src/entity/study_entity.dart';
+
 class MemberEntity {
   final String id;
   final String firstName;
@@ -5,8 +8,8 @@ class MemberEntity {
   final String residence;
   final String bedroomNumber;
   final String phoneNumber;
-  final String community;
-  final String study;
+  final CommunityEntity community;
+  final StudyEntity study;
 
   MemberEntity(this.id, this.firstName, this.secondName, this.residence,
       this.bedroomNumber, this.phoneNumber, this.community, this.study);
@@ -14,7 +17,8 @@ class MemberEntity {
   @override
   int get hashCode {
     return id.hashCode ^ firstName.hashCode ^ secondName.hashCode ^ residence.hashCode
-    ^ bedroomNumber.hashCode ^ phoneNumber.hashCode ^ community.hashCode ^ study.hashCode;
+    ^ bedroomNumber.hashCode ^ phoneNumber.hashCode
+    ^ community.hashCode ^ study.hashCode;
   }
 
   @override
@@ -41,8 +45,8 @@ class MemberEntity {
       "residence": residence,
       "bedroomNumber": bedroomNumber,
       "phoneNumber": phoneNumber,
-      "community": community,
-      "study": study
+      "community": community.toJson(),
+      "study": study.toJson()
     };
   }
 
@@ -66,8 +70,8 @@ class MemberEntity {
       json["residence"] as String,
       json["bedroomNumber"] as String,
       json["phoneNumber"] as String,
-      json["community"] as String,
-      json["study"] as String,
+      json["community"] as CommunityEntity,
+      json["study"] as StudyEntity
     );
   }
 }

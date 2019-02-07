@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_app/ccis_app.dart';
+import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
-
 import 'package:ccis_app/screens/members/member_detail_screen.dart';
-import 'package:ccis_app/helpers/dependency_injection.dart';
+import 'package:ccis_app/widgets/shared/loading.dart';
+import 'package:ccis_blocs/ccis_blocs.dart';
+import 'package:flutter/material.dart';
 
 class SearchMemberSearchDelegate extends SearchDelegate<String> {
 
@@ -112,7 +111,7 @@ class _SuggestionList extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            memberSuggestion.residenceBedroom + " - " + memberSuggestion.community + " - " + memberSuggestion.phoneNumber,
+            memberSuggestion.residenceBedroom + " - " + memberSuggestion.community.name + " - " + memberSuggestion.phoneNumber,
             key: ArchSampleKeys.memberItemSubhead(memberSuggestion.id),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

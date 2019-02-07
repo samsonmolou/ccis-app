@@ -1,9 +1,9 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/rxdart.dart';
 import 'dart:io';
-import 'package:path/path.dart';
+
 import 'package:ccis_repository_flutter/src/keys/database_keys.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DBProvider {
   DBProvider._();
@@ -35,7 +35,8 @@ CREATE TABLE $tableMember (
   $columnMemberPhoneNumber TEXT,
   $columnMemberCommunity TEXT,
   $columnMemberStudy TEXT
-)'''
+)
+'''
       );
     });
   }

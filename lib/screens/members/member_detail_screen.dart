@@ -1,11 +1,12 @@
+import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_app/widgets/members/member_category.dart';
+import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_app/ccis_app.dart';
 import 'package:flutter/services.dart';
+import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 
 
 class MemberDetailScreen extends StatefulWidget {
@@ -132,7 +133,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                     children: <Widget>[
                       MemberItem(
                         lines: <String>[
-                          member.community,
+                          member.community.name,
                           ArchSampleLocalizations.of(context).newMemberCommunityLabel
                         ],
                       ),
@@ -143,7 +144,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                     children: <Widget>[
                       MemberItem(
                         lines: <String>[
-                          member.study,
+                          member.study.name,
                           ArchSampleLocalizations.of(context).newMemberStudyLabel
                         ],
                       ),
@@ -166,6 +167,14 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                       member: member,
                       updateTodo: memberBloc.updateMember.add,
                       key: ArchSampleKeys.editMemberScreen,
+                        communitiesInteractor: CommunitiesInteractor(
+                            ReactiveCommunitiesRepositoryFlutter(
+                                repository: CommunitiesRepositoryFlutter(
+                                    communitiesMetadata: CommunitiesMetadata()))),
+                        studiesInteractor: StudiesInteractor(
+                            ReactiveStudiesRepositoryFlutter(
+                                repository: StudiesRepositoryFlutter(
+                                    studiesMetadata: StudiesMetadata()))),
                     );
                   },
                 ),

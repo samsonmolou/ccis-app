@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 
-import 'package:flutter/widgets.dart';
 import 'package:ccis_app/localizations/messages_all.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 class ArchSampleLocalizations {
@@ -122,6 +122,20 @@ class ArchSampleLocalizations {
   String get startMemberImport => Intl.message(
     "Démarrer l'importation",
     name: 'startMemberImport',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get notImplemented => Intl.message(
+    "Cette action n'est pas encore implémenté",
+    name: 'notImplemented',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get addToDatabase => Intl.message(
+    "Ajouter à la base de données",
+    name: 'addToDatabase',
     args: [],
     locale: locale.toString(),
   );

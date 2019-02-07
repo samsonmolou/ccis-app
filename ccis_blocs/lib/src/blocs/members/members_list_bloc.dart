@@ -1,8 +1,8 @@
-import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
-import 'package:ccis_blocs/src/models/models.dart';
 import 'package:ccis_blocs/src/interactors/members_interactor.dart';
+import 'package:ccis_blocs/src/models/models.dart';
+import 'package:rxdart/rxdart.dart';
 
 
 class MembersListBloc {
@@ -32,6 +32,7 @@ class MembersListBloc {
     final deleteMemberController = StreamController<String>(sync: true);
     final updateMemberController = StreamController<Member>(sync: true);
     final searchMemberController = BehaviorSubject<String>(sync: true);
+
     // In some cases, we need to simply route user interactions to our data
     // layer. In this case, we'll listen to the streams. In order to clean
     // these subscriptions up, we'll pop them in a list and ensure we cancel
@@ -41,7 +42,6 @@ class MembersListBloc {
       addMemberController.stream.listen(interactor.addNewMember),
       deleteMemberController.stream.listen(interactor.deleteMember),
       updateMemberController.stream.listen(interactor.updateMember),
-
     ];
 
     // To calculate the result of search, we combine the members with the current
@@ -83,8 +83,8 @@ class MembersListBloc {
   static List<Member> _searchMembers(List<Member> members, String query) {
     final Iterable<Member> suggestions = members.where(
         (member) => member.fullName.contains(query)
-            || member.study.contains(query)
-            || member.community.contains(query)
+            || member.study.name.contains(query)
+            || member.community.name.contains(query)
             || member.residenceBedroom.contains(query)
             || member.phoneNumber.contains(query)
     );

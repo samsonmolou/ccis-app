@@ -1,1 +1,3 @@
-export 'package:ccis_repository_flutter/src/reactive_repository/reactive_member_repository_flutter.dart';
+export 'package:ccis_repository_flutter/src/reactive_repository/reactive_communities_repository_flutter.dart';
+export 'package:ccis_repository_flutter/src/reactive_repository/reactive_members_repository_flutter.dart';
+export 'package:ccis_repository_flutter/src/reactive_repository/reactive_studies_repository_flutter.dart';

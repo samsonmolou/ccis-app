@@ -11,3 +11,17 @@ final String columnMemberResidence = "residence";
 final String columnMemberBedroomNumber = "bedroomNumber";
 final String columnMemberStudy = "study";
 final String columnMemberPhoneNumber = "phoneNumber";
+
+// Table Community
+final String tableCommunity = "Community";
+
+// Table community columns
+final String columnCommunityId = "id";
+final String columnCommunityName = "Name";
+
+// Table Study
+final String tableStudy = "Study";
+
+// Table study columns
+final String columnStudyId = "id";
+final String columnStudyName = "Name";

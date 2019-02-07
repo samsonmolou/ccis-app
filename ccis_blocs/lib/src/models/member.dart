@@ -1,6 +1,8 @@
 import 'package:ccis_blocs/src/helpers/uuid.dart';
-import 'package:meta/meta.dart';
 import 'package:ccis_repository/ccis_repository.dart';
+import 'package:ccis_blocs/src/models/community.dart';
+import 'package:ccis_blocs/src/models/study.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 class Member {
@@ -10,8 +12,8 @@ class Member {
   final String residence;
   final String bedroomNumber;
   final String phoneNumber;
-  final String community;
-  final String study;
+  final Community community;
+  final Study study;
 
   Member({
     String id,
@@ -20,15 +22,15 @@ class Member {
     String residence = '',
     String bedroomNumber = '',
     String phoneNumber = '',
-    String community = '',
-    String study = ''})
+    Community community2,
+    Study study2})
       : this.firstName = firstName ?? '',
         this.secondName = secondName ?? '',
         this.residence = residence ?? '',
         this.bedroomNumber = bedroomNumber ?? '',
         this.phoneNumber = phoneNumber ?? '',
-        this.community = community ?? '',
-        this.study = study ?? '',
+        this.community = community2 ?? null,
+        this.study = study2 ?? null,
         this.id = id ?? Uuid().generateV4();
 
   Member copyWith({
@@ -38,8 +40,8 @@ class Member {
     String residence = '',
     String bedroomNumber = '',
     String phoneNumber = '',
-    String community = '',
-    String study = ''}) {
+    Community community2,
+    Study study2}) {
     return Member(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
@@ -47,15 +49,15 @@ class Member {
       residence: residence ?? this.residence,
       bedroomNumber: bedroomNumber ?? this.bedroomNumber,
       phoneNumber: phoneNumber ?? this.phoneNumber,
-      community: community ?? this.community,
-      study: study ?? this.community
+      community2: community2 ?? this.community,
+      study2: study2 ?? this.study
     );
   }
 
   @override
   int get hashCode {
     return id.hashCode ^ firstName.hashCode ^ secondName.hashCode ^ residence.hashCode
-      ^ bedroomNumber.hashCode ^ phoneNumber.hashCode ^ community.hashCode ^ study.hashCode;
+      ^ bedroomNumber.hashCode ^ phoneNumber.hashCode ^ study.hashCode ^ community.hashCode;
   }
 
   @override
@@ -88,7 +90,7 @@ class Member {
 
   MemberEntity toEntity() {
     return MemberEntity(id, firstName, secondName, residence, bedroomNumber,
-      phoneNumber, community, study);
+      phoneNumber, community.toEntity(), study.toEntity());
   }
 
   static Member fromEntity(MemberEntity entity) {
@@ -99,8 +101,8 @@ class Member {
       residence: entity.residence,
       bedroomNumber: entity.bedroomNumber,
       phoneNumber: entity.phoneNumber,
-      community: entity.community,
-      study: entity.study
+      community2: Community.fromEntity(entity.community),
+      study2: Study.fromEntity(entity.study),
     );
   }
 

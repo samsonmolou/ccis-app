@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:core';
 
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:ccis_repository/ccis_repository.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Members and Persist members.

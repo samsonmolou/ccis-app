@@ -1,0 +1,15 @@
+{
+  "communities": [
+    {"id":"1", "name":"RENOUVEAU CHARISMATIQUE"},
+    {"id":"2", "name":"MICI"},
+    {"id":"3", "name":"CACEC"},
+    {"id":"4", "name":"SCI"},
+    {"id":"5", "name":"ATSS"},
+    {"id":"6", "name":"CHORALE"},
+    {"id":"7", "name":"LITURGIE"},
+    {"id":"8", "name":"COM CCIS"},
+    {"id":"9", "name":"CARITAS"},
+    {"id":"10", "name":"JEC"},
+    {"id":"11", "name":"CATÉHÈSE"}
+  ]
+}

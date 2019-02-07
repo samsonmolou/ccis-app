@@ -1,7 +1,7 @@
+import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_app/ccis_app.dart';
 
 class MemberItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
@@ -42,7 +42,7 @@ class MemberItem extends StatelessWidget {
           style: Theme.of(context).textTheme.title,
         ),
         subtitle: Text(
-          member.residenceBedroom + " - " + member.community + " - " + member.phoneNumber,
+          member.residenceBedroom + " - " + member.community.name + " - " + member.phoneNumber,
           key: ArchSampleKeys.memberItemSubhead(member.id),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

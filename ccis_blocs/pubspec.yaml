@@ -14,7 +14,8 @@ dependencies:
   ccis_repository:
     path: ../ccis_repository
   sqflite:
-  file_picker: ^1.1.1
+  csv:
+
 
 dev_dependencies:
   flutter_test:

@@ -1,27 +1,19 @@
 import 'dart:async';
 
+import 'package:ccis_blocs/src/interactors/members_interactor.dart';
 import 'package:ccis_blocs/src/models/models.dart';
-import 'package:ccis_blocs/src/interactors/members_import_interactor.dart';
 
 class MembersImportBloc {
   // Inputs
-
   final Sink<String> importMembers;
 
   // Outputs
   final Stream<List<Member>> importedMembers;
 
-  final MembersImportInteractor _interactor;
   final List<StreamSubscription<dynamic>> _subscriptions;
 
-  MembersImportBloc._(
-      this.importMembers,
-      this.importedMembers,
-      this._interactor,
-      this._subscriptions
-      );
 
-  factory MembersImportBloc(MembersImportInteractor interactor) {
+  factory MembersImportBloc(MembersInteractor interactor) {
     final importMembersController = StreamController<String>(sync: true);
 
     final subscriptions = <StreamSubscription<dynamic>>[
@@ -32,12 +24,16 @@ class MembersImportBloc {
 
     return MembersImportBloc._(
       importMembersController,
-      interactor.importedMembers,
-      interactor,
+      interactor.importedMembers(),
       subscriptions,
     );
   }
 
+  MembersImportBloc._(
+      this.importMembers,
+      this.importedMembers,
+      this._subscriptions
+      );
 
   void close() {
     importMembers.close();

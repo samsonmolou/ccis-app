@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'package:sqflite/sqflite.dart';
 
 import 'package:ccis_repository/src/entity/member_entity.dart';
-import 'package:ccis_repository_flutter/src/providers/db_provider.dart';
 import 'package:ccis_repository_flutter/src/keys/database_keys.dart';
+import 'package:ccis_repository_flutter/src/providers/db_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 
 class MemberSqlite {

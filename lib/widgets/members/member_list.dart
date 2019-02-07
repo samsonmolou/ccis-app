@@ -1,12 +1,12 @@
-import 'package:ccis_app/helpers/dependency_injection.dart';
 import 'package:ccis_app/ccis_app.dart';
-import 'package:flutter/material.dart';
+import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
+import 'package:ccis_app/providers/members_bloc_provider.dart';
+import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
+import 'package:ccis_app/screens/members/member_detail_screen.dart';
+import 'package:ccis_app/widgets/members/member_item.dart';
 import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
-import 'package:ccis_app/providers/members_bloc_provider.dart';
-import 'package:ccis_app/widgets/members/member_item.dart';
-import 'package:ccis_app/screens/members/member_detail_screen.dart';
-import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
+import 'package:flutter/material.dart';
 
 
 class MemberList extends StatelessWidget {

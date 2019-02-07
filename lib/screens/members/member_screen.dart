@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:ccis_app/helpers/dependency_injection.dart';
+import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_app/ccis_app.dart';
@@ -32,6 +32,8 @@ class MemberScreen extends StatefulWidget {
 class MemberScreenState extends State<MemberScreen> {
   UserBloc usersBloc;
   StreamController<AppTab> tabController;
+
+  // Pour la gestion de la recherche des membres
   final SearchMemberSearchDelegate _delegate = SearchMemberSearchDelegate();
 
   @override

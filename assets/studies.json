@@ -1,0 +1,15 @@
+{
+  "studies": [
+    {"id":"1", "name":"TSMG"},
+    {"id":"2", "name":"IC"},
+    {"id":"3", "name":"TSBU"},
+    {"id":"4", "name":"TSHE"},
+    {"id":"5", "name":"TSRT"},
+    {"id":"6", "name":"TSG"},
+    {"id":"7", "name":"ENSI"},
+    {"id":"8", "name":"PREPA ECS"},
+    {"id":"9", "name":"PREPA BCPST"},
+    {"id":"10", "name":"PREPA MPSI"},
+    {"id":"11", "name":"PREPA MP"}
+  ]
+}
