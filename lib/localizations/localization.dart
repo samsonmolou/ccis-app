@@ -98,6 +98,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get broadcastList => Intl.message(
+    'Liste de diffusion',
+    name: 'broadcastList',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberFirstNameHint => Intl.message(
     'Quel est votre nom ?',
     name: 'newMemberFirstNameHint',

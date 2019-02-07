@@ -15,20 +15,20 @@ import 'package:ccis_app/widgets/members/member_list.dart';
 import 'package:ccis_app/widgets/members/member_search.dart';
 
 
-class MemberScreen extends StatefulWidget {
+class BroadcastListScreen extends StatefulWidget {
 
-  MemberScreen()
-      : super(key: ArchSampleKeys.memberScreen);
+  BroadcastListScreen()
+      : super(key: ArchSampleKeys.broadcastListScreen);
 
   @override
   State<StatefulWidget> createState() {
-    return MemberScreenState();
+    return BroadcastListScreenState();
   }
 }
 
-class MemberScreenState extends State<MemberScreen> {
+class BroadcastListScreenState extends State<BroadcastListScreen> {
 
-  // Pour la gestion de la recherche des membres
+  // Pour la gestion de la recherche d'une liste de diffusion
   final SearchMemberSearchDelegate _delegate = SearchMemberSearchDelegate();
 
   @override
@@ -48,7 +48,7 @@ class MemberScreenState extends State<MemberScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(ArchSampleLocalizations.of(context).members),
+        title: Text(ArchSampleLocalizations.of(context).broadcastList),
         actions: _buildActions(
           membersBloc,
         ),

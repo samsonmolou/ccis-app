@@ -5,6 +5,9 @@ class ArchSampleKeys {
   //Drawer
   static final navigationDrawer = const Key('__navigationDrawer__');
 
+  // Broadcast List Screen
+  static final broadcastListScreen = const Key('__broadcastListScreen__');
+
   // Home Screens
   static final homeScreen = const Key('__homeScreen__');
   static final addTodoFab = const Key('__addTodoFab__');
@@ -32,8 +35,8 @@ class ArchSampleKeys {
 
   // Tabs
   static final tabs = const Key('__tabs__');
-  static final todoTab = const Key('__todoTab__');
-  static final statsTab = const Key('__statsTab__');
+  static final membersTab = const Key('__membersTap__');
+  static final broadcastListTab = const Key('__broadcastListTab__');
 
   // Extra Actions
   static final extraActionsButton = const Key('__extraActionsButton__');
