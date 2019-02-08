@@ -3,10 +3,10 @@ import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_app/widgets/members/member_category.dart';
 import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
+import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 
 
 class MemberDetailScreen extends StatefulWidget {

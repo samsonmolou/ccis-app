@@ -12,16 +12,10 @@ import 'package:ccis_repository/src/entity/member_entity.dart';
 /// inject the correct implementation depending on the environment, such as
 /// web or Flutter.
 abstract class MembersRepository {
-  /// Loads members first from File storage. If they don't exist or encounter an
-  /// error, it attempts to load the Members from a Web Client.
-  Future<List<MemberEntity>> loadMembers();
-
   /// Loads members first from Sqflite. If they don't exist or encounter an
   /// error, it attempts to load the Members from a Web Client.
   Future<List<MemberEntity>> getAllMembers();
 
-  /// Persists members to local disk and the web
-  Future saveMembers(List<MemberEntity> members);
 
   /// Persists member to sqflite member table
   Future newMember(MemberEntity member);
@@ -30,5 +24,5 @@ abstract class MembersRepository {
   Future updateMember(MemberEntity member);
 
   /// Delete member into sqflite member table
-  Future deleteMember(String memberId);
+  Future deleteMember(List<String> memberId);
 }

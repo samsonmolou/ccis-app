@@ -1,18 +1,10 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-import 'package:rxdart/rxdart.dart';
-
-import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
-import 'package:ccis_blocs/ccis_blocs.dart';
-import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
-import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_app/widgets/members/member_list.dart';
 import 'package:ccis_app/widgets/members/member_search.dart';
+import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
+import 'package:ccis_blocs/ccis_blocs.dart';
+import 'package:flutter/material.dart';
 
 
 class MemberScreen extends StatefulWidget {

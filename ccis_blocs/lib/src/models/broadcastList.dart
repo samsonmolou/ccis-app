@@ -3,23 +3,23 @@ import 'package:ccis_repository/ccis_repository.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class Community {
+class BroadcastList {
   final String id;
   final String name;
 
-  Community({
+  BroadcastList({
     String id,
     String name = '',
-    })
+  })
       : this.name = name ?? '',
         this.id = id ?? Uuid().generateV4();
 
-  Community copyWith({
+  BroadcastList copyWith({
     String id,
     String name = ''}) {
-    return Community(
-        id: id ?? this.id,
-        name: name ?? this.name,
+    return BroadcastList(
+      id: id ?? this.id,
+      name: name ?? this.name,
     );
   }
 
@@ -31,7 +31,7 @@ class Community {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        other is Community &&
+        other is BroadcastList &&
             runtimeType == other.runtimeType &&
             id == other.id &&
             name == other.name
@@ -40,18 +40,18 @@ class Community {
 
   @override
   String toString() {
-    return 'Community{id: $id, '
+    return 'BroadcastList{id: $id, '
         'name: $name}';
   }
 
-  CommunityEntity toEntity() {
-    return CommunityEntity(id, name);
+  BroadcastListEntity toEntity() {
+    return BroadcastListEntity(id, name);
   }
 
-  static Community fromEntity(CommunityEntity entity) {
-    return Community(
-        id: entity.id ?? Uuid().generateV4(),
-        name: entity.name,
+  static BroadcastList fromEntity(BroadcastListEntity entity) {
+    return BroadcastList(
+      id: entity.id ?? Uuid().generateV4(),
+      name: entity.name,
     );
   }
 }

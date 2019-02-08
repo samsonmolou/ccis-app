@@ -38,7 +38,7 @@ class ReactiveMembersRepositoryFlutter implements ReactiveMembersRepository {
     )),
     );
 
-    await _repository.saveMembers(_subject.value);
+    await _repository.deleteMember(idList);
   }
 
   @override
@@ -67,6 +67,6 @@ class ReactiveMembersRepositoryFlutter implements ReactiveMembersRepository {
     )),
     );
 
-    await _repository.saveMembers(_subject.value);
+    await _repository.updateMember(update);
   }
 }

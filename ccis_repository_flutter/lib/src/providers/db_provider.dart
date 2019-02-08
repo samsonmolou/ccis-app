@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ccis_repository_flutter/src/keys/database_keys.dart';
+import 'package:ccis_repository_flutter/src/database_metadata/database_metadata.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -26,15 +26,15 @@ class DBProvider {
     return await openDatabase(path, version: 1, onOpen: (db) {
     }, onCreate: (Database db, int version) async {
       await db.execute('''
-CREATE TABLE $tableMember (
-  $columnMemberId TEXT PRIMARY KEY,
-  $columnMemberFirstName TEXT,
-  $columnMemberSecondName TEXT,
-  $columnMemberResidence TEXT,
-  $columnMemberBedroomNumber TEXT,
-  $columnMemberPhoneNumber TEXT,
-  $columnMemberCommunity TEXT,
-  $columnMemberStudy TEXT
+CREATE TABLE ${DatabaseMetadata.tableMember} (
+  ${DatabaseMetadata.columnMemberId} TEXT PRIMARY KEY,
+  ${DatabaseMetadata.columnMemberFirstName} TEXT,
+  ${DatabaseMetadata.columnMemberSecondName} TEXT,
+  ${DatabaseMetadata.columnMemberResidence} TEXT,
+  ${DatabaseMetadata.columnMemberBedroomNumber} TEXT,
+  ${DatabaseMetadata.columnMemberPhoneNumber} TEXT,
+  ${DatabaseMetadata.columnMemberCommunity} TEXT,
+  ${DatabaseMetadata.columnMemberStudy} TEXT
 )
 '''
       );

@@ -1,5 +1,6 @@
 import 'package:ccis_repository/src/entity/community_entity.dart';
 import 'package:ccis_repository/src/entity/study_entity.dart';
+import 'dart:convert';
 
 class MemberEntity {
   final String id;
@@ -45,8 +46,8 @@ class MemberEntity {
       "residence": residence,
       "bedroomNumber": bedroomNumber,
       "phoneNumber": phoneNumber,
-      "community": community.toJson(),
-      "study": study.toJson()
+      "community": jsonEncode(community),
+      "study": jsonEncode(study)
     };
   }
 
@@ -63,6 +64,12 @@ class MemberEntity {
   }
 
   static MemberEntity fromJson(Map<String, Object> json) {
+    // Ce code sert à convertir le json enregistré dans la base de données en
+    // entité CommunityEntity ou StudyEntity
+    Map communityMap = jsonDecode(json["community"]);
+    CommunityEntity communityEntity = CommunityEntity.fromJson(communityMap);
+    Map studyMap = jsonDecode(json["study"]);
+    StudyEntity studyEntity = StudyEntity.fromJson(studyMap);
     return MemberEntity(
       json["id"] as String,
       json["firstName"] as String,
@@ -70,8 +77,8 @@ class MemberEntity {
       json["residence"] as String,
       json["bedroomNumber"] as String,
       json["phoneNumber"] as String,
-      json["community"] as CommunityEntity,
-      json["study"] as StudyEntity
+      communityEntity,
+      studyEntity
     );
   }
 }

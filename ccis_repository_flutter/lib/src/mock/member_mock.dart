@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:ccis_repository/src/entity/community_entity.dart';
 import 'package:ccis_repository/src/entity/member_entity.dart';
 import 'package:ccis_repository/src/entity/study_entity.dart';
-import 'package:ccis_repository/src/entity/community_entity.dart';
 
 /// A class that is meant to represent a Client that would be used to call a Web
 /// Service. It is responsible for fetching and persisting Members to and from the
@@ -10,10 +10,10 @@ import 'package:ccis_repository/src/entity/community_entity.dart';
 ///
 /// Since we're trying to keep this example simple, it doesn't communicate with
 /// a real server but simply emulates the functionality.
-class MemberWebClient {
+class MemberMock {
   final Duration delay;
 
-  const MemberWebClient([this.delay = const Duration(milliseconds: 0)]);
+  const MemberMock([this.delay = const Duration(milliseconds: 0)]);
 
   /// Mock that "fetches" some Members from a "web service" after a short delay
   Future<List<MemberEntity>> fetchMembers() async {
@@ -27,7 +27,7 @@ class MemberWebClient {
             'M',
             '65',
             '+22549631223',
-            CommunityEntity("2", "LITURGIE"),
+            CommunityEntity("2", "MICI"),
             StudyEntity("3", "TSBU")
           ),
           MemberEntity(
@@ -37,7 +37,7 @@ class MemberWebClient {
               'M',
               '65',
               '+22549631223',
-              CommunityEntity("2", "LITURGIE"),
+              CommunityEntity("2", "MICI"),
               StudyEntity("3", "TSBU")
           ),
         ]);

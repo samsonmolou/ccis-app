@@ -2,10 +2,8 @@ import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
 import 'package:ccis_app/localization.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
-import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_app/screens/home_screen.dart';
-import 'package:ccis_app/screens/members/member_screen.dart';
-
+import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';

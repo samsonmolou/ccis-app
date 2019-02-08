@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'package:csv/csv.dart';
 
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class MembersInteractor {
   final ReactiveMembersRepository repository;

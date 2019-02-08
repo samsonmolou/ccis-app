@@ -1,20 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:ccis_app/localization.dart';
-import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
+import 'package:ccis_app/ccis_app.dart';
+import 'package:ccis_app/screens/broadcastList/broadcast_list_screen.dart';
+import 'package:ccis_app/screens/members/member_screen.dart';
+import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
-import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/providers/members_bloc_provider.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
-import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
-import 'package:ccis_app/widgets/members/member_list.dart';
-import 'package:ccis_app/widgets/members/member_search.dart';
-import 'package:ccis_app/screens/members/member_screen.dart';
-import 'package:ccis_app/screens/broadcastList/broadcast_list_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 
 enum AppTab { broadcastList, members  }
@@ -23,7 +16,7 @@ class HomeScreen extends StatefulWidget {
   final UserRepository repository;
 
   HomeScreen({@required this.repository})
-      : super(key: ArchSampleKeys.memberScreen);
+      : super(key: ArchSampleKeys.homeScreen);
 
   @override
   State<StatefulWidget> createState() {
@@ -56,7 +49,7 @@ class HomeScreenState extends State<HomeScreen> {
       stream: usersBloc.login(),
       builder: (context, userSnapshot) {
         return StreamBuilder<AppTab>(
-            initialData: AppTab.members,
+            initialData: AppTab.broadcastList,
             stream: tabController.stream,
             builder: (context, activeTabSnapshot) {
               return Scaffold(

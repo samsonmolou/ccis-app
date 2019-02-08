@@ -9,38 +9,26 @@ import 'package:meta/meta.dart';
 /// clear responsibility: Load Members and Persist members.
 class MembersRepositoryFlutter implements MembersRepository {
   final MemberFileStorage fileStorage;
-  final MemberWebClient webClient;
+  final MemberMock memberMock;
   final MemberSqlite sqlite;
 
   const MembersRepositoryFlutter({
     @required this.fileStorage,
-    this.webClient = const MemberWebClient(),
+    this.memberMock = const MemberMock(),
     this.sqlite = const MemberSqlite(),
   });
 
-  /// Loads todos first from File storage. If they don't exist or encounter an
-  /// error, it attempts to load the Members from a Web Client.
-  @override
-  Future<List<MemberEntity>> loadMembers() async {
-    try {
-      return await fileStorage.loadMembers();
-    } catch (e) {
-      final members = await webClient.fetchMembers();
-
-      fileStorage.saveMembers(members);
-
-      return members;
-    }
-  }
-
-  /// Loads todos first from File storage. If they don't exist or encounter an
+  /// Loads todos first from Sqflite. If they don't exist or encounter an
   /// error, it attempts to load the Members from a Web Client.
   @override
   Future<List<MemberEntity>> getAllMembers() async {
+    //return await sqlite.getAllMembers();
+
     try {
       return await sqlite.getAllMembers();
     } catch (e) {
-      final members = await webClient.fetchMembers();
+      print(e);
+      final members = await memberMock.fetchMembers();
 
       members.forEach((member) => sqlite.newMember(member));
 
@@ -48,14 +36,6 @@ class MembersRepositoryFlutter implements MembersRepository {
     }
   }
 
-  /// Persists members to local disk and the web
-  @override
-  Future saveMembers(List<MemberEntity> members) {
-    return Future.wait<dynamic>([
-      fileStorage.saveMembers(members),
-      webClient.postMembers(members),
-    ]);
-  }
 
   /// Persists members to sqflite member table
   @override
@@ -77,7 +57,7 @@ class MembersRepositoryFlutter implements MembersRepository {
 
   /// Delete member info sqflite member table
   @override
-  Future deleteMember(String memberId) {
+  Future deleteMember(List<String> memberId) {
     // TODO: implement deleteMember
     return Future.wait<dynamic>([
       sqlite.deleteMember(memberId)
