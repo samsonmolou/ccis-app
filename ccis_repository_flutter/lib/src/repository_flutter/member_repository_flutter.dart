@@ -8,14 +8,12 @@ import 'package:meta/meta.dart';
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Members and Persist members.
 class MembersRepositoryFlutter implements MembersRepository {
-  final MemberFileStorage fileStorage;
   final MemberMock memberMock;
   final MemberSqlite sqlite;
 
   const MembersRepositoryFlutter({
-    @required this.fileStorage,
+    @required this.sqlite,
     this.memberMock = const MemberMock(),
-    this.sqlite = const MemberSqlite(),
   });
 
   /// Loads todos first from Sqflite. If they don't exist or encounter an

@@ -80,8 +80,8 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                       phoneNumber: _phoneNumber,
                       residence: _residence,
                       bedroomNumber: _bedroomNumber,
-                      community2: _community,
-                      study2: _study));
+                      community: _community,
+                      study: _study));
                 } else {
                   widget.addMember(Member(
                       firstName: _firstName,
@@ -89,8 +89,8 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                       phoneNumber: _phoneNumber,
                       residence: _residence,
                       bedroomNumber: _bedroomNumber,
-                      community2: _community,
-                      study2: _study,
+                      community: _community,
+                      study: _study,
                       ));
                 }
                 Navigator.pop(context);

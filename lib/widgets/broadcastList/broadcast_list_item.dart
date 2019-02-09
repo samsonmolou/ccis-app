@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class BroadcastListItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
   final GestureTapCallback onTap;
-  final Member member;
+  final BroadcastList broadcastList;
 
   final String _simpleValue1 = 'Menu item value one';
   final String _simpleValue2 = 'Menu item value two';
@@ -17,7 +17,7 @@ class BroadcastListItem extends StatelessWidget {
   BroadcastListItem({
     @required this.onDismissed,
     @required this.onTap,
-    @required this.member,
+    @required this.broadcastList,
   });
 
   void showMenuSelection(String value) {
@@ -28,7 +28,7 @@ class BroadcastListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ArchSampleKeys.memberItem(member.id),
+      key: ArchSampleKeys.memberItem(broadcastList.id),
       onDismissed: onDismissed,
       background: Container(
           color: Theme.of(context).primaryColor,
@@ -80,13 +80,13 @@ class BroadcastListItem extends StatelessWidget {
             ]
         ),
         title: Text(
-          member.fullName                                                                                                                                                                                                                   ,
-          key: ArchSampleKeys.memberItemHead(member.id),
+          broadcastList.name                                                                                                                                                                                                                   ,
+          key: ArchSampleKeys.memberItemHead(broadcastList.id),
           style: Theme.of(context).textTheme.title,
         ),
         subtitle: Text(
-          member.residenceBedroom + " - " + member.community.name + " - " + member.phoneNumber,
-          key: ArchSampleKeys.memberItemSubhead(member.id),
+          broadcastList.name,
+          key: ArchSampleKeys.memberItemSubhead(broadcastList.id),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.subhead,

@@ -7,6 +7,12 @@ class ArchSampleKeys {
 
   // Broadcast List Screen
   static final broadcastListScreen = const Key('__broadcastListScreen__');
+  static final broadcastLists = const Key('__broadcastListList__');
+  static final broadcastListsLoading = const Key('__broadcastListsLoading__');
+
+  // Add Edit BroadcastList Screen
+  static final addEditBroadcastListScreen = const Key('__addEditBroadcastListScreen__');
+
 
   // Home Screens
   static final homeScreen = const Key('__homeScreen__');
@@ -57,11 +63,17 @@ class ArchSampleKeys {
 
   // MemberDetails Screen
   static final editMemberFab = const Key('__editMemberFab__');
-  static final deleteMemberButton = const Key('__deleteMemberFab__');
+  static final deleteMemberButton = const Key('__deleteMemberButton__');
   static final memberDetailsScreen = const Key('__memberDetailsScreen__');
   static final detailsMemberItemFirstName = Key('DetailsMember__FirstName');
   static final detailsMemberItemSecondName = Key('DetailsMember__SecondName');
   static final detailsMemberItemPhoneNumber = Key('DetailsMember__PhoneNumber');
+
+  // Broadcast Detail Screen
+  static final editBroadcastListButton = const Key('__editBroadcastListButton__');
+  static final deleteBroadcastListButton = const Key('__deleteBroadcastListButton__');
+  static final broadcastListDetailsScreen = const Key('__broadcastListDetailsScreen__');
+  static final detailsBroadcastListItemName = Key('DetailsBroadcastList__Name');
 
   // Add Member Screen
   static final addMemberScreen = const Key('__addMemberScreen__');
@@ -78,6 +90,16 @@ class ArchSampleKeys {
   // Edit Member Screen
   static final editMemberScreen = const Key('__editMemberScreen__');
   static final saveMemberFab = const Key('__saveMemberFab__');
+
+  // Add BroadcastList Screen
+  static final addBroadcastListScreen = const Key('__addBroadcastListScreen__');
+  static final saveNewBroadcastList = const Key('__saveNewMember__');
+  static final broadcastListNameField = const Key('__broadcastListNameField__');
+
+  // Edit BroadcastList Screen
+  static final editBroadcastListScreen = const Key('__editBroadcastListScreen__');
+  static final saveBroadcastIconButton = const Key('__saveBroadcastIconButton__');
+
 
   // Member Export Screen
   static final membersExportScreen = const Key('__membersExportScreen__');

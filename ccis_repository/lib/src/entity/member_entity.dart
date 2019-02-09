@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:ccis_repository/src/entity/community_entity.dart';
 import 'package:ccis_repository/src/entity/study_entity.dart';
-import 'dart:convert';
 
 class MemberEntity {
   final String id;

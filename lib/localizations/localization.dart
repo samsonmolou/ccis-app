@@ -112,6 +112,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get newBroadcastListNameHint => Intl.message(
+    'Nom de la liste de diffusion',
+    name: 'newBroadcastListNameHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberSecondNameHint => Intl.message(
     'Quel est votre prénom ?',
     name: 'newMemberSecondNameHint',
@@ -182,6 +189,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get newBroadcastListNameLabel => Intl.message(
+    'Nom',
+    name: 'newBroadcastListNameLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberSecondNameLabel => Intl.message(
     'Prénoms',
     name: 'newMemberSecondNameLabel',
@@ -231,9 +245,23 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get addBroadcastList => Intl.message(
+    'Nouvelle liste de diffusion',
+    name: 'addBroadcastList',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get editMember => Intl.message(
     'Editer membre',
     name: 'editMember',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get editBroadcastList => Intl.message(
+    'Editer liste de diffusion',
+    name: 'editBroadcastList',
     args: [],
     locale: locale.toString(),
   );
@@ -289,6 +317,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get searchBroadcastList => Intl.message(
+    'Rechercher une liste de diffusion',
+    name: 'searchBroadcastList',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get clear => Intl.message(
     'Effacer',
     name: 'clear',
@@ -310,9 +345,17 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+
   String get emptyMemberError => Intl.message(
     'Veuillez entrer un texte',
     name: 'emptyMemberError',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get emptyBroadcastListNameError => Intl.message(
+    'Veuillez entrer un texte',
+    name: 'emptyBroadcastListNameError',
     args: [],
     locale: locale.toString(),
   );

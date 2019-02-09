@@ -6,7 +6,7 @@ import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
-class SearchMemberSearchDelegate extends SearchDelegate<String> {
+class BroadcastListSearchDelegate extends SearchDelegate<String> {
 
   @override
   ThemeData appBarTheme(BuildContext context) {

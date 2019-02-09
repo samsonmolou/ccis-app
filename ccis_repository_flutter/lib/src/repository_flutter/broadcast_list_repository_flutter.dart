@@ -4,7 +4,6 @@ import 'dart:core';
 import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:meta/meta.dart';
-import 'package:ccis_repository_flutter/src/providers/db_provider.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Members and Persist members.

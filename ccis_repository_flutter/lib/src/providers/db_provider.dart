@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ccis_repository_flutter/src/database_metadata/database_metadata.dart';
+import 'package:ccis_repository_flutter/src/metadata/database_metadata.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -36,8 +36,13 @@ CREATE TABLE ${DatabaseMetadata.tableMember} (
   ${DatabaseMetadata.columnMemberCommunity} TEXT,
   ${DatabaseMetadata.columnMemberStudy} TEXT
 )
-'''
-      );
+''');
+      await db.execute('''
+CREATE TABLE ${DatabaseMetadata.tableBroadcastList} (
+  ${DatabaseMetadata.columnBroadcastListId} TEXT PRIMARY KEY,
+  ${DatabaseMetadata.columnBroadcastListName} TEXT
+)
+      ''');
     });
   }
 }

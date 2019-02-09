@@ -1,7 +1,7 @@
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/providers/members_bloc_provider.dart';
+import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
 import 'package:ccis_app/widgets/broadcastList/broadcast_list_list.dart';
-import 'package:ccis_app/widgets/members/member_search.dart';
+import 'package:ccis_app/widgets/broadcastList/broadcast_list_search.dart';
 import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class BroadcastListScreen extends StatefulWidget {
 class BroadcastListScreenState extends State<BroadcastListScreen> {
 
   // Pour la gestion de la recherche d'une liste de diffusion
-  final SearchMemberSearchDelegate _delegate = SearchMemberSearchDelegate();
+  final BroadcastListSearchDelegate _delegate = BroadcastListSearchDelegate();
 
   @override
   void initState() {
@@ -36,13 +36,13 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final membersBloc = MembersBlocProvider.of(context);
+    final broadcastListsBloc = BroadcastListsBlocProvider.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcastList),
         actions: _buildActions(
-          membersBloc,
+          broadcastListsBloc,
         ),
       ),
       drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
@@ -50,6 +50,7 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addMemberFab,
         onPressed: () {
+          //TODO: Implement add broadcast list
           Navigator.pushNamed(context, ArchSampleRoutes.addMember);
         },
         child: Icon(Icons.add),
@@ -59,11 +60,11 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
   }
 
   List<Widget> _buildActions(
-      MembersListBloc membersBloc,
+      BroadcastListListBloc broadcastListsBloc,
       ) {
     return [
       IconButton(
-        tooltip: ArchSampleLocalizations.of(context).searchMember,
+        tooltip: ArchSampleLocalizations.of(context).searchBroadcastList,
         icon: const Icon(Icons.search),
         onPressed: () async {
           await showSearch<String>(

@@ -1,8 +1,8 @@
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
-import 'package:ccis_app/providers/members_bloc_provider.dart';
-import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
-import 'package:ccis_app/screens/members/member_detail_screen.dart';
+import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
+import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
+import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
+import 'package:ccis_app/screens/broadcastList/broadcast_list_detail_screen.dart';
 import 'package:ccis_app/widgets/broadcastList/broadcast_list_item.dart';
 import 'package:ccis_app/widgets/shared/loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
@@ -14,40 +14,40 @@ class BroadcastListList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Member>>(
-      stream: MembersBlocProvider.of(context).members,
+    return StreamBuilder<List<BroadcastList>>(
+      stream: BroadcastListsBlocProvider.of(context).broadcastLists,
       builder: (context, snapshot) => snapshot.hasData
           ? _buildList(snapshot.data)
-          : LoadingSpinner(key: ArchSampleKeys.membersLoading),
+          : LoadingSpinner(key: ArchSampleKeys.broadcastListsLoading),
     );
   }
 
-  ListView _buildList(List<Member> members) {
+  ListView _buildList(List<BroadcastList> broadcastLists) {
     return ListView.builder(
-      key: ArchSampleKeys.memberList,
-      itemCount: members.length,
+      key: ArchSampleKeys.broadcastLists,
+      itemCount: broadcastLists.length,
       itemBuilder: (BuildContext context, int index) {
-        final member = members[index];
+        final broadcastList = broadcastLists[index];
 
         return BroadcastListItem(
-          member: member,
+          broadcastList: broadcastList,
           onDismissed: (direction) {
-            _removeMember(context, member);
+            _removeBroadcastList(context, broadcastList);
           },
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) {
-                  return MemberDetailScreen(
-                    memberId: member.id,
+                  return BroadcastListDetailScreen(
+                    broadcastListId: broadcastList.id,
                     initBloc: () =>
-                        MemberBloc(Injector.of(context).membersInteractor),
+                        BroadcastListBloc(BroadcastListInjector.of(context).broadcastListsInteractor),
                   );
                 },
               ),
-            ).then((member) {
-              if (member is Member) {
-                _showUndoSnackbar(context, member);
+            ).then((broadcastList) {
+              if (broadcastList is BroadcastList) {
+                _showUndoSnackbar(context, broadcastList);
               }
             });
           },
@@ -57,20 +57,20 @@ class BroadcastListList extends StatelessWidget {
     );
   }
 
-  void _removeMember(BuildContext context, Member member) {
-    MembersBlocProvider.of(context).deleteMember.add(member.id);
+  void _removeBroadcastList(BuildContext context, BroadcastList broadcastList) {
+    BroadcastListsBlocProvider.of(context).deleteBroadcastList.add(broadcastList.id);
 
-    _showUndoSnackbar(context, member);
+    _showUndoSnackbar(context, broadcastList);
   }
 
-  void _editMember(BuildContext context, Member member) {
+  void _editMember(BuildContext context, BroadcastList broadcastList) {
 
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return MemberAddEditScreen(
-            member: member,
-            updateTodo: MembersBlocProvider.of(context).updateMember.add,
+          return BroadcastListAddEditScreen(
+            broadcastList: broadcastList,
+            updateBroadcastList: BroadcastListsBlocProvider.of(context).updateBroadcastList.add,
             key: ArchSampleKeys.editMemberScreen,
           );
         },
@@ -79,21 +79,21 @@ class BroadcastListList extends StatelessWidget {
 
   }
 
-  void _showUndoSnackbar(BuildContext context, Member member) {
+  void _showUndoSnackbar(BuildContext context, BroadcastList broadcastList) {
     final snackBar = SnackBar(
       key: ArchSampleKeys.snackbar,
       duration: Duration(seconds: 2),
       backgroundColor: Theme.of(context).backgroundColor,
       content: Text(
-        ArchSampleLocalizations.of(context).memberDeleted(member.fullName),
+        ArchSampleLocalizations.of(context).memberDeleted(broadcastList.name),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
       action: SnackBarAction(
-        key: ArchSampleKeys.snackbarAction(member.id),
+        key: ArchSampleKeys.snackbarAction(broadcastList.id),
         label: ArchSampleLocalizations.of(context).cancel,
         onPressed: () {
-          MembersBlocProvider.of(context).addMember.add(member);
+          BroadcastListsBlocProvider.of(context).addBroadcastList.add(broadcastList);
         },
       ),
     );

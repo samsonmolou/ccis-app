@@ -1,5 +1,5 @@
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/dependency_injector/member_dependency_injection.dart';
+import 'package:ccis_app/dependency_injector/member_injector.dart';
 import 'package:ccis_app/screens/members/member_import_screen.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class NavigationDrawer extends StatelessWidget {
                         builder: (_) {
                           return MembersImportScreen(
                             initBloc: () =>
-                                MembersImportBloc(Injector.of(context).membersInteractor),
+                                MembersImportBloc(MemberInjector.of(context).membersInteractor),
                           );
                         },
                       )

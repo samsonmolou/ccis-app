@@ -22,15 +22,15 @@ class Member {
     String residence = '',
     String bedroomNumber = '',
     String phoneNumber = '',
-    Community community2,
-    Study study2})
+    Community community,
+    Study study})
       : this.firstName = firstName ?? '',
         this.secondName = secondName ?? '',
         this.residence = residence ?? '',
         this.bedroomNumber = bedroomNumber ?? '',
         this.phoneNumber = phoneNumber ?? '',
-        this.community = community2 ?? null,
-        this.study = study2 ?? null,
+        this.community = community ?? null,
+        this.study = study ?? null,
         this.id = id ?? Uuid().generateV4();
 
   Member copyWith({
@@ -40,8 +40,8 @@ class Member {
     String residence = '',
     String bedroomNumber = '',
     String phoneNumber = '',
-    Community community2,
-    Study study2}) {
+    Community community,
+    Study study}) {
     return Member(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
@@ -49,8 +49,8 @@ class Member {
       residence: residence ?? this.residence,
       bedroomNumber: bedroomNumber ?? this.bedroomNumber,
       phoneNumber: phoneNumber ?? this.phoneNumber,
-      community2: community2 ?? this.community,
-      study2: study2 ?? this.study
+      community: community ?? this.community,
+      study: study ?? this.study
     );
   }
 
@@ -101,8 +101,8 @@ class Member {
       residence: entity.residence,
       bedroomNumber: entity.bedroomNumber,
       phoneNumber: entity.phoneNumber,
-      community2: Community.fromEntity(entity.community),
-      study2: Study.fromEntity(entity.study),
+      community: Community.fromEntity(entity.community),
+      study: Study.fromEntity(entity.study),
     );
   }
 
