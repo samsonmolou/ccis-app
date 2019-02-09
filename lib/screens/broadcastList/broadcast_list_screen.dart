@@ -6,13 +6,10 @@ import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
-
-
+import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 
 class BroadcastListScreen extends StatefulWidget {
-
-  BroadcastListScreen()
-      : super(key: ArchSampleKeys.broadcastListScreen);
+  BroadcastListScreen() : super(key: ArchSampleKeys.broadcastListScreen);
 
   @override
   State<StatefulWidget> createState() {
@@ -21,14 +18,15 @@ class BroadcastListScreen extends StatefulWidget {
 }
 
 class BroadcastListScreenState extends State<BroadcastListScreen> {
-
   // Pour la gestion de la recherche d'une liste de diffusion
-  final BroadcastListSearchDelegate _delegate = BroadcastListSearchDelegate();
+  BroadcastListSearchDelegate _delegate;
 
   @override
   void initState() {
     super.initState();
-
+    _delegate = BroadcastListSearchDelegate(
+        initBloc: () => BroadcastListSearchBloc(
+            BroadcastListInjector.of(context).broadcastListsInteractor));
   }
 
   @override
@@ -43,25 +41,21 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcastList),
-        actions: _buildActions(
-          broadcastListsBloc,
-        ),
+        actions: _buildActions(),
       ),
       drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
       body: BroadcastListList(),
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addBroadcastListFab,
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                  return BroadcastListAddEditScreen(
-                    addBroadcastList: broadcastListsBloc.addBroadcastList.add,
-                    key: ArchSampleKeys.addBroadcastListScreen,
-                  );
-                },
-              )
-          );
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) {
+              return BroadcastListAddEditScreen(
+                addBroadcastList: broadcastListsBloc.addBroadcastList.add,
+                key: ArchSampleKeys.addBroadcastListScreen,
+              );
+            },
+          ));
         },
         child: Icon(Icons.add),
         tooltip: ArchSampleLocalizations.of(context).addBroadcastList,
@@ -69,9 +63,7 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
     );
   }
 
-  List<Widget> _buildActions(
-      BroadcastListListBloc broadcastListsBloc,
-      ) {
+  List<Widget> _buildActions() {
     return [
       IconButton(
         tooltip: ArchSampleLocalizations.of(context).searchBroadcastList,

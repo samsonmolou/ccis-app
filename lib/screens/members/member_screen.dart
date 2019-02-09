@@ -47,9 +47,7 @@ class MemberScreenState extends State<MemberScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).members),
-        actions: _buildActions(
-          membersBloc,
-        ),
+        actions: _buildActions(),
       ),
       drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
       body: MemberList(),
@@ -81,9 +79,7 @@ class MemberScreenState extends State<MemberScreen> {
     );
   }
 
-  List<Widget> _buildActions(
-      MembersListBloc membersBloc,
-      ) {
+  List<Widget> _buildActions() {
     return [
       IconButton(
         tooltip: ArchSampleLocalizations.of(context).searchMember,
