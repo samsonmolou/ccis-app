@@ -246,6 +246,13 @@ class ArchSampleLocalizations {
   );
 
   String get addBroadcastList => Intl.message(
+    'Ajouter une liste de diffusion',
+    name: 'addMember',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newBroadcastList => Intl.message(
     'Nouvelle liste de diffusion',
     name: 'addBroadcastList',
     args: [],

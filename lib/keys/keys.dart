@@ -9,6 +9,7 @@ class ArchSampleKeys {
   static final broadcastListScreen = const Key('__broadcastListScreen__');
   static final broadcastLists = const Key('__broadcastListList__');
   static final broadcastListsLoading = const Key('__broadcastListsLoading__');
+  static final addBroadcastListFab = const Key('__addBroadcastListFab__');
 
   // Add Edit BroadcastList Screen
   static final addEditBroadcastListScreen = const Key('__addEditBroadcastListScreen__');

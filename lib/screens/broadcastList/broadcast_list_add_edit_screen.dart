@@ -38,7 +38,7 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
         title: Text(
           isEditing
               ? ArchSampleLocalizations.of(context).editBroadcastList
-              : ArchSampleLocalizations.of(context).addBroadcastList,
+              : ArchSampleLocalizations.of(context).newBroadcastList,
         ),
         actions: <Widget>[
           IconButton(
@@ -48,7 +48,7 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
             icon: Icon(isEditing ? Icons.check : Icons.add),
             tooltip: isEditing
                 ? ArchSampleLocalizations.of(context).saveChanges
-                : ArchSampleLocalizations.of(context).addBroadcastList,
+                : ArchSampleLocalizations.of(context).newBroadcastList,
             onPressed: () {
               final form = formKey.currentState;
               if (form.validate()) {

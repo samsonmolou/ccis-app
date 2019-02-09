@@ -5,6 +5,9 @@ import 'package:ccis_app/widgets/members/member_search.dart';
 import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
+import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
+import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
+import 'package:ccis_app/dependency_injector/member_injector.dart';
 
 
 class MemberScreen extends StatefulWidget {
@@ -21,12 +24,15 @@ class MemberScreen extends StatefulWidget {
 class MemberScreenState extends State<MemberScreen> {
 
   // Pour la gestion de la recherche des membres
-  final SearchMemberSearchDelegate _delegate = SearchMemberSearchDelegate();
+  SearchMemberSearchDelegate _delegate;
 
   @override
   void initState() {
     super.initState();
-
+    _delegate = SearchMemberSearchDelegate(
+      initBloc: () =>
+          MemberSearchBloc(MemberInjector.of(context).membersInteractor)
+    );
   }
 
   @override
@@ -50,7 +56,24 @@ class MemberScreenState extends State<MemberScreen> {
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addMemberFab,
         onPressed: () {
-          Navigator.pushNamed(context, ArchSampleRoutes.addMember);
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) {
+                  return MemberAddEditScreen(
+                    key: ArchSampleKeys.addMemberScreen,
+                    addMember: membersBloc.addMember.add,
+                    communitiesInteractor: CommunitiesInteractor(
+                        ReactiveCommunitiesRepositoryFlutter(
+                            repository: CommunitiesRepositoryFlutter(
+                                communitiesMetadata: CommunitiesMetadata()))),
+                    studiesInteractor: StudiesInteractor(
+                        ReactiveStudiesRepositoryFlutter(
+                            repository: StudiesRepositoryFlutter(
+                                studiesMetadata: StudiesMetadata()))),
+                  );
+                },
+              )
+          );
         },
         child: Icon(Icons.add),
         tooltip: ArchSampleLocalizations.of(context).addMember,

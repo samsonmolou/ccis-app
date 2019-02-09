@@ -39,12 +39,13 @@ class MemberSearchBloc {
     // so the Stream can be listened to multiple times
     final searchMemberResultController = BehaviorSubject<List<Member>>();
 
-    Observable.combineLatest2<List<Member>, String, List<Member>>(
+    Observable
+        .combineLatest2<List<Member>, String, List<Member>>(
       interactor.members,
       searchMemberController.stream,
       _searchMembers,
     )
-      .pipe(searchMemberResultController);
+        .pipe(searchMemberResultController);
 
     return MemberSearchBloc._(
       searchMemberController,
@@ -61,8 +62,15 @@ class MemberSearchBloc {
       );
 
   static List<Member> _searchMembers(List<Member> members, String query) {
+    final Iterable<Member> suggestions = members.where(
+            (member) => member.fullName.contains(query)
+            || member.study.name.contains(query)
+            || member.community.name.contains(query)
+            || member.residenceBedroom.contains(query)
+            || member.phoneNumber.contains(query)
+    );
 
-    return members.toList();
+    return suggestions.toList();
   }
 
   // This method should close down all sinks and cancel all stream

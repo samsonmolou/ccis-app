@@ -5,6 +5,8 @@ import 'package:ccis_app/widgets/broadcastList/broadcast_list_search.dart';
 import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
+import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
+
 
 
 class BroadcastListScreen extends StatefulWidget {
@@ -48,13 +50,21 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
       drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
       body: BroadcastListList(),
       floatingActionButton: FloatingActionButton(
-        key: ArchSampleKeys.addMemberFab,
+        key: ArchSampleKeys.addBroadcastListFab,
         onPressed: () {
-          //TODO: Implement add broadcast list
-          Navigator.pushNamed(context, ArchSampleRoutes.addMember);
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) {
+                  return BroadcastListAddEditScreen(
+                    addBroadcastList: broadcastListsBloc.addBroadcastList.add,
+                    key: ArchSampleKeys.addBroadcastListScreen,
+                  );
+                },
+              )
+          );
         },
         child: Icon(Icons.add),
-        tooltip: ArchSampleLocalizations.of(context).addMember,
+        tooltip: ArchSampleLocalizations.of(context).addBroadcastList,
       ),
     );
   }

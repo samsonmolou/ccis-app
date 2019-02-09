@@ -3,6 +3,7 @@ class ArchSampleRoutes {
   static final members = "/members";
   static final broadcastList = "/broadcastList";
   static final addMember = "/addMember";
+  static final addBroadcastList = "/addBroadcastList";
   static final importMembers = "/importMembers";
   static final exportMembers = "/exportMembers";
 

@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 
 class SearchMemberSearchDelegate extends SearchDelegate<String> {
 
+  final MemberSearchBloc Function() initBloc;
+
+  SearchMemberSearchDelegate({@required this.initBloc});
+
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context);
@@ -29,14 +33,15 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final memberSearchBloc = this.initBloc();
 
     if(query.isEmpty || query.length < 3)
       return new Container();
 
-    MembersBlocProvider.of(context).searchMember.add(query);
+    memberSearchBloc.searchMember.add(query);
 
     return StreamBuilder<List<Member>>(
-      stream: MembersBlocProvider.of(context).searchMemberResult,
+      stream: memberSearchBloc.searchMemberResult,
       builder: (context, snapshot) => snapshot.hasData ? _SuggestionList(
           query: query,
           onSelected: (String memberSuggestionId) {
