@@ -9,11 +9,8 @@ import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_app/dependency_injector/member_injector.dart';
 
-
 class MemberScreen extends StatefulWidget {
-
-  MemberScreen()
-      : super(key: ArchSampleKeys.memberScreen);
+  MemberScreen() : super(key: ArchSampleKeys.memberScreen);
 
   @override
   State<StatefulWidget> createState() {
@@ -22,17 +19,9 @@ class MemberScreen extends StatefulWidget {
 }
 
 class MemberScreenState extends State<MemberScreen> {
-
-  // Pour la gestion de la recherche des membres
-  SearchMemberSearchDelegate _delegate;
-
   @override
   void initState() {
     super.initState();
-    _delegate = SearchMemberSearchDelegate(
-      initBloc: () =>
-          MemberSearchBloc(MemberInjector.of(context).membersInteractor)
-    );
   }
 
   @override
@@ -43,35 +32,35 @@ class MemberScreenState extends State<MemberScreen> {
   @override
   Widget build(BuildContext context) {
     final membersBloc = MembersBlocProvider.of(context);
-
+    // Pour la gestion de la recherche des membres
+    SearchMemberSearchDelegate delegate = SearchMemberSearchDelegate(
+        interactor: MemberInjector.of(context).membersInteractor);
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).members),
-        actions: _buildActions(),
+        actions: _buildActions(delegate),
       ),
       drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
       body: MemberList(),
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addMemberFab,
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                  return MemberAddEditScreen(
-                    key: ArchSampleKeys.addMemberScreen,
-                    addMember: membersBloc.addMember.add,
-                    communitiesInteractor: CommunitiesInteractor(
-                        ReactiveCommunitiesRepositoryFlutter(
-                            repository: CommunitiesRepositoryFlutter(
-                                communitiesMetadata: CommunitiesMetadata()))),
-                    studiesInteractor: StudiesInteractor(
-                        ReactiveStudiesRepositoryFlutter(
-                            repository: StudiesRepositoryFlutter(
-                                studiesMetadata: StudiesMetadata()))),
-                  );
-                },
-              )
-          );
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) {
+              return MemberAddEditScreen(
+                key: ArchSampleKeys.addMemberScreen,
+                addMember: membersBloc.addMember.add,
+                communitiesInteractor: CommunitiesInteractor(
+                    ReactiveCommunitiesRepositoryFlutter(
+                        repository: CommunitiesRepositoryFlutter(
+                            communitiesMetadata: CommunitiesMetadata()))),
+                studiesInteractor: StudiesInteractor(
+                    ReactiveStudiesRepositoryFlutter(
+                        repository: StudiesRepositoryFlutter(
+                            studiesMetadata: StudiesMetadata()))),
+              );
+            },
+          ));
         },
         child: Icon(Icons.add),
         tooltip: ArchSampleLocalizations.of(context).addMember,
@@ -79,7 +68,7 @@ class MemberScreenState extends State<MemberScreen> {
     );
   }
 
-  List<Widget> _buildActions() {
+  List<Widget> _buildActions(SearchMemberSearchDelegate delegate) {
     return [
       IconButton(
         tooltip: ArchSampleLocalizations.of(context).searchMember,
@@ -87,7 +76,7 @@ class MemberScreenState extends State<MemberScreen> {
         onPressed: () async {
           await showSearch<String>(
             context: context,
-            delegate: _delegate,
+            delegate: delegate,
           );
         },
       )

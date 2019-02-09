@@ -18,15 +18,11 @@ class BroadcastListScreen extends StatefulWidget {
 }
 
 class BroadcastListScreenState extends State<BroadcastListScreen> {
-  // Pour la gestion de la recherche d'une liste de diffusion
-  BroadcastListSearchDelegate _delegate;
+
 
   @override
   void initState() {
     super.initState();
-    _delegate = BroadcastListSearchDelegate(
-        initBloc: () => BroadcastListSearchBloc(
-            BroadcastListInjector.of(context).broadcastListsInteractor));
   }
 
   @override
@@ -37,11 +33,13 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
   @override
   Widget build(BuildContext context) {
     final broadcastListsBloc = BroadcastListsBlocProvider.of(context);
-
+    // Pour la gestion de la recherche d'une liste de diffusion
+    BroadcastListSearchDelegate delegate = BroadcastListSearchDelegate(
+        interactor: BroadcastListInjector.of(context).broadcastListsInteractor);
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcastList),
-        actions: _buildActions(),
+        actions: _buildActions(delegate),
       ),
       drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
       body: BroadcastListList(),
@@ -63,7 +61,7 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
     );
   }
 
-  List<Widget> _buildActions() {
+  List<Widget> _buildActions(BroadcastListSearchDelegate delegate) {
     return [
       IconButton(
         tooltip: ArchSampleLocalizations.of(context).searchBroadcastList,
@@ -71,7 +69,7 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
         onPressed: () async {
           await showSearch<String>(
             context: context,
-            delegate: _delegate,
+            delegate: delegate,
           );
         },
       )

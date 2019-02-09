@@ -8,9 +8,8 @@ import 'package:flutter/material.dart';
 
 class BroadcastListSearchDelegate extends SearchDelegate<String> {
 
-  final BroadcastListSearchBloc Function() initBloc;
-
-  BroadcastListSearchDelegate({@required this.initBloc});
+  final BroadcastListInteractor interactor;
+  BroadcastListSearchDelegate({@required this.interactor});
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -33,7 +32,7 @@ class BroadcastListSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final broadcastListSearchBloc = this.initBloc();
+    final broadcastListSearchBloc = BroadcastListSearchBloc(this.interactor);
 
     if(query.isEmpty || query.length < 3)
       return new Container();
@@ -51,7 +50,7 @@ class BroadcastListSearchDelegate extends SearchDelegate<String> {
                 return BroadcastListDetailScreen(
                   broadcastListId: broadcastListSuggestionId,
                   initBloc: () =>
-                    BroadcastListBloc(BroadcastListInjector.of(context).broadcastListsInteractor),
+                    BroadcastListBloc(this.interactor),
                 );
                 },
                 ),
