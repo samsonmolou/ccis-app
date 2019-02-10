@@ -21,4 +21,12 @@ class DatabaseMetadata {
   static final String columnBroadcastListName = "name";
   static final String columnBroadcastMembersId = "membersId";
 
+  // Table broadcast list members
+  static final String tableBroadcastListsMembers = "BroadcastListsMembers";
+
+  // Table broadcast list columns
+  static final String columnBroadcastListsMembersId = "id";
+  static final String columnBroadcastListsMembersMemberId = "memberId";
+  static final String columnBroadcastListsMembersBroadcastListId = "BroadcastListId";
+
 }

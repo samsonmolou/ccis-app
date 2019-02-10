@@ -10,11 +10,10 @@ class DBProvider {
 
   static final DBProvider provider = DBProvider._();
   static Database _database;
-  final _databaseName = "ccis_db";
+  final _databaseName = "ccis_db.db";
 
   Future<Database> get database async {
-    if (_database != null)
-      return _database;
+    if (_database != null) return _database;
 
     _database = await initDB();
     return _database;
@@ -23,9 +22,13 @@ class DBProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
-    return await openDatabase(path, version: 1, onOpen: (db) {
-    }, onCreate: (Database db, int version) async {
+    return await openDatabase(path, version: 1, onOpen: (db) {},
+        onCreate: (Database db, int version) async {
       //TODO: use sqflite batch operation
+      await db.execute('''
+PRAGMA foreign_keys=ON;
+''');
+      // Create Member table
       await db.execute('''
 CREATE TABLE ${DatabaseMetadata.tableMember} (
   ${DatabaseMetadata.columnMemberId} TEXT PRIMARY KEY,
@@ -38,11 +41,27 @@ CREATE TABLE ${DatabaseMetadata.tableMember} (
   ${DatabaseMetadata.columnMemberStudy} TEXT
 )
 ''');
+      // Create broadcast list table
       await db.execute('''
 CREATE TABLE ${DatabaseMetadata.tableBroadcastList} (
   ${DatabaseMetadata.columnBroadcastListId} TEXT PRIMARY KEY,
   ${DatabaseMetadata.columnBroadcastListName} TEXT,
   ${DatabaseMetadata.columnBroadcastMembersId} TEXT
+)
+      ''');
+
+      // Create relationship table between member and brodcast list tables
+      await db.execute('''
+CREATE TABLE ${DatabaseMetadata.tableBroadcastListsMembers} (
+  ${DatabaseMetadata.columnBroadcastListsMembersId} TEXT PRIMARY KEY,
+  ${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId} TEXT,
+  ${DatabaseMetadata.columnBroadcastListsMembersMemberId} TEXT,
+  FOREIGN KEY (${DatabaseMetadata.columnBroadcastListsMembersMemberId}) REFERENCES
+  ${DatabaseMetadata.tableMember} (${DatabaseMetadata.columnMemberId})
+  ON DELETE CASCADE,
+  FOREIGN KEY (${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId}) REFERENCES
+  ${DatabaseMetadata.tableBroadcastList} (${DatabaseMetadata.columnBroadcastListId})
+  ON DELETE CASCADE
 )
       ''');
     });

@@ -1,5 +1,6 @@
-export 'package:ccis_repository/src/entity/broadcast_list_entity.dart';
-export 'package:ccis_repository/src/entity/community_entity.dart';
-export 'package:ccis_repository/src/entity/member_entity.dart';
-export 'package:ccis_repository/src/entity/study_entity.dart';
-export 'package:ccis_repository/src/entity/user_entity.dart';
+export 'broadcast_list_member_entity.dart';
+export 'broadcast_list_entity.dart';
+export 'community_entity.dart';
+export 'member_entity.dart';
+export 'study_entity.dart';
+export 'user_entity.dart';
