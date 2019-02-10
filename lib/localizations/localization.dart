@@ -28,6 +28,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get notFound => Intl.message(
+    'Aucune correspondance',
+    name: 'notFound',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get exit => Intl.message(
     'Quitter',
     name: 'exit',
@@ -113,7 +120,7 @@ class ArchSampleLocalizations {
   );
 
   String get newBroadcastListNameHint => Intl.message(
-    'Nom de la liste de diffusion',
+    'Quel est le nom de la liste de diffusion ?',
     name: 'newBroadcastListNameHint',
     args: [],
     locale: locale.toString(),
@@ -190,7 +197,7 @@ class ArchSampleLocalizations {
   );
 
   String get newBroadcastListNameLabel => Intl.message(
-    'Nom',
+    'Nom de la liste',
     name: 'newBroadcastListNameLabel',
     args: [],
     locale: locale.toString(),
@@ -246,14 +253,14 @@ class ArchSampleLocalizations {
   );
 
   String get addBroadcastList => Intl.message(
-    'Ajouter une liste de diffusion',
+    'Ajouter une liste',
     name: 'addMember',
     args: [],
     locale: locale.toString(),
   );
 
   String get newBroadcastList => Intl.message(
-    'Nouvelle liste de diffusion',
+    'Nouvelle liste',
     name: 'addBroadcastList',
     args: [],
     locale: locale.toString(),
@@ -267,7 +274,7 @@ class ArchSampleLocalizations {
   );
 
   String get editBroadcastList => Intl.message(
-    'Editer liste de diffusion',
+    'Editer la liste',
     name: 'editBroadcastList',
     args: [],
     locale: locale.toString(),

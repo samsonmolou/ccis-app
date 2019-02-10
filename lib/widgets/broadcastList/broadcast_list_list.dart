@@ -4,7 +4,7 @@ import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_detail_screen.dart';
 import 'package:ccis_app/widgets/broadcastList/broadcast_list_item.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
+import 'package:ccis_app/widgets/shared/loading_spinner.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
@@ -72,6 +72,7 @@ class BroadcastListList extends StatelessWidget {
             broadcastList: broadcastList,
             updateBroadcastList: BroadcastListsBlocProvider.of(context).updateBroadcastList.add,
             key: ArchSampleKeys.editMemberScreen,
+            initSearchBloc: () => BroadcastListAddEditSearchBloc(BroadcastListInjector.of(context).membersInteractor),
           );
         },
       ),

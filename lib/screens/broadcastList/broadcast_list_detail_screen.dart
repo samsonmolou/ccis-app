@@ -1,13 +1,13 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
 import 'package:ccis_app/widgets/members/member_category.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
+import 'package:ccis_app/widgets/shared/loading_spinner.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 
 class BroadcastListDetailScreen extends StatefulWidget {
   final String broadcastListId;
@@ -76,6 +76,7 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
                           broadcastList: broadcastList,
                           updateBroadcastList: broadcastListBloc.updateBroadcastList.add,
                           key: ArchSampleKeys.editBroadcastListScreen,
+                          initSearchBloc: () => BroadcastListAddEditSearchBloc(BroadcastListInjector.of(context).membersInteractor),
                         );
                       },
                     ),

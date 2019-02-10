@@ -51,6 +51,7 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
               return BroadcastListAddEditScreen(
                 addBroadcastList: broadcastListsBloc.addBroadcastList.add,
                 key: ArchSampleKeys.addBroadcastListScreen,
+                initSearchBloc: () => BroadcastListAddEditSearchBloc(BroadcastListInjector.of(context).membersInteractor),
               );
             },
           ));

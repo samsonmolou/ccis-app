@@ -7,7 +7,7 @@ import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_screen.dart';
 import 'package:ccis_app/screens/members/member_screen.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
+import 'package:ccis_app/widgets/shared/loading_spinner.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +71,7 @@ class HomeScreenState extends State<HomeScreen> {
                         : BroadcastListInjector(
                             broadcastListsInteractor:
                                 widget.broadcastListsInteractor,
+                            membersInteractor: widget.membersInteractor,
                             child: BroadcastListsBlocProvider(
                               bloc: BroadcastListListBloc(
                                   widget.broadcastListsInteractor),

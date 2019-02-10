@@ -1,6 +1,6 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/helpers/file_extension.dart';
-import 'package:ccis_app/widgets/shared/loading.dart';
+import 'package:ccis_app/widgets/shared/loading_spinner.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';

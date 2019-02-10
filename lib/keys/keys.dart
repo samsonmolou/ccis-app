@@ -11,6 +11,8 @@ class ArchSampleKeys {
   static final broadcastListsLoading = const Key('__broadcastListsLoading__');
   static final addBroadcastListFab = const Key('__addBroadcastListFab__');
   static final broadcastListItemSubhead = (String id) => Key('BroadcastListItem__${id}__Subhead');
+  static final broadcastListNameField = const Key('__broadcastListNameField__');
+  static final addEditSearchField = const Key('__addEditSearchField__');
 
   // Add Edit BroadcastList Screen
   static final addEditBroadcastListScreen = const Key('__addEditBroadcastListScreen__');
@@ -96,7 +98,6 @@ class ArchSampleKeys {
   // Add BroadcastList Screen
   static final addBroadcastListScreen = const Key('__addBroadcastListScreen__');
   static final saveNewBroadcastList = const Key('__saveNewMember__');
-  static final broadcastListNameField = const Key('__broadcastListNameField__');
 
   // Edit BroadcastList Screen
   static final editBroadcastListScreen = const Key('__editBroadcastListScreen__');
