@@ -6,26 +6,32 @@ import 'package:meta/meta.dart';
 class BroadcastList {
   final String id;
   final String name;
+  final List<String> membersId;
 
+  //TODO: make name and membersId required
   BroadcastList({
     String id,
     String name = '',
+    membersId
   })
       : this.name = name ?? '',
+        this.membersId = membersId ?? List<String>(),
         this.id = id ?? Uuid().generateV4();
 
   BroadcastList copyWith({
     String id,
-    String name = ''}) {
+    String name = '',
+    List<String> membersId}) {
     return BroadcastList(
       id: id ?? this.id,
       name: name ?? this.name,
+      membersId: membersId ?? this.membersId
     );
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode;
+    return id.hashCode ^ name.hashCode ^ membersId.hashCode;
   }
 
   @override
@@ -34,24 +40,27 @@ class BroadcastList {
         other is BroadcastList &&
             runtimeType == other.runtimeType &&
             id == other.id &&
-            name == other.name
+            name == other.name &&
+            membersId == other.membersId
     ;
   }
 
   @override
   String toString() {
     return 'BroadcastList{id: $id, '
-        'name: $name}';
+        'name: $name}'
+        'membersId: $membersId';
   }
 
   BroadcastListEntity toEntity() {
-    return BroadcastListEntity(id, name);
+    return BroadcastListEntity(id, name, membersId);
   }
 
   static BroadcastList fromEntity(BroadcastListEntity entity) {
     return BroadcastList(
       id: entity.id ?? Uuid().generateV4(),
       name: entity.name,
+      membersId: entity.membersId
     );
   }
 }

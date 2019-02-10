@@ -21,10 +21,12 @@ class BroadcastListMock {
           BroadcastListEntity(
               '1',
               'Liste 1',
+              ['1']
           ),
           BroadcastListEntity(
             '2',
             'Liste 2',
+            ['2']
           ),
         ]);
   }

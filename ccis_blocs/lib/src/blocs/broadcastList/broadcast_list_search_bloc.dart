@@ -53,7 +53,7 @@ class BroadcastListSearchBloc {
   static List<BroadcastList> _searchBroadcastLists(
       List<BroadcastList> broadcastLists, String query) {
     final Iterable<BroadcastList> suggestions = broadcastLists
-        .where((broadcastList) => broadcastList.name.contains(query));
+        .where((broadcastList) => broadcastList.name.toLowerCase().contains(query.toLowerCase()));
 
     return suggestions.toList();
   }

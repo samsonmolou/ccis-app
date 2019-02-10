@@ -25,6 +25,7 @@ class DBProvider {
     String path = join(documentsDirectory.path, _databaseName);
     return await openDatabase(path, version: 1, onOpen: (db) {
     }, onCreate: (Database db, int version) async {
+      //TODO: use sqflite batch operation
       await db.execute('''
 CREATE TABLE ${DatabaseMetadata.tableMember} (
   ${DatabaseMetadata.columnMemberId} TEXT PRIMARY KEY,
@@ -40,7 +41,8 @@ CREATE TABLE ${DatabaseMetadata.tableMember} (
       await db.execute('''
 CREATE TABLE ${DatabaseMetadata.tableBroadcastList} (
   ${DatabaseMetadata.columnBroadcastListId} TEXT PRIMARY KEY,
-  ${DatabaseMetadata.columnBroadcastListName} TEXT
+  ${DatabaseMetadata.columnBroadcastListName} TEXT,
+  ${DatabaseMetadata.columnBroadcastMembersId} TEXT
 )
       ''');
     });

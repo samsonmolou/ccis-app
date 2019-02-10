@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 
 class MemberItem extends StatelessWidget {
   final Member member;
+  final bool checkboxValue;
+  final ValueChanged<bool> onCheckboxChanged;
 
   MemberItem({
     @required this.member,
+    @required this.checkboxValue,
+    @required this.onCheckboxChanged
   });
 
   @override
@@ -16,8 +20,8 @@ class MemberItem extends StatelessWidget {
       dense: true,
       leading: Checkbox(
         key: ArchSampleKeys.memberItem(member.id),
-        value: true,
-        onChanged: null,
+        value: checkboxValue,
+        onChanged: onCheckboxChanged,
       ),
       title: Text(
         member.fullName,

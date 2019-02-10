@@ -29,16 +29,19 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
   BroadcastListAddEditSearchBloc memberSearchBloc;
 
   String _name;
+  List<String> _selectedMembersId;
+
   final TextEditingController _searchBoxController =
       new TextEditingController();
   String query;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     memberSearchBloc = widget.initSearchBloc();
+    query = "";
     memberSearchBloc.query.add(query);
+    _selectedMembersId = isEditing ? widget.broadcastList.membersId : List<String>();
   }
 
   @override
@@ -70,6 +73,7 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
                 } else {
                   widget.addBroadcastList(BroadcastList(
                     name: _name,
+                    membersId: _selectedMembersId
                   ));
                 }
                 Navigator.pop(context);
@@ -93,7 +97,6 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
                     ? widget.broadcastList.name
                     : '',
                 key: ArchSampleKeys.broadcastListNameField,
-                autofocus: isEditing ? false : true,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context)
                       .newBroadcastListNameHint,
@@ -156,8 +159,19 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   final member = members[index];
-
-                                  return MemberItem(member: member);
+                                  return MemberItem(
+                                      member: member,
+                                      checkboxValue: _selectedMembersId
+                                          .contains(member.id),
+                                      onCheckboxChanged: (value) {
+                                        setState(() {
+                                          _selectedMembersId.contains(member.id)
+                                              ? _selectedMembersId
+                                                  .remove(member.id)
+                                              : _selectedMembersId
+                                                  .add(member.id);
+                                        });
+                                      });
                                 },
                               );
                       },
