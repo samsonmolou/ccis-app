@@ -295,6 +295,15 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get deleteBroadcastList => Intl.message(
+    'Supprimer cette liste',
+    name: 'deleteBroadcastList',
+    args: [],
+    locale: locale.toString(),
+  );
+
+
+
   String get memberDetails => Intl.message(
     'Détails du membre',
     name: 'memberDetails',

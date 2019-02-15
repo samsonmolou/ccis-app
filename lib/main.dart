@@ -10,6 +10,7 @@ void main({
   @required UserRepository userRepository,
   @required MembersInteractor membersInteractor,
   @required broadcastListsInteractor,
+  @required broadcastListMembersInteractor,
 }) {
   runApp(UserInjector(
       userRepository: userRepository,
@@ -26,6 +27,7 @@ void main({
               repository: UserInjector.of(context).userRepository,
               membersInteractor: membersInteractor,
               broadcastListsInteractor: broadcastListsInteractor,
+              broadcastListMemberInteractor: broadcastListMembersInteractor,
             );
           },
         },

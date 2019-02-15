@@ -1,2 +1,3 @@
-export 'package:ccis_repository_flutter/src/mock/broadcast_list_mock.dart';
-export 'package:ccis_repository_flutter/src/mock/member_mock.dart';
+export 'broadcast_list_member_mock.dart';
+export 'member_mock.dart';
+export 'broadcast_list_mock.dart';

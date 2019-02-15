@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_app/widgets/shared/loading_linear.dart';
+import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_app/widgets/broadcastList/member_item.dart';
 
 class BroadcastListAddEditScreen extends StatefulWidget {
   final BroadcastList broadcastList;
+  //TODO: remove this later, using context
+  final BroadcastListInteractor broadcastListsInteractor;
   final Function(BroadcastList) addBroadcastList;
   final Function(BroadcastList) updateBroadcastList;
   final BroadcastListAddEditSearchBloc Function() initSearchBloc;
@@ -17,6 +19,7 @@ class BroadcastListAddEditScreen extends StatefulWidget {
       this.broadcastList,
       this.addBroadcastList,
       this.updateBroadcastList,
+      @required this.broadcastListsInteractor,
       @required this.initSearchBloc})
       : super(key: key ?? ArchSampleKeys.addEditBroadcastListScreen);
 
@@ -29,6 +32,7 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
   BroadcastListAddEditSearchBloc memberSearchBloc;
 
   String _name;
+  //List<BroadcastListMember> _selectedBroadcastListMembers;
   List<String> _selectedMembersId;
 
   final TextEditingController _searchBoxController =
@@ -41,7 +45,8 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
     memberSearchBloc = widget.initSearchBloc();
     query = "";
     memberSearchBloc.query.add(query);
-    _selectedMembersId = isEditing ? widget.broadcastList.membersId : List<String>();
+    _selectedMembersId =
+        isEditing ? widget.broadcastList.membersId : List<String>();
   }
 
   @override
@@ -68,13 +73,11 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
                 form.save();
 
                 if (isEditing) {
-                  widget.updateBroadcastList(
-                      widget.broadcastList.copyWith(name: _name));
+                  widget.updateBroadcastList(widget.broadcastList
+                      .copyWith(name: _name, membersId: _selectedMembersId));
                 } else {
                   widget.addBroadcastList(BroadcastList(
-                    name: _name,
-                    membersId: _selectedMembersId
-                  ));
+                      name: _name, membersId: _selectedMembersId));
                 }
                 Navigator.pop(context);
               }
@@ -130,7 +133,7 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
                         filled: true,
                         hasFloatingPlaceholder: false,
                         prefixIcon: Icon(Icons.search),
-                        suffixIcon: null != query && query.isNotEmpty
+                        suffixIcon: query.isNotEmpty
                             ? IconButton(
                                 icon: Icon(Icons.clear),
                                 onPressed: () {
@@ -146,7 +149,7 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
                     StreamBuilder<List<Member>>(
                       stream: memberSearchBloc.queryResult,
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData) return LoadingLinear();
+                        if (!snapshot.hasData) return LinearLoading();
 
                         List<Member> members = snapshot.data;
 

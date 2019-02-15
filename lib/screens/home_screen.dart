@@ -7,7 +7,7 @@ import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_screen.dart';
 import 'package:ccis_app/screens/members/member_screen.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +19,13 @@ class HomeScreen extends StatefulWidget {
   final UserRepository repository;
   final MembersInteractor membersInteractor;
   final BroadcastListInteractor broadcastListsInteractor;
+  final BroadcastListMemberInteractor broadcastListMemberInteractor;
 
   HomeScreen(
       {@required this.repository,
       @required this.membersInteractor,
-      @required this.broadcastListsInteractor})
+      @required this.broadcastListsInteractor,
+      @required this.broadcastListMemberInteractor})
       : super(key: ArchSampleKeys.homeScreen);
 
   @override
@@ -78,7 +80,7 @@ class HomeScreenState extends State<HomeScreen> {
                               child: BroadcastListScreen(),
                             ),
                           )
-                    : LoadingSpinner(),
+                    : SpinnerLoading(),
                 bottomNavigationBar: BottomNavigationBar(
                   key: ArchSampleKeys.tabs,
                   currentIndex: AppTab.values.indexOf(activeTabSnapshot.data),

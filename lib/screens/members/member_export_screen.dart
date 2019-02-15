@@ -1,6 +1,6 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/helpers/file_extension.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +129,7 @@ class MembersExportScreenState extends State<MembersExportScreen> {
           content: new StreamBuilder<List<Member>>(
               stream: membersImportBloc.importedMembers,
               builder: (context, snapshot) {
-                if (!snapshot.hasData) return LoadingSpinner();
+                if (!snapshot.hasData) return SpinnerLoading();
                 List<Member> members = snapshot.data;
 
                 return new Column(

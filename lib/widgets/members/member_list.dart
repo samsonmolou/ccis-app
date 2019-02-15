@@ -4,7 +4,7 @@ import 'package:ccis_app/providers/members_bloc_provider.dart';
 import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_app/screens/members/member_detail_screen.dart';
 import 'package:ccis_app/widgets/members/member_item.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class MemberList extends StatelessWidget {
       stream: MembersBlocProvider.of(context).members,
       builder: (context, snapshot) => snapshot.hasData
         ? _buildList(snapshot.data)
-        : LoadingSpinner(key: ArchSampleKeys.membersLoading),
+        : SpinnerLoading(key: ArchSampleKeys.membersLoading),
     );
   }
 

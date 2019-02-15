@@ -1,7 +1,7 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
 import 'package:ccis_app/widgets/members/member_category.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -12,10 +12,14 @@ import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 class BroadcastListDetailScreen extends StatefulWidget {
   final String broadcastListId;
   final BroadcastListBloc Function() initBloc;
+  final MembersInteractor membersInteractor;
+  final BroadcastListInteractor broadcastListInteractor;
 
   BroadcastListDetailScreen({
     @required this.broadcastListId,
     @required this.initBloc,
+    @required this.membersInteractor,
+    @required this.broadcastListInteractor
   }) : super(key: ArchSampleKeys.memberDetailsScreen);
 
   @override
@@ -27,7 +31,8 @@ class BroadcastListDetailScreen extends StatefulWidget {
 class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
   BroadcastListBloc broadcastListBloc;
   final double _appBarHeight = 256.0;
-  static final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -43,10 +48,13 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder<BroadcastList>(
-      stream: broadcastListBloc.broadcastList(widget.broadcastListId).where((broadcastList) => broadcastList != null),
+      stream: broadcastListBloc
+          .broadcastList(widget.broadcastListId)
+          .where((broadcastList) => broadcastList != null),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return LoadingSpinner();
+        if (!snapshot.hasData) return SpinnerLoading();
 
         final broadcastList = snapshot.data;
 
@@ -57,7 +65,7 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
             actions: [
               IconButton(
                 key: ArchSampleKeys.deleteBroadcastListButton,
-                tooltip: ArchSampleLocalizations.of(context).deleteMember,
+                tooltip: ArchSampleLocalizations.of(context).deleteBroadcastList,
                 icon: Icon(Icons.delete),
                 onPressed: () {
                   broadcastListBloc.deleteBroadcastList.add(broadcastList.id);
@@ -74,15 +82,17 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
                       builder: (context) {
                         return BroadcastListAddEditScreen(
                           broadcastList: broadcastList,
-                          updateBroadcastList: broadcastListBloc.updateBroadcastList.add,
+                          broadcastListsInteractor: widget.broadcastListInteractor,
+                          updateBroadcastList:
+                              broadcastListBloc.updateBroadcastList.add,
                           key: ArchSampleKeys.editBroadcastListScreen,
-                          initSearchBloc: () => BroadcastListAddEditSearchBloc(BroadcastListInjector.of(context).membersInteractor),
+                          initSearchBloc: () => BroadcastListAddEditSearchBloc(
+                              widget.membersInteractor),
                         );
                       },
                     ),
                   );
                 },
-
               )
             ],
           ),

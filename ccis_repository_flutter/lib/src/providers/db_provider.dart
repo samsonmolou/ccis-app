@@ -46,11 +46,12 @@ CREATE TABLE ${DatabaseMetadata.tableMember} (
 CREATE TABLE ${DatabaseMetadata.tableBroadcastList} (
   ${DatabaseMetadata.columnBroadcastListId} TEXT PRIMARY KEY,
   ${DatabaseMetadata.columnBroadcastListName} TEXT,
-  ${DatabaseMetadata.columnBroadcastMembersId} TEXT
+  ${DatabaseMetadata.columnBroadcastListMembersId} TEXT
 )
       ''');
 
-      // Create relationship table between member and brodcast list tables
+      /*
+      // Create relationship table between member and broadcast list tables
       await db.execute('''
 CREATE TABLE ${DatabaseMetadata.tableBroadcastListsMembers} (
   ${DatabaseMetadata.columnBroadcastListsMembersId} TEXT PRIMARY KEY,
@@ -63,7 +64,7 @@ CREATE TABLE ${DatabaseMetadata.tableBroadcastListsMembers} (
   ${DatabaseMetadata.tableBroadcastList} (${DatabaseMetadata.columnBroadcastListId})
   ON DELETE CASCADE
 )
-      ''');
+      '''); */
     });
   }
 }

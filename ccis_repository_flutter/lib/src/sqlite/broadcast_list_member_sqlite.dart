@@ -42,11 +42,41 @@ class BroadcastListMemberSqlite {
     return res;
   }
 
-  Future deleteBroadcastList(List<String> broadcastListMemberId) async {
+  Future deleteBroadcastListMember(List<String> broadcastListMemberId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
     return await db.delete(DatabaseMetadata.tableBroadcastListsMembers,
         where: '''${DatabaseMetadata.columnBroadcastListsMembersId} = ?''',
         whereArgs: broadcastListMemberId);
+  }
+
+  Future<List<BroadcastListMemberEntity>> getBroadcastListMembersByBroadcastListId(String broadcastListId) async {
+    //TODO: implement demeter law for less coupling
+    Database db = await DBProvider.provider.database;
+    var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers,
+        where: '''${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId} = ?''',
+        whereArgs: [broadcastListId]);
+    final broadcastListMembersByBroadcastId = res.isNotEmpty
+        ? res
+        .map((broadcastListMember) => BroadcastListMemberEntity.fromJson(broadcastListMember))
+        .toList()
+        : [];
+
+    return broadcastListMembersByBroadcastId;
+  }
+
+  Future<List<BroadcastListMemberEntity>> getBroadcastListMembersByMemberId(String memberId) async {
+    //TODO: implement demeter law for less coupling
+    Database db = await DBProvider.provider.database;
+    var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers,
+        where: '''${DatabaseMetadata.columnBroadcastListsMembersMemberId} = ?''',
+        whereArgs: [memberId]);
+    final broadcastListMembersByMemberId = res.isNotEmpty
+        ? res
+        .map((broadcastListMember) => BroadcastListMemberEntity.fromJson(broadcastListMember))
+        .toList()
+        : [];
+
+    return broadcastListMembersByMemberId;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoadingLinear extends StatelessWidget {
-  LoadingLinear({Key key}) : super(key: key);
+class LinearLoading extends StatelessWidget {
+  LinearLoading({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

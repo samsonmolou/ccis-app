@@ -4,10 +4,9 @@ import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_detail_screen.dart';
 import 'package:ccis_app/widgets/broadcastList/broadcast_list_item.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
-
 
 class BroadcastListList extends StatelessWidget {
   BroadcastListList({Key key}) : super(key: key);
@@ -18,7 +17,7 @@ class BroadcastListList extends StatelessWidget {
       stream: BroadcastListsBlocProvider.of(context).broadcastLists,
       builder: (context, snapshot) => snapshot.hasData
           ? _buildList(snapshot.data)
-          : LoadingSpinner(key: ArchSampleKeys.broadcastListsLoading),
+          : SpinnerLoading(key: ArchSampleKeys.broadcastListsLoading),
     );
   }
 
@@ -40,8 +39,13 @@ class BroadcastListList extends StatelessWidget {
                 builder: (_) {
                   return BroadcastListDetailScreen(
                     broadcastListId: broadcastList.id,
-                    initBloc: () =>
-                        BroadcastListBloc(BroadcastListInjector.of(context).broadcastListsInteractor),
+                    membersInteractor:
+                        BroadcastListInjector.of(context).membersInteractor,
+                    broadcastListInteractor: BroadcastListInjector.of(context)
+                        .broadcastListsInteractor,
+                    initBloc: () => BroadcastListBloc(
+                        BroadcastListInjector.of(context)
+                            .broadcastListsInteractor),
                   );
                 },
               ),
@@ -53,31 +57,33 @@ class BroadcastListList extends StatelessWidget {
           },
         );
       },
-
     );
   }
 
   void _removeBroadcastList(BuildContext context, BroadcastList broadcastList) {
-    BroadcastListsBlocProvider.of(context).deleteBroadcastList.add(broadcastList.id);
+    BroadcastListsBlocProvider.of(context)
+        .deleteBroadcastList
+        .add(broadcastList.id);
 
     _showUndoSnackbar(context, broadcastList);
   }
 
   void _editMember(BuildContext context, BroadcastList broadcastList) {
-
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           return BroadcastListAddEditScreen(
             broadcastList: broadcastList,
-            updateBroadcastList: BroadcastListsBlocProvider.of(context).updateBroadcastList.add,
+            updateBroadcastList:
+                BroadcastListsBlocProvider.of(context).updateBroadcastList.add,
+            broadcastListsInteractor: BroadcastListInjector.of(context).broadcastListsInteractor,
             key: ArchSampleKeys.editMemberScreen,
-            initSearchBloc: () => BroadcastListAddEditSearchBloc(BroadcastListInjector.of(context).membersInteractor),
+            initSearchBloc: () => BroadcastListAddEditSearchBloc(
+                BroadcastListInjector.of(context).membersInteractor),
           );
         },
       ),
     );
-
   }
 
   void _showUndoSnackbar(BuildContext context, BroadcastList broadcastList) {
@@ -94,7 +100,9 @@ class BroadcastListList extends StatelessWidget {
         key: ArchSampleKeys.snackbarAction(broadcastList.id),
         label: ArchSampleLocalizations.of(context).cancel,
         onPressed: () {
-          BroadcastListsBlocProvider.of(context).addBroadcastList.add(broadcastList);
+          BroadcastListsBlocProvider.of(context)
+              .addBroadcastList
+              .add(broadcastList);
         },
       ),
     );

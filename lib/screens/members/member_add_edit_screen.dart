@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
@@ -223,7 +223,7 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                   },
                   value: _community,
                   onSaved: (Community value) => _community = value,
-                ) : LoadingSpinner(),
+                ) : SpinnerLoading(),
               ),
               StreamBuilder(
                 stream: studiesListBloc.studies,
@@ -252,7 +252,7 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                   },
                   value: _study,
                   onSaved: (Study value) => _study = value,
-                ) : LoadingSpinner(),
+                ) : SpinnerLoading(),
               ),
             ],
           ),

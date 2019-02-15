@@ -2,14 +2,18 @@ import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_detail_screen.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
 class BroadcastListSearchDelegate extends SearchDelegate<String> {
 
-  final BroadcastListInteractor interactor;
-  BroadcastListSearchDelegate({@required this.interactor});
+  final BroadcastListInteractor broadcastListinteractor;
+  final MembersInteractor membersInteractor;
+  BroadcastListSearchDelegate({
+    @required this.broadcastListinteractor,
+    @required this.membersInteractor
+  });
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -32,7 +36,7 @@ class BroadcastListSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final broadcastListSearchBloc = BroadcastListSearchBloc(this.interactor);
+    final broadcastListSearchBloc = BroadcastListSearchBloc(this.broadcastListinteractor);
 
     if(query.isEmpty || query.length < 3)
       return new Container();
@@ -49,15 +53,17 @@ class BroadcastListSearchDelegate extends SearchDelegate<String> {
                 builder: (_) {
                 return BroadcastListDetailScreen(
                   broadcastListId: broadcastListSuggestionId,
+                  membersInteractor: this.membersInteractor,
+                  broadcastListInteractor: this.broadcastListinteractor,
                   initBloc: () =>
-                    BroadcastListBloc(this.interactor),
+                    BroadcastListBloc(this.broadcastListinteractor),
                 );
                 },
                 ),
             );
           },
           broadcastListsSuggestions: snapshot.data,
-        ) : LoadingSpinner(key: ArchSampleKeys.membersLoading),
+        ) : SpinnerLoading(key: ArchSampleKeys.membersLoading),
     );
   }
 

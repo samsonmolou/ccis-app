@@ -5,8 +5,9 @@ import 'package:ccis_repository/ccis_repository.dart';
 
 class BroadcastListInteractor {
   final ReactiveBroadcastListRepository repository;
+  final BroadcastListMemberInteractor broadcastListMemberInteractor;
 
-  BroadcastListInteractor(this.repository);
+  BroadcastListInteractor(this.repository, this.broadcastListMemberInteractor);
 
   Stream<List<BroadcastList>> get broadcastLists {
     return repository
@@ -23,6 +24,9 @@ class BroadcastListInteractor {
     }).where((broadcastList) => broadcastList != null);
   }
 
+  Stream<BroadcastListMember> broadcastListMembers(String broadcastListId) {
+    return broadcastListMemberInteractor.broadcastListMembersByBroadcastListId(broadcastListId);
+  }
 
   Future<void> updateBroadcastList(BroadcastList broadcastList) => repository.updateBroadcastList(broadcastList.toEntity());
 

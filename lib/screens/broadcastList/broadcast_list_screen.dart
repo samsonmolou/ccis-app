@@ -18,8 +18,6 @@ class BroadcastListScreen extends StatefulWidget {
 }
 
 class BroadcastListScreenState extends State<BroadcastListScreen> {
-
-
   @override
   void initState() {
     super.initState();
@@ -34,8 +32,12 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
   Widget build(BuildContext context) {
     final broadcastListsBloc = BroadcastListsBlocProvider.of(context);
     // Pour la gestion de la recherche d'une liste de diffusion
+    //TODO: Revoir le passage des interacteurs
     BroadcastListSearchDelegate delegate = BroadcastListSearchDelegate(
-        interactor: BroadcastListInjector.of(context).broadcastListsInteractor);
+        broadcastListinteractor:
+            BroadcastListInjector.of(context).broadcastListsInteractor,
+        membersInteractor: BroadcastListInjector.of(context).membersInteractor);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcastList),
@@ -50,8 +52,10 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
             builder: (_) {
               return BroadcastListAddEditScreen(
                 addBroadcastList: broadcastListsBloc.addBroadcastList.add,
+                broadcastListsInteractor: BroadcastListInjector.of(context).broadcastListsInteractor,
                 key: ArchSampleKeys.addBroadcastListScreen,
-                initSearchBloc: () => BroadcastListAddEditSearchBloc(BroadcastListInjector.of(context).membersInteractor),
+                initSearchBloc: () => BroadcastListAddEditSearchBloc(
+                    BroadcastListInjector.of(context).membersInteractor),
               );
             },
           ));

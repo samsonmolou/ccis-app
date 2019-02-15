@@ -10,25 +10,25 @@ class BroadcastListEntity {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is BroadcastListEntity &&
-              runtimeType == other.runtimeType &&
-              id == other.id &&
-              name == other.name &&
-              membersId == other.membersId;
+      other is BroadcastListEntity &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          membersId == other.membersId;
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ membersId.hashCode;
 
   @override
   String toString() {
-    return 'BroadcastListEntity{id: $id, name: $name, membersId: $membersId }';
+    return 'BroadcastListEntity{id: $id, name: $name, membersId: $membersId}';
   }
 
   static BroadcastListEntity fromJson(Map<String, Object> json) {
     return BroadcastListEntity(
-        json["id"] as String,
-        json["name"] as String,
-        json["membersId"] as List<String>
+      json["id"] as String,
+      json["name"] as String,
+      json["membersId"] as List<String>
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_app/widgets/members/member_category.dart';
-import 'package:ccis_app/widgets/shared/loading_spinner.dart';
+import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -46,7 +46,7 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
     return StreamBuilder<Member>(
       stream: memberBloc.member(widget.memberId).where((member) => member != null),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return LoadingSpinner();
+        if (!snapshot.hasData) return SpinnerLoading();
 
         final member = snapshot.data;
 

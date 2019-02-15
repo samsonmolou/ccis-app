@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ccis_repository/src/entity/broadcast_list_entity.dart';
+import 'package:ccis_repository/src/entity/broadcast_list_member_entity.dart';
 
 /// A class that is meant to represent a Client that would be used to call a Web
 /// Service. It is responsible for fetching and persisting Members to and from the
@@ -8,37 +8,32 @@ import 'package:ccis_repository/src/entity/broadcast_list_entity.dart';
 ///
 /// Since we're trying to keep this example simple, it doesn't communicate with
 /// a real server but simply emulates the functionality.
-class BroadcastListMock {
+class BroadcastListMemberMock {
   final Duration delay;
 
-  const BroadcastListMock([this.delay = const Duration(milliseconds: 0)]);
+  const BroadcastListMemberMock([this.delay = const Duration(milliseconds: 0)]);
 
   /// Mock that "fetches" some broadcasts from a "web service" after a short delay
-  Future<List<BroadcastListEntity>> fetchBroadcastLists() async {
+  Future<List<BroadcastListMemberEntity>> fetchBroadcastListMembers() async {
     return Future.delayed(
         delay,
             () => [
-          BroadcastListEntity(
+          BroadcastListMemberEntity(
               '1',
-              'Liste 1',
-              ['1']
+              '1',
+              '1'
           ),
-          BroadcastListEntity(
-              '2',
-              'Liste 2',
-              ['2']
-          ),
-          BroadcastListEntity(
-              '3',
-              'Liste 3',
-              ['1', '2']
+          BroadcastListMemberEntity(
+            '2',
+            '2',
+            '2'
           ),
         ]);
   }
 
   /// Mock that returns true or false for success or failure. In this case,
   /// it will "Always Succeed"
-  Future<bool> postBroadcastLists(List<BroadcastListEntity> broadcastLists) async {
+  Future<bool> postBroadcastLists(List<BroadcastListMemberEntity> broadcastListMembers) async {
     return Future.value(true);
   }
 }
