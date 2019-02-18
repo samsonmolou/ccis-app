@@ -15,7 +15,7 @@ class BroadcastList {
   //TODO: make name required
   BroadcastList({String id, String name = '', membersId})
       : this.name = name ?? '',
-        this.membersId = List<String>(),
+        this.membersId = membersId ?? List<String>(),
         this.id = id ?? Uuid().generateV4();
 
   BroadcastList copyWith(
@@ -53,10 +53,12 @@ class BroadcastList {
   }
 
   static BroadcastList fromEntity(BroadcastListEntity entity) {
-    return BroadcastList(
+    final broadcastList =  BroadcastList(
       id: entity.id ?? Uuid().generateV4(),
       name: entity.name,
       membersId: entity.membersId
     );
+
+    return broadcastList;
   }
 }

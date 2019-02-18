@@ -21,8 +21,7 @@ class BroadcastListRepositoryFlutter implements BroadcastListRepository {
   /// error, it attempts to load the Members from a Web Client.
   @override
   Future<List<BroadcastListEntity>> getAllBroadcastList() async {
-    return await sqlite.getAllBroadcastLists();
-    /*
+
     try {
       return await sqlite.getAllBroadcastLists();
     } catch (e) {
@@ -32,7 +31,7 @@ class BroadcastListRepositoryFlutter implements BroadcastListRepository {
       broadcastLists.forEach((broadcastList) => sqlite.newBroadcastList(broadcastList));
 
       return broadcastLists;
-    } */
+    }
   }
 
 

@@ -25,10 +25,12 @@ class BroadcastListEntity {
   }
 
   static BroadcastListEntity fromJson(Map<String, Object> json) {
+    Iterable membersIdMap = jsonDecode(json["membersId"]);
+    List<String> membersId = List<String>.from(membersIdMap);
     return BroadcastListEntity(
       json["id"] as String,
       json["name"] as String,
-      json["membersId"] as List<String>
+      membersId
     );
   }
 
