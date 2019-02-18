@@ -7,13 +7,11 @@ import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
 class BroadcastListSearchDelegate extends SearchDelegate<String> {
-
   final BroadcastListInteractor broadcastListinteractor;
   final MembersInteractor membersInteractor;
-  BroadcastListSearchDelegate({
-    @required this.broadcastListinteractor,
-    @required this.membersInteractor
-  });
+  BroadcastListSearchDelegate(
+      {@required this.broadcastListinteractor,
+      @required this.membersInteractor});
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -36,37 +34,39 @@ class BroadcastListSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final broadcastListSearchBloc = BroadcastListSearchBloc(this.broadcastListinteractor);
+    final broadcastListSearchBloc =
+        BroadcastListSearchBloc(this.broadcastListinteractor);
 
-    if(query.isEmpty || query.length < 3)
-      return new Container();
+    if (query.isEmpty || query.length < 3) return new Container();
 
     broadcastListSearchBloc.searchBroadcastList.add(query);
 
     return StreamBuilder<List<BroadcastList>>(
       stream: broadcastListSearchBloc.searchBroadcastListResult,
-      builder: (context, snapshot) => snapshot.hasData ? _SuggestionList(
-          query: query,
-          onSelected: (String broadcastListSuggestionId) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                return BroadcastListDetailScreen(
-                  broadcastListId: broadcastListSuggestionId,
-                  membersInteractor: this.membersInteractor,
-                  broadcastListInteractor: this.broadcastListinteractor,
-                  initBloc: () =>
-                    BroadcastListBloc(this.broadcastListinteractor),
+      builder: (context, snapshot) => snapshot.hasData
+          ? _SuggestionList(
+              query: query,
+              onSelected: (String broadcastListSuggestionId) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return BroadcastListDetailScreen(
+                          broadcastListId: broadcastListSuggestionId,
+                          membersInteractor: this.membersInteractor,
+                          broadcastListInteractor: this.broadcastListinteractor,
+                          initBloc: () =>
+                              BroadcastListBloc(this.broadcastListinteractor),
+                          initSearchBloc: () => BroadcastListAddEditSearchBloc(
+                              this.membersInteractor, this.broadcastListinteractor));
+                    },
+                  ),
                 );
-                },
-                ),
-            );
-          },
-          broadcastListsSuggestions: snapshot.data,
-        ) : SpinnerLoading(key: ArchSampleKeys.membersLoading),
+              },
+              broadcastListsSuggestions: snapshot.data,
+            )
+          : SpinnerLoading(key: ArchSampleKeys.membersLoading),
     );
   }
-
 
   @override
   Widget buildResults(BuildContext context) {
@@ -90,9 +90,9 @@ class BroadcastListSearchDelegate extends SearchDelegate<String> {
   }
 }
 
-
 class _SuggestionList extends StatelessWidget {
-  const _SuggestionList({this.query, this.onSelected, this.broadcastListsSuggestions});
+  const _SuggestionList(
+      {this.query, this.onSelected, this.broadcastListsSuggestions});
 
   final String query;
   final ValueChanged<String> onSelected;
@@ -104,14 +104,16 @@ class _SuggestionList extends StatelessWidget {
     return ListView.builder(
       itemCount: broadcastListsSuggestions.length,
       itemBuilder: (BuildContext context, int i) {
-        final BroadcastList suggestedBroadcastList = broadcastListsSuggestions[i];
+        final BroadcastList suggestedBroadcastList =
+            broadcastListsSuggestions[i];
 
         return ListTile(
           leading: null,
           title: RichText(
             text: TextSpan(
               text: suggestedBroadcastList.name.substring(0, query.length),
-              style: theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
+              style:
+                  theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
               children: <TextSpan>[
                 TextSpan(
                   text: suggestedBroadcastList.name.substring(query.length),
@@ -122,7 +124,8 @@ class _SuggestionList extends StatelessWidget {
           ),
           subtitle: Text(
             suggestedBroadcastList.name,
-            key: ArchSampleKeys.broadcastListItemSubhead(suggestedBroadcastList.id),
+            key: ArchSampleKeys.broadcastListItemSubhead(
+                suggestedBroadcastList.id),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.subhead,

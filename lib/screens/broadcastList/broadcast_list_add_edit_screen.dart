@@ -133,7 +133,7 @@ class _BroadcastListAddEditScreen extends State<BroadcastListAddEditScreen> {
                         filled: true,
                         hasFloatingPlaceholder: false,
                         prefixIcon: Icon(Icons.search),
-                        suffixIcon: query.isNotEmpty
+                        suffixIcon: query != ""
                             ? IconButton(
                                 icon: Icon(Icons.clear),
                                 onPressed: () {

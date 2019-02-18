@@ -46,6 +46,9 @@ class BroadcastListList extends StatelessWidget {
                     initBloc: () => BroadcastListBloc(
                         BroadcastListInjector.of(context)
                             .broadcastListsInteractor),
+                    initSearchBloc: () => BroadcastListAddEditSearchBloc(
+                        BroadcastListInjector.of(context).membersInteractor, BroadcastListInjector.of(context)
+                        .broadcastListsInteractor),
                   );
                 },
               ),
@@ -76,10 +79,11 @@ class BroadcastListList extends StatelessWidget {
             broadcastList: broadcastList,
             updateBroadcastList:
                 BroadcastListsBlocProvider.of(context).updateBroadcastList.add,
-            broadcastListsInteractor: BroadcastListInjector.of(context).broadcastListsInteractor,
+            broadcastListsInteractor:
+                BroadcastListInjector.of(context).broadcastListsInteractor,
             key: ArchSampleKeys.editMemberScreen,
             initSearchBloc: () => BroadcastListAddEditSearchBloc(
-                BroadcastListInjector.of(context).membersInteractor),
+                BroadcastListInjector.of(context).membersInteractor, BroadcastListInjector.of(context).broadcastListsInteractor),
           );
         },
       ),

@@ -1,7 +1,9 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
-import 'package:ccis_app/widgets/members/member_category.dart';
+import 'package:ccis_app/widgets/members/member_item.dart';
+import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
+import 'package:ccis_app/screens/members/member_detail_screen.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -14,13 +16,15 @@ class BroadcastListDetailScreen extends StatefulWidget {
   final BroadcastListBloc Function() initBloc;
   final MembersInteractor membersInteractor;
   final BroadcastListInteractor broadcastListInteractor;
+  final BroadcastListAddEditSearchBloc Function() initSearchBloc;
 
-  BroadcastListDetailScreen({
-    @required this.broadcastListId,
-    @required this.initBloc,
-    @required this.membersInteractor,
-    @required this.broadcastListInteractor
-  }) : super(key: ArchSampleKeys.memberDetailsScreen);
+  BroadcastListDetailScreen(
+      {@required this.broadcastListId,
+      @required this.initBloc,
+      @required this.membersInteractor,
+      @required this.broadcastListInteractor,
+      @required this.initSearchBloc})
+      : super(key: ArchSampleKeys.memberDetailsScreen);
 
   @override
   BroadcastListDetailScreenState createState() {
@@ -30,14 +34,21 @@ class BroadcastListDetailScreen extends StatefulWidget {
 
 class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
   BroadcastListBloc broadcastListBloc;
-  final double _appBarHeight = 256.0;
+  BroadcastListAddEditSearchBloc memberSearchBloc;
   static final GlobalKey<ScaffoldState> _scaffoldKey =
       GlobalKey<ScaffoldState>();
+
+  final TextEditingController _searchBoxController =
+      new TextEditingController();
+  String query;
 
   @override
   void initState() {
     super.initState();
     broadcastListBloc = widget.initBloc();
+    memberSearchBloc = widget.initSearchBloc();
+    query = "";
+    memberSearchBloc.query.add(query);
   }
 
   @override
@@ -48,7 +59,6 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<BroadcastList>(
       stream: broadcastListBloc
           .broadcastList(widget.broadcastListId)
@@ -65,7 +75,8 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
             actions: [
               IconButton(
                 key: ArchSampleKeys.deleteBroadcastListButton,
-                tooltip: ArchSampleLocalizations.of(context).deleteBroadcastList,
+                tooltip:
+                    ArchSampleLocalizations.of(context).deleteBroadcastList,
                 icon: Icon(Icons.delete),
                 onPressed: () {
                   broadcastListBloc.deleteBroadcastList.add(broadcastList.id);
@@ -82,12 +93,14 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
                       builder: (context) {
                         return BroadcastListAddEditScreen(
                           broadcastList: broadcastList,
-                          broadcastListsInteractor: widget.broadcastListInteractor,
+                          broadcastListsInteractor:
+                              widget.broadcastListInteractor,
                           updateBroadcastList:
                               broadcastListBloc.updateBroadcastList.add,
                           key: ArchSampleKeys.editBroadcastListScreen,
                           initSearchBloc: () => BroadcastListAddEditSearchBloc(
-                              widget.membersInteractor),
+                              widget.membersInteractor,
+                              widget.broadcastListInteractor),
                         );
                       },
                     ),
@@ -98,6 +111,75 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
           ),
           body: Padding(
             padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  key: ArchSampleKeys.addEditSearchField,
+                  controller: _searchBoxController,
+                  onChanged: memberSearchBloc.query.add,
+                  decoration: InputDecoration(
+                    hintText: ArchSampleLocalizations.of(context).searchMember,
+                    filled: true,
+                    hasFloatingPlaceholder: false,
+                    prefixIcon: Icon(Icons.search),
+                    suffixIcon: query != ""
+                        ? IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed: () {
+                              _searchBoxController.clear();
+                              memberSearchBloc.query.add('');
+                            },
+                          )
+                        : null,
+                    border: InputBorder.none,
+                  ),
+                ),
+                Divider(),
+                StreamBuilder<List<Member>>(
+                  stream: memberSearchBloc.queryResult,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return LinearLoading();
+
+                    List<Member> members = snapshot.data;
+                    // On filtre la liste pour retenir uniquement les membres appartenant à la broadcast list
+                    members = members
+                        .where((member) =>
+                            broadcastList.membersId.contains(member.id))
+                        .toList();
+
+                    return members.length == 0
+                        ? Center(
+                            child: Text(
+                                ArchSampleLocalizations.of(context).noMembers))
+                        : ListView.builder(
+                            itemCount: members.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              final member = members[index];
+
+                              return MemberItem(
+                                member: member,
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) {
+                                        return MemberDetailScreen(
+                                          memberId: member.id,
+                                          initBloc: () => MemberBloc(
+                                              widget.membersInteractor),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                onDismissed: null,
+                              );
+                            },
+                          );
+                  },
+                )
+              ],
+            ),
           ),
         );
       },

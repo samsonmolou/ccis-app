@@ -35,6 +35,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get noMembers => Intl.message(
+    'Aucun membre',
+    name: 'notMembers',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get exit => Intl.message(
     'Quitter',
     name: 'exit',

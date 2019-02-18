@@ -46,7 +46,7 @@ class BroadcastListSqlite {
   Future deleteBroadcastList(List<String> broadcastListId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    return await db.delete(DatabaseMetadata.tableMember,
+    return await db.delete(DatabaseMetadata.tableBroadcastList,
         where: '''${DatabaseMetadata.columnBroadcastListId} = ?''',
         whereArgs: broadcastListId);
   }
