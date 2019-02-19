@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:ccis_app/ccis_app.dart';
+import 'package:ccis_app/widgets/broadcast_list/member_item.dart';
+import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_app/widgets/shared/linear_loading.dart';
-import 'package:ccis_app/widgets/broadcastList/member_item.dart';
 
 class BroadcastListAddEditScreen extends StatefulWidget {
   final BroadcastList broadcastList;

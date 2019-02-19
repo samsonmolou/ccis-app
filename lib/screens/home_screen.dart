@@ -5,7 +5,7 @@ import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 import 'package:ccis_app/dependency_injector/member_injector.dart';
 import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
-import 'package:ccis_app/screens/broadcastList/broadcast_list_screen.dart';
+import 'package:ccis_app/screens/broadcast_list/broadcast_list_screen.dart';
 import 'package:ccis_app/screens/members/member_screen.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
@@ -13,19 +13,19 @@ import 'package:ccis_repository/ccis_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-enum AppTab { broadcastList, members }
+enum AppTab { broadcast, broadcastList, members }
 
 class HomeScreen extends StatefulWidget {
   final UserRepository repository;
   final MembersInteractor membersInteractor;
   final BroadcastListInteractor broadcastListsInteractor;
-  final BroadcastListMemberInteractor broadcastListMemberInteractor;
+  final BroadcastInteractor broadcastInteractor;
 
   HomeScreen(
       {@required this.repository,
       @required this.membersInteractor,
       @required this.broadcastListsInteractor,
-      @required this.broadcastListMemberInteractor})
+      @required this.broadcastInteractor})
       : super(key: ArchSampleKeys.homeScreen);
 
   @override

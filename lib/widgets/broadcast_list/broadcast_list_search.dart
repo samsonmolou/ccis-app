@@ -1,7 +1,5 @@
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
-import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
-import 'package:ccis_app/screens/broadcastList/broadcast_list_detail_screen.dart';
+import 'package:ccis_app/screens/broadcast_list/broadcast_list_detail_screen.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';

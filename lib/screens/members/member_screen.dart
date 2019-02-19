@@ -1,13 +1,13 @@
 import 'package:ccis_app/ccis_app.dart';
+import 'package:ccis_app/dependency_injector/member_injector.dart';
 import 'package:ccis_app/providers/members_bloc_provider.dart';
+import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
 import 'package:ccis_app/widgets/members/member_list.dart';
 import 'package:ccis_app/widgets/members/member_search.dart';
 import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
-import 'package:flutter/material.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
-import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
-import 'package:ccis_app/dependency_injector/member_injector.dart';
+import 'package:flutter/material.dart';
 
 class MemberScreen extends StatefulWidget {
   MemberScreen() : super(key: ArchSampleKeys.memberScreen);

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ccis_repository_flutter/src/metadata/database_metadata.dart';
+import 'package:ccis_repository_flutter/src/metadata/metadata.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -30,38 +30,49 @@ PRAGMA foreign_keys=ON;
 ''');
       // Create Member table
       await db.execute('''
-CREATE TABLE ${DatabaseMetadata.tableMember} (
-  ${DatabaseMetadata.columnMemberId} TEXT PRIMARY KEY,
-  ${DatabaseMetadata.columnMemberFirstName} TEXT,
-  ${DatabaseMetadata.columnMemberSecondName} TEXT,
-  ${DatabaseMetadata.columnMemberResidence} TEXT,
-  ${DatabaseMetadata.columnMemberBedroomNumber} TEXT,
-  ${DatabaseMetadata.columnMemberPhoneNumber} TEXT,
-  ${DatabaseMetadata.columnMemberCommunity} TEXT,
-  ${DatabaseMetadata.columnMemberStudy} TEXT
+CREATE TABLE ${MembersMetadata.tableName} (
+  ${MembersMetadata.id} TEXT PRIMARY KEY,
+  ${MembersMetadata.firstName} TEXT,
+  ${MembersMetadata.secondName} TEXT,
+  ${MembersMetadata.residence} TEXT,
+  ${MembersMetadata.bedroomNumber} TEXT,
+  ${MembersMetadata.phoneNumber} TEXT,
+  ${MembersMetadata.community} TEXT,
+  ${MembersMetadata.study} TEXT
 )
 ''');
       // Create broadcast list table
       await db.execute('''
-CREATE TABLE ${DatabaseMetadata.tableBroadcastList} (
-  ${DatabaseMetadata.columnBroadcastListId} TEXT PRIMARY KEY,
-  ${DatabaseMetadata.columnBroadcastListName} TEXT,
-  ${DatabaseMetadata.columnBroadcastListMembersId} TEXT
+CREATE TABLE ${BroadcastListsMetadata.tableName} (
+  ${BroadcastListsMetadata.id} TEXT PRIMARY KEY,
+  ${BroadcastListsMetadata.name} TEXT,
+  ${BroadcastListsMetadata.membersId} TEXT
+)
+      ''');
+
+      await db.execute('''
+CREATE TABLE ${BroadcastsMetadata.tableName} (
+  ${BroadcastsMetadata.id} TEXT PRIMARY KEY,
+  ${BroadcastsMetadata.rank} INTEGER,
+  ${BroadcastsMetadata.broadcastListId} TEXT
+  ${BroadcastsMetadata.message} TEXT,
+  ${BroadcastsMetadata.dateHeure} TEXT
 )
       ''');
 
       /*
+
       // Create relationship table between member and broadcast list tables
       await db.execute('''
-CREATE TABLE ${DatabaseMetadata.tableBroadcastListsMembers} (
-  ${DatabaseMetadata.columnBroadcastListsMembersId} TEXT PRIMARY KEY,
-  ${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId} TEXT,
-  ${DatabaseMetadata.columnBroadcastListsMembersMemberId} TEXT,
-  FOREIGN KEY (${DatabaseMetadata.columnBroadcastListsMembersMemberId}) REFERENCES
-  ${DatabaseMetadata.tableMember} (${DatabaseMetadata.columnMemberId})
+CREATE TABLE ${BroadcastListMembersMetadata.tableName} (
+  ${BroadcastListMembersMetadata.id} TEXT PRIMARY KEY,
+  ${BroadcastListMembersMetadata.broadcastListId} TEXT,
+  ${BroadcastListMembersMetadata.memberId} TEXT,
+  FOREIGN KEY (${BroadcastListMembersMetadata.memberId}) REFERENCES
+  ${MembersMetadata.tableName} (${MembersMetadata.id})
   ON DELETE CASCADE,
-  FOREIGN KEY (${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId}) REFERENCES
-  ${DatabaseMetadata.tableBroadcastList} (${DatabaseMetadata.columnBroadcastListId})
+  FOREIGN KEY (${BroadcastListMembersMetadata.broadcastListId}) REFERENCES
+  ${BroadcastListsMetadata.tableName} (${BroadcastListsMetadata.id})
   ON DELETE CASCADE
 )
       '''); */

@@ -1,12 +1,12 @@
 import 'package:ccis_app/ccis_app.dart';
+import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
-import 'package:ccis_app/widgets/broadcastList/broadcast_list_list.dart';
-import 'package:ccis_app/widgets/broadcastList/broadcast_list_search.dart';
+import 'package:ccis_app/screens/broadcast_list/broadcast_list_add_edit_screen.dart';
+import 'package:ccis_app/widgets/broadcast_list/broadcast_list_list.dart';
+import 'package:ccis_app/widgets/broadcast_list/broadcast_list_search.dart';
 import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_app/screens/broadcastList/broadcast_list_add_edit_screen.dart';
-import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 
 class BroadcastListScreen extends StatefulWidget {
   BroadcastListScreen() : super(key: ArchSampleKeys.broadcastListScreen);

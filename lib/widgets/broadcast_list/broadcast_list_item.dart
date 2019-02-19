@@ -8,9 +8,9 @@ class BroadcastListItem extends StatelessWidget {
   final GestureTapCallback onTap;
   final BroadcastList broadcastList;
 
-  final String _simpleValue1 = 'Menu item value one';
-  final String _simpleValue2 = 'Menu item value two';
-  final String _simpleValue3 = 'Menu item value three';
+  final String _simpleValue1 = 'Action 1';
+  final String _simpleValue2 = 'Action 2';
+  final String _simpleValue3 = 'Action 3';
   String _simpleValue;
 
 
@@ -85,7 +85,7 @@ class BroadcastListItem extends StatelessWidget {
           style: Theme.of(context).textTheme.title,
         ),
         subtitle: Text(
-          broadcastList.name,
+          broadcastList.membersId.length.toString() + " " + ArchSampleLocalizations.of(context).membersWithOrWithoutS,
           key: ArchSampleKeys.memberItemSubhead(broadcastList.id),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

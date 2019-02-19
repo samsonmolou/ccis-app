@@ -7,55 +7,55 @@ import 'package:meta/meta.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Members and Persist members.
-class BroadcastListRepositoryFlutter implements BroadcastListRepository {
-  final BroadcastListMock broadcastListMock;
-  final BroadcastListSqlite sqlite;
+class BroadcastRepositoryFlutter implements BroadcastRepository {
+  final BroadcastMock broadcastMock;
+  final BroadcastSqlite sqlite;
 
-  const BroadcastListRepositoryFlutter({
+  const BroadcastRepositoryFlutter({
     @required this.sqlite,
-    this.broadcastListMock = const BroadcastListMock(),
+    this.broadcastMock = const BroadcastMock(),
   });
 
 
   /// Loads todos first from File storage. If they don't exist or encounter an
   /// error, it attempts to load the Members from a Web Client.
   @override
-  Future<List<BroadcastListEntity>> getAllBroadcastLists() async {
+  Future<List<BroadcastEntity>> getAllBroadcasts() async {
 
     try {
-      return await sqlite.getAllBroadcastLists();
+      return await sqlite.getAllBroadcasts();
     } catch (e) {
       print(e);
-      final broadcastLists = await broadcastListMock.fetchBroadcastLists();
+      final broadcasts = await broadcastMock.fetchBroadcasts();
 
-      broadcastLists.forEach((broadcastList) => sqlite.newBroadcastList(broadcastList));
+      broadcasts.forEach((broadcast) => sqlite.newBroadcast(broadcast));
 
-      return broadcastLists;
+      return broadcasts;
     }
   }
 
 
   /// Persists members to sqflite member table
   @override
-  Future newBroadcastList(BroadcastListEntity broadcastList) {
+  Future newBroadcast(BroadcastEntity broadcast) {
     return Future.wait<dynamic>([
-      sqlite.newBroadcastList(broadcastList)
+      sqlite.newBroadcast(broadcast)
     ]);
   }
 
   /// Update member into sqflite member table
   @override
-  Future updateBroadcastList(BroadcastListEntity broadcastList) {
+  Future updateBroadcast(BroadcastEntity broadcast) {
     return Future.wait<dynamic>([
-      sqlite.updateBroadcastList(broadcastList)
+      sqlite.updateBroadcast(broadcast)
     ]);
   }
 
   /// Delete member info sqflite member table
   @override
-  Future deleteBroadcastList(List<String> broadcastListId) {
+  Future deleteBroadcast(List<String> broadcastId) {
     return Future.wait<dynamic>([
-      sqlite.deleteBroadcastList(broadcastListId)
+      sqlite.deleteBroadcast(broadcastId)
     ]);
   }
 

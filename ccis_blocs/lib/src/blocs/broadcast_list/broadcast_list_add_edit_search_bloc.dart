@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:ccis_blocs/src/interactors/members_interactor.dart';
-import 'package:ccis_blocs/src/interactors/broadcast_list_interactor.dart';
-
 import 'package:ccis_blocs/src/helpers/search.dart';
+import 'package:ccis_blocs/src/interactors/broadcast_list_interactor.dart';
+import 'package:ccis_blocs/src/interactors/members_interactor.dart';
 import 'package:ccis_blocs/src/models/models.dart';
 import 'package:rxdart/rxdart.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:ccis_app/main.dart' as app;
-import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 
 void main() {
@@ -17,12 +17,11 @@ void main() {
           BroadcastListMemberInteractor(
               ReactiveBroadcastListMemberRepositoryFlutter(
                   repository: BroadcastListMemberRepositoryFlutter(
-                      sqlite: BroadcastListMemberSqlite())))
-      ),
-      broadcastListMembersInteractor: BroadcastListMemberInteractor(
-          ReactiveBroadcastListMemberRepositoryFlutter(
-              repository: BroadcastListMemberRepositoryFlutter(
-                  sqlite: BroadcastListMemberSqlite()))));
+                      sqlite: BroadcastListMemberSqlite())))),
+      broadcastInteractor: BroadcastInteractor(
+          ReactiveBroadcastsRepositoryFlutter(
+              repository:
+                  BroadcastRepositoryFlutter(sqlite: BroadcastSqlite()))));
 }
 
 class AnonymousUserRepository implements UserRepository {

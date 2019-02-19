@@ -28,7 +28,7 @@ class ReactiveBroadcastListsRepositoryFlutter implements ReactiveBroadcastListRe
   void _getAllBroadcastLists() {
     _loaded = true;
 
-    _repository.getAllBroadcastList().then((entities) {
+    _repository.getAllBroadcastLists().then((entities) {
       _subject.add(List<BroadcastListEntity>.unmodifiable(
       []..addAll(_subject.value ?? [])..addAll(entities),
       ));

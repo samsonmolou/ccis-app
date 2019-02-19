@@ -28,6 +28,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get broadcast => Intl.message(
+    'Diffusions',
+    name: 'diffusion',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get notFound => Intl.message(
     'Aucune correspondance',
     name: 'notFound',
@@ -108,6 +115,13 @@ class ArchSampleLocalizations {
   String get members => Intl.message(
     'Membres',
     name: 'members',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get membersWithOrWithoutS => Intl.message(
+    'Membre(s)',
+    name: 'membersWithOrWithoutS',
     args: [],
     locale: locale.toString(),
   );
