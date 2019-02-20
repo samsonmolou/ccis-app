@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 
 class BroadcastSearchDelegate extends SearchDelegate<String> {
   final BroadcastInteractor broadcastInteractor;
+  final RankInteractor rankInteractor;
 
   BroadcastSearchDelegate({
     @required this.broadcastInteractor,
+    @required this.rankInteractor
   });
 
   @override
@@ -52,6 +54,7 @@ class BroadcastSearchDelegate extends SearchDelegate<String> {
                       return BroadcastDetailScreen(
                         broadcastId: broadcastListId,
                         broadcastInteractor: this.broadcastInteractor,
+                        rankInteractor: this.rankInteractor,
                         initBloc: () => BroadcastBloc(this.broadcastInteractor),
                       );
                     },

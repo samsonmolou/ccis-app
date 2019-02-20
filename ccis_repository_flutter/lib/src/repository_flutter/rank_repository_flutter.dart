@@ -22,7 +22,6 @@ class RankRepositoryFlutter implements RankRepository {
   Future<RankEntity> getRank() async {
     //return await sqlite.getRank();
 
-
     try {
       return await sqlite.getRank();
     } catch (e) {
@@ -37,7 +36,6 @@ class RankRepositoryFlutter implements RankRepository {
   /// Update member into sqflite member table
   @override
   Future updateRank(RankEntity rank) {
-    // TODO: implement updateMember
     return Future.wait<dynamic>([
       sqlite.updateRank(rank)
     ]);

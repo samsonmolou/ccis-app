@@ -60,9 +60,16 @@ CREATE TABLE ${BroadcastsMetadata.tableName} (
 )
       ''');
 
+      ///this table must contain a single row. I use it for broadcast rank
       await db.execute('''
 CREATE TABLE ${RankMetadata.tableName} (
   ${RankMetadata.value} INTEGER
+)
+      ''');
+
+      await db.execute('''
+INSERT INTO ${RankMetadata.tableName} VALUES (
+  0
 )
       ''');
 

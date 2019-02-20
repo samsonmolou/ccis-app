@@ -12,12 +12,14 @@ class BroadcastDetailScreen extends StatefulWidget {
   final String broadcastId;
   final BroadcastBloc Function() initBloc;
   final BroadcastInteractor broadcastInteractor;
+  final RankInteractor rankInteractor;
 
-  BroadcastDetailScreen({
-    @required this.broadcastId,
-    @required this.initBloc,
-    @required this.broadcastInteractor,
-  }) : super(key: ArchSampleKeys.broadcastDetailsScreen);
+  BroadcastDetailScreen(
+      {@required this.broadcastId,
+      @required this.initBloc,
+      @required this.broadcastInteractor,
+      @required this.rankInteractor})
+      : super(key: ArchSampleKeys.broadcastDetailsScreen);
 
   @override
   BroadcastDetailScreenState createState() {
@@ -30,7 +32,6 @@ class BroadcastDetailScreenState extends State<BroadcastDetailScreen> {
 
   static final GlobalKey<ScaffoldState> _scaffoldKey =
       GlobalKey<ScaffoldState>();
-
 
   @override
   void initState() {
@@ -62,8 +63,7 @@ class BroadcastDetailScreenState extends State<BroadcastDetailScreen> {
             actions: [
               IconButton(
                 key: ArchSampleKeys.deleteBroadcastButton,
-                tooltip:
-                    ArchSampleLocalizations.of(context).deleteBroadcast,
+                tooltip: ArchSampleLocalizations.of(context).deleteBroadcast,
                 icon: Icon(Icons.delete),
                 onPressed: () {
                   broadcastBloc.deleteBroadcast.add(broadcast.id);
@@ -80,10 +80,9 @@ class BroadcastDetailScreenState extends State<BroadcastDetailScreen> {
                       builder: (context) {
                         return BroadcastAddEditScreen(
                           broadcast: broadcast,
-                          broadcastsInteractor:
-                              widget.broadcastInteractor,
-                          updateBroadcast:
-                              broadcastBloc.updateBroadcast.add,
+                          broadcastsInteractor: widget.broadcastInteractor,
+                          rankInteractor: widget.rankInteractor,
+                          updateBroadcast: broadcastBloc.updateBroadcast.add,
                           key: ArchSampleKeys.editBroadcastScreen,
                         );
                       },
@@ -96,9 +95,7 @@ class BroadcastDetailScreenState extends State<BroadcastDetailScreen> {
           body: Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
-              children: <Widget>[
-                Text("Hello World !")
-              ],
+              children: <Widget>[Text("Hello World !")],
             ),
           ),
         );

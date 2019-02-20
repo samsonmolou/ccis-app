@@ -33,9 +33,7 @@ class ReactiveRankRepositoryFlutter implements ReactiveRankRepository {
 
   @override
   Future<void> updateRank(RankEntity update) async {
-
     _subject.add(update);
-
     await _repository.updateRank(update);
   }
 }

@@ -10,7 +10,8 @@ void main({
   @required UserRepository userRepository,
   @required MembersInteractor membersInteractor,
   @required broadcastListsInteractor,
-  @required broadcastInteractor
+  @required broadcastInteractor,
+  @required rankInteractor,
 }) {
   runApp(UserInjector(
       userRepository: userRepository,
@@ -28,6 +29,7 @@ void main({
               membersInteractor: membersInteractor,
               broadcastListsInteractor: broadcastListsInteractor,
               broadcastInteractor: broadcastInteractor,
+              rankInteractor: rankInteractor,
             );
           },
         },

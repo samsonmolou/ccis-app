@@ -47,6 +47,7 @@ class BroadcastsList extends StatelessWidget {
                       broadcastId: broadcast.id,
                       broadcastInteractor:
                       BroadcastInjector.of(context).broadcastsInteractor,
+                      rankInteractor: BroadcastInjector.of(context).rankInteractor,
                       initBloc: () => BroadcastBloc(
                           BroadcastInjector.of(context).broadcastsInteractor),
                     );
@@ -80,6 +81,7 @@ class BroadcastsList extends StatelessWidget {
                 BroadcastsBlocProvider.of(context).updateBroadcast.add,
             broadcastsInteractor:
                 BroadcastInjector.of(context).broadcastsInteractor,
+            rankInteractor:  BroadcastInjector.of(context).rankInteractor,
             key: ArchSampleKeys.editBroadcastScreen,
           );
         },

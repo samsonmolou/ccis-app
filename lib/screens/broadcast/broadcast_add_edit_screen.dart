@@ -9,16 +9,19 @@ class BroadcastAddEditScreen extends StatefulWidget {
   final Broadcast broadcast;
   //TODO: remove this later, using context
   final BroadcastInteractor broadcastsInteractor;
+  //TODO: Make rankInteractor optional using editing state
+  final RankInteractor rankInteractor;
   final Function(Broadcast) addBroadcast;
   final Function(Broadcast) updateBroadcast;
 
-  BroadcastAddEditScreen({
-    Key key,
-    this.broadcast,
-    this.addBroadcast,
-    this.updateBroadcast,
-    @required this.broadcastsInteractor,
-  }) : super(key: key ?? ArchSampleKeys.addEditBroadcastScreen);
+  BroadcastAddEditScreen(
+      {Key key,
+      this.broadcast,
+      this.addBroadcast,
+      this.updateBroadcast,
+      @required this.broadcastsInteractor,
+      @required this.rankInteractor})
+      : super(key: key ?? ArchSampleKeys.addEditBroadcastScreen);
 
   @override
   _BroadcastAddEditScreen createState() => _BroadcastAddEditScreen();
@@ -37,6 +40,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final RankBloc rankBloc = RankBloc(widget.rankInteractor);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -45,34 +49,42 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
               : ArchSampleLocalizations.of(context).newBroadcastList,
         ),
         actions: <Widget>[
-          IconButton(
-            key: isEditing
-                ? ArchSampleKeys.saveNewBroadcastList
-                : ArchSampleKeys.saveNewBroadcastList,
-            icon: Icon(isEditing ? Icons.check : Icons.add),
-            tooltip: isEditing
-                ? ArchSampleLocalizations.of(context).saveChanges
-                : ArchSampleLocalizations.of(context).newBroadcastList,
-            onPressed: () {
-              final form = formKey.currentState;
-              if (form.validate()) {
-                form.save();
+          StreamBuilder<Rank>(
+            stream: rankBloc.getRank,
+            builder: (context, snapshot) {
+              final rank = snapshot.data;
+              return IconButton(
+                key: isEditing
+                    ? ArchSampleKeys.saveNewBroadcastList
+                    : ArchSampleKeys.saveNewBroadcastList,
+                icon: Icon(isEditing ? Icons.check : Icons.add),
+                tooltip: isEditing
+                    ? ArchSampleLocalizations.of(context).saveChanges
+                    : ArchSampleLocalizations.of(context).newBroadcastList,
+                onPressed: () {
+                  final form = formKey.currentState;
+                  if (form.validate()) {
+                    form.save();
 
-                if (isEditing) {
-                  widget.updateBroadcast(widget.broadcast.copyWith(
-                      message: _message,
-                      broadcastListId: _broadcastListId,
-                      dateHeure: formatDate(DateTime.now(),
-                          [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])));
-                } else {
-                  widget.addBroadcast(Broadcast(
-                      message: _message,
-                      broadcastListId: _broadcastListId,
-                      dateHeure: formatDate(DateTime.now(),
-                          [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])));
-                }
-                Navigator.pop(context);
-              }
+                    if (isEditing) {
+                      widget.updateBroadcast(widget.broadcast.copyWith(
+                          message: _message,
+                          broadcastListId: _broadcastListId,
+                          dateHeure: formatDate(DateTime.now(),
+                              [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])));
+                    } else {
+                      widget.addBroadcast(Broadcast(
+                          message: _message,
+                          rank: rank.value,
+                          broadcastListId: _broadcastListId,
+                          dateHeure: formatDate(DateTime.now(),
+                              [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])));
+                      rankBloc.updateRank.add(rank);
+                    }
+                    Navigator.pop(context);
+                  }
+                },
+              );
             },
           )
         ],

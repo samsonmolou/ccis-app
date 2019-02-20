@@ -35,6 +35,7 @@ class BroadcastScreenState extends State<BroadcastScreen> {
     //TODO: Revoir le passage des interacteurs
     BroadcastSearchDelegate delegate = BroadcastSearchDelegate(
       broadcastInteractor: BroadcastInjector.of(context).broadcastsInteractor,
+      rankInteractor: BroadcastInjector.of(context).rankInteractor
     );
 
     return Scaffold(
@@ -53,6 +54,7 @@ class BroadcastScreenState extends State<BroadcastScreen> {
                 addBroadcast: broadcastsBloc.addBroadcast.add,
                 broadcastsInteractor:
                     BroadcastInjector.of(context).broadcastsInteractor,
+                rankInteractor: BroadcastInjector.of(context).rankInteractor,
                 key: ArchSampleKeys.addBroadcastListScreen,
               );
             },

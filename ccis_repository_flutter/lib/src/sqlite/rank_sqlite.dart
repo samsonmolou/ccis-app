@@ -13,10 +13,10 @@ class RankSqlite {
     //TODO: Implement Demeter Law for less coupling
     Database db = await DBProvider.provider.database;
     var res = await db.query(RankMetadata.tableName);
+
     final rank = res.isNotEmpty
         ? res.map((r) => RankEntity.fromJson(r)).first
         : RankEntity(0);
-
     return rank;
   }
 

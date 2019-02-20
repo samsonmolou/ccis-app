@@ -21,12 +21,14 @@ class HomeScreen extends StatefulWidget {
   final MembersInteractor membersInteractor;
   final BroadcastListInteractor broadcastListsInteractor;
   final BroadcastInteractor broadcastInteractor;
+  final RankInteractor rankInteractor;
 
   HomeScreen(
       {@required this.repository,
       @required this.membersInteractor,
       @required this.broadcastListsInteractor,
-      @required this.broadcastInteractor})
+      @required this.broadcastInteractor,
+      @required this.rankInteractor})
       : super(key: ArchSampleKeys.homeScreen);
 
   @override
@@ -77,6 +79,7 @@ class HomeScreenState extends State<HomeScreen> {
                                     widget.broadcastListsInteractor,
                                 broadcastsInteractor:
                                     widget.broadcastInteractor,
+                                rankInteractor: widget.rankInteractor,
                                 child: BroadcastsBlocProvider(
                                   bloc: BroadcastsListBloc(
                                       widget.broadcastInteractor),
@@ -116,8 +119,7 @@ class HomeScreenState extends State<HomeScreen> {
                         title: Text(tab == AppTab.members
                             ? ArchSampleLocalizations.of(context).members
                             : tab == AppTab.broadcast
-                                ? ArchSampleLocalizations.of(context)
-                                    .broadcasts
+                                ? ArchSampleLocalizations.of(context).broadcasts
                                 : ArchSampleLocalizations.of(context)
                                     .broadcastList));
                   }).toList(),

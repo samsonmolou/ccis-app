@@ -6,12 +6,14 @@ class BroadcastInjector extends InheritedWidget {
   final BroadcastInteractor broadcastsInteractor;
   final BroadcastListInteractor broadcastListInteractor;
   final MembersInteractor membersInteractor;
+  final RankInteractor rankInteractor;
 
   BroadcastInjector({
     Key key,
     @required this.broadcastsInteractor,
     @required this.membersInteractor,
     @required this.broadcastListInteractor,
+    @required this.rankInteractor,
     @required Widget child,
   }) : super(key: key, child: child);
 
