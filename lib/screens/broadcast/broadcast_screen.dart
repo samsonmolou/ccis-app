@@ -1,14 +1,15 @@
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
-import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
-import 'package:ccis_app/screens/broadcast_list/broadcast_list_add_edit_screen.dart';
-import 'package:ccis_app/widgets/broadcast_list/broadcast_list_search.dart';
+import 'package:ccis_app/dependency_injector/broadcast_injector.dart';
+import 'package:ccis_app/providers/broadcasts_bloc_provider.dart';
+import 'package:ccis_app/screens/broadcast/broadcast_add_edit_screen.dart';
+import 'package:ccis_app/widgets/broadcast/broadcasts_list.dart';
+import 'package:ccis_app/widgets/broadcast/broadcast_search.dart';
 import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
 class BroadcastScreen extends StatefulWidget {
-  BroadcastScreen() : super(key: ArchSampleKeys.broadcastListScreen);
+  BroadcastScreen() : super(key: ArchSampleKeys.broadcastScreen);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,32 +30,30 @@ class BroadcastScreenState extends State<BroadcastScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final broadcastListsBloc = BroadcastListsBlocProvider.of(context);
+    final broadcastsBloc = BroadcastsBlocProvider.of(context);
     // Pour la gestion de la recherche d'une liste de diffusion
     //TODO: Revoir le passage des interacteurs
-    BroadcastListSearchDelegate delegate = BroadcastListSearchDelegate(
-        broadcastListinteractor:
-        BroadcastListInjector.of(context).broadcastListsInteractor,
-        membersInteractor: BroadcastListInjector.of(context).membersInteractor);
+    BroadcastSearchDelegate delegate = BroadcastSearchDelegate(
+      broadcastInteractor: BroadcastInjector.of(context).broadcastsInteractor,
+    );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(ArchSampleLocalizations.of(context).broadcast),
+        title: Text(ArchSampleLocalizations.of(context).broadcasts),
         actions: _buildActions(delegate),
       ),
       drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
-      body: Container(),
+      body: BroadcastsList(),
       floatingActionButton: FloatingActionButton(
-        key: ArchSampleKeys.addBroadcastListFab,
+        key: ArchSampleKeys.addBroadcastFab,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (_) {
-              return BroadcastListAddEditScreen(
-                addBroadcastList: broadcastListsBloc.addBroadcastList.add,
-                broadcastListsInteractor: BroadcastListInjector.of(context).broadcastListsInteractor,
+              return BroadcastAddEditScreen(
+                addBroadcast: broadcastsBloc.addBroadcast.add,
+                broadcastsInteractor:
+                    BroadcastInjector.of(context).broadcastsInteractor,
                 key: ArchSampleKeys.addBroadcastListScreen,
-                initSearchBloc: () => BroadcastListAddEditSearchBloc(
-                    BroadcastListInjector.of(context).membersInteractor, BroadcastListInjector.of(context).broadcastListsInteractor),
               );
             },
           ));
@@ -65,7 +64,7 @@ class BroadcastScreenState extends State<BroadcastScreen> {
     );
   }
 
-  List<Widget> _buildActions(BroadcastListSearchDelegate delegate) {
+  List<Widget> _buildActions(BroadcastSearchDelegate delegate) {
     return [
       IconButton(
         tooltip: ArchSampleLocalizations.of(context).searchBroadcastList,

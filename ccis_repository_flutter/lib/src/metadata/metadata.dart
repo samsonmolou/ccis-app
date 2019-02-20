@@ -4,3 +4,4 @@ export 'broadcasts_metadata.dart';
 export 'communities_metadata.dart';
 export 'members_metadata.dart';
 export 'studies_metadata.dart';
+export 'rank_metadata.dart';

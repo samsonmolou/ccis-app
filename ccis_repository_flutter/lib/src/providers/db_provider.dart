@@ -54,9 +54,15 @@ CREATE TABLE ${BroadcastListsMetadata.tableName} (
 CREATE TABLE ${BroadcastsMetadata.tableName} (
   ${BroadcastsMetadata.id} TEXT PRIMARY KEY,
   ${BroadcastsMetadata.rank} INTEGER,
-  ${BroadcastsMetadata.broadcastListId} TEXT
+  ${BroadcastsMetadata.broadcastListId} TEXT,
   ${BroadcastsMetadata.message} TEXT,
   ${BroadcastsMetadata.dateHeure} TEXT
+)
+      ''');
+
+      await db.execute('''
+CREATE TABLE ${RankMetadata.tableName} (
+  ${RankMetadata.value} INTEGER
 )
       ''');
 

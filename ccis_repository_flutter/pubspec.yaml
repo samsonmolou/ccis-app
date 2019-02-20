@@ -17,7 +17,7 @@ dependencies:
   rxdart: 0.18.0
   sqflite:
   path_provider:
-  xml:
+  date_format: ^1.0.6
 
 dev_dependencies:
   flutter_test:

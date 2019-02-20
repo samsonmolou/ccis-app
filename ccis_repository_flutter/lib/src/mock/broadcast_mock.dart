@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:date_format/date_format.dart';
 import 'package:ccis_repository/src/entity/broadcast_entity.dart';
 
 /// A class that is meant to represent a Client that would be used to call a Web
@@ -17,29 +17,29 @@ class BroadcastMock {
   Future<List<BroadcastEntity>> fetchBroadcasts() async {
     return Future.delayed(
         delay,
-            () => [
-          BroadcastEntity(
-              '1',
-              1,
-              '1',
-            'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
-            DateTime.now().toString()
-          ),
-          BroadcastEntity(
-            '2',
-            2,
-            '2',
-            'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
-            DateTime.now().toString()
-          ),
-          BroadcastEntity(
-            '3',
-            3,
-            '3',
-            'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
-            DateTime.now().toString()
-          ),
-        ]);
+        () => [
+              BroadcastEntity(
+                  '1',
+                  1,
+                  '1',
+                  'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
+                  formatDate(DateTime.now(),
+                      [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])),
+              BroadcastEntity(
+                  '2',
+                  2,
+                  '2',
+                  'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
+                  formatDate(DateTime.now(),
+                      [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])),
+              BroadcastEntity(
+                  '3',
+                  3,
+                  '3',
+                  'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
+                  formatDate(DateTime.now(),
+                      [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])),
+            ]);
   }
 
   /// Mock that returns true or false for success or failure. In this case,

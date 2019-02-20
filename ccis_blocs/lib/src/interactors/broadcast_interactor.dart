@@ -5,8 +5,9 @@ import 'package:ccis_repository/ccis_repository.dart';
 
 class BroadcastInteractor {
   final ReactiveBroadcastRepository repository;
+  final RankInteractor rankInteractor;
 
-  BroadcastInteractor(this.repository);
+  BroadcastInteractor(this.repository, this.rankInteractor);
 
   Stream<List<Broadcast>> get broadcasts {
     return repository
@@ -17,16 +18,23 @@ class BroadcastInteractor {
   Stream<Broadcast> broadcast(String id) {
     return broadcasts.map((broadcasts) {
       return broadcasts.firstWhere(
-            (broadcastList) => broadcastList.id == id,
+        (broadcastList) => broadcastList.id == id,
         orElse: () => null,
       );
     }).where((broadcast) => broadcast != null);
   }
 
+  Future<void> updateBroadcast(Broadcast broadcast) =>
+      repository.updateBroadcast(broadcast.toEntity());
 
-  Future<void> updateBroadcast(Broadcast broadcast) => repository.updateBroadcast(broadcast.toEntity());
+  Future<void> addNewBroadcast(Broadcast broadcast) {
+    this.rankInteractor.rank.first.then((Rank rank) {
+      broadcast = broadcast.copyWith(rank: rank.value);
+      this.rankInteractor.updateRank(rank);
+      return repository.addNewBroadcast(broadcast.toEntity());
+    });
 
-  Future<void> addNewBroadcast(Broadcast broadcast) => repository.addNewBroadcast(broadcast.toEntity());
+  }
 
   Future<void> deleteBroadcast(String id) => repository.deleteBroadcast([id]);
 }

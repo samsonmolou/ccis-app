@@ -5,17 +5,29 @@ class ArchSampleKeys {
   //Drawer
   static final navigationDrawer = const Key('__navigationDrawer__');
 
+  // Broadcast Screen
+  static final broadcastScreen = const Key('__broadcastScreen__');
+  static final broadcastsLoading = const Key('__broadcastsLoading__');
+  static final addBroadcastFab = const Key('__addBroadcastFab__');
+
+  // Add Broadcast Screen
+  static final addBroadcastScreen = const Key('__addBroadcastScreen__');
+
   // Broadcast List Screen
   static final broadcastListScreen = const Key('__broadcastListScreen__');
   static final broadcastLists = const Key('__broadcastListList__');
   static final broadcastListsLoading = const Key('__broadcastListsLoading__');
   static final addBroadcastListFab = const Key('__addBroadcastListFab__');
+
   static final broadcastListItemSubhead = (String id) => Key('BroadcastListItem__${id}__Subhead');
   static final broadcastListNameField = const Key('__broadcastListNameField__');
   static final addEditSearchField = const Key('__addEditSearchField__');
 
   // Add Edit BroadcastList Screen
   static final addEditBroadcastListScreen = const Key('__addEditBroadcastListScreen__');
+
+  // Add Edit Broadcast Screen
+  static final addEditBroadcastScreen = const Key('__addEditBroadcastScreen__');
 
 
   // Home Screens
@@ -42,11 +54,15 @@ class ArchSampleKeys {
   static final memberItemHead = (String id) => Key('MemberItem__${id}__Head');
   static final memberItemSubhead = (String id) => Key('MemberItem__${id}__Subhead');
 
+  // Broadcast
+
+  static final broadcastItemHead = (String id) => Key('BroadcastItem__${id}__Head');
 
   // Tabs
   static final tabs = const Key('__tabs__');
   static final membersTab = const Key('__membersTap__');
   static final broadcastListTab = const Key('__broadcastListTab__');
+  static final broadcastTab = const Key('__broadcastTab__');
 
   // Extra Actions
   static final extraActionsButton = const Key('__extraActionsButton__');
@@ -74,6 +90,11 @@ class ArchSampleKeys {
   static final detailsMemberItemPhoneNumber = Key('DetailsMember__PhoneNumber');
 
   // Broadcast Detail Screen
+  static final broadcastDetailsScreen = const Key('__broadcastDetailsScreen__');
+  static final deleteBroadcastButton = const Key('__deleteBroadcastButton__');
+  static final editBroadcastButton = const Key('__editBroadcastButton__');
+
+  // Broadcast List Detail Screen
   static final editBroadcastListButton = const Key('__editBroadcastListButton__');
   static final deleteBroadcastListButton = const Key('__deleteBroadcastListButton__');
   static final broadcastListDetailsScreen = const Key('__broadcastListDetailsScreen__');
@@ -103,6 +124,8 @@ class ArchSampleKeys {
   static final editBroadcastListScreen = const Key('__editBroadcastListScreen__');
   static final saveBroadcastIconButton = const Key('__saveBroadcastIconButton__');
 
+  // Edit Broadcast Screen
+  static final editBroadcastScreen = const Key('__editBroadcastScreen__');
 
   // Member Export Screen
   static final membersExportScreen = const Key('__membersExportScreen__');

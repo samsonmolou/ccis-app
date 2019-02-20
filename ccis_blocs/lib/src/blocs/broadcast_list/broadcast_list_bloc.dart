@@ -19,20 +19,20 @@ class BroadcastListBloc {
       );
 
   factory BroadcastListBloc(BroadcastListInteractor interactor) {
-    final removeMemberController = StreamController<String>(sync: true);
-    final updateMemberController = StreamController<BroadcastList>(sync: true);
+    final removeBroadcastListController = StreamController<String>(sync: true);
+    final updateBroadcastListController = StreamController<BroadcastList>(sync: true);
 
     final subscriptions = <StreamSubscription<dynamic>>[
       // When a user updates an item, update the repository
-      updateMemberController.stream.listen(interactor.updateBroadcastList),
+      updateBroadcastListController.stream.listen(interactor.updateBroadcastList),
 
       // When a user removes an item, remove it from the repository
-      removeMemberController.stream.listen(interactor.deleteBroadcastList),
+      removeBroadcastListController.stream.listen(interactor.deleteBroadcastList),
     ];
 
     return BroadcastListBloc._(
-      removeMemberController,
-      updateMemberController,
+      removeBroadcastListController,
+      updateBroadcastListController,
       interactor,
       subscriptions,
     );

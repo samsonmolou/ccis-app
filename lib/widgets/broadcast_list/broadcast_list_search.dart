@@ -35,7 +35,7 @@ class BroadcastListSearchDelegate extends SearchDelegate<String> {
     final broadcastListSearchBloc =
         BroadcastListSearchBloc(this.broadcastListinteractor);
 
-    if (query.isEmpty || query.length < 3) return new Container();
+    if (query.isEmpty || query.length < 3) return new Text(ArchSampleLocalizations.of(context).searchTextMinimum);
 
     broadcastListSearchBloc.searchBroadcastList.add(query);
 

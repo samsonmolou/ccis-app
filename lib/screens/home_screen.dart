@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
 import 'package:ccis_app/dependency_injector/member_injector.dart';
-import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
-import 'package:ccis_app/providers/members_bloc_provider.dart';
+import 'package:ccis_app/dependency_injector/broadcast_injector.dart';
+import 'package:ccis_app/providers/providers.dart';
 import 'package:ccis_app/screens/broadcast_list/broadcast_list_screen.dart';
 import 'package:ccis_app/screens/members/member_screen.dart';
+import 'package:ccis_app/screens/broadcast/broadcast_screen.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
@@ -41,7 +42,6 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     usersBloc = UserBloc(widget.repository);
     tabController = StreamController<AppTab>();
   }
@@ -58,7 +58,7 @@ class HomeScreenState extends State<HomeScreen> {
       stream: usersBloc.login(),
       builder: (context, userSnapshot) {
         return StreamBuilder<AppTab>(
-            initialData: AppTab.broadcastList,
+            initialData: AppTab.broadcast,
             stream: tabController.stream,
             builder: (context, activeTabSnapshot) {
               return Scaffold(
@@ -70,16 +70,28 @@ class HomeScreenState extends State<HomeScreen> {
                               bloc: MembersListBloc(widget.membersInteractor),
                               child: MemberScreen(),
                             ))
-                        : BroadcastListInjector(
-                            broadcastListsInteractor:
-                                widget.broadcastListsInteractor,
-                            membersInteractor: widget.membersInteractor,
-                            child: BroadcastListsBlocProvider(
-                              bloc: BroadcastListListBloc(
-                                  widget.broadcastListsInteractor),
-                              child: BroadcastListScreen(),
-                            ),
-                          )
+                        : activeTabSnapshot.data == AppTab.broadcast
+                            ? BroadcastInjector(
+                                membersInteractor: widget.membersInteractor,
+                                broadcastListInteractor:
+                                    widget.broadcastListsInteractor,
+                                broadcastsInteractor:
+                                    widget.broadcastInteractor,
+                                child: BroadcastsBlocProvider(
+                                  bloc: BroadcastsListBloc(
+                                      widget.broadcastInteractor),
+                                  child: BroadcastScreen(),
+                                ))
+                            : BroadcastListInjector(
+                                broadcastListsInteractor:
+                                    widget.broadcastListsInteractor,
+                                membersInteractor: widget.membersInteractor,
+                                child: BroadcastListsBlocProvider(
+                                  bloc: BroadcastListListBloc(
+                                      widget.broadcastListsInteractor),
+                                  child: BroadcastListScreen(),
+                                ),
+                              )
                     : SpinnerLoading(),
                 bottomNavigationBar: BottomNavigationBar(
                   key: ArchSampleKeys.tabs,
@@ -90,15 +102,24 @@ class HomeScreenState extends State<HomeScreen> {
                   items: AppTab.values.map((tab) {
                     return BottomNavigationBarItem(
                         icon: Icon(
-                          tab == AppTab.members ? Icons.people : Icons.list,
+                          tab == AppTab.members
+                              ? Icons.people
+                              : tab == AppTab.broadcast
+                                  ? Icons.message
+                                  : Icons.list,
                           key: tab == AppTab.members
                               ? ArchSampleKeys.membersTab
-                              : ArchSampleKeys.broadcastListTab,
+                              : tab == AppTab.broadcast
+                                  ? ArchSampleKeys.broadcastTab
+                                  : ArchSampleKeys.broadcastListTab,
                         ),
                         title: Text(tab == AppTab.members
                             ? ArchSampleLocalizations.of(context).members
-                            : ArchSampleLocalizations.of(context)
-                                .broadcastList));
+                            : tab == AppTab.broadcast
+                                ? ArchSampleLocalizations.of(context)
+                                    .broadcasts
+                                : ArchSampleLocalizations.of(context)
+                                    .broadcastList));
                   }).toList(),
                 ),
               );

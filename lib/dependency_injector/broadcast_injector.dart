@@ -3,15 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
 class BroadcastInjector extends InheritedWidget {
-  final BroadcastListInteractor broadcastListsInteractor;
-  //TODO: Check if it is good to do that
-  // I need this in broadcast add screen
+  final BroadcastInteractor broadcastsInteractor;
+  final BroadcastListInteractor broadcastListInteractor;
   final MembersInteractor membersInteractor;
 
   BroadcastInjector({
     Key key,
-    @required this.broadcastListsInteractor,
+    @required this.broadcastsInteractor,
     @required this.membersInteractor,
+    @required this.broadcastListInteractor,
     @required Widget child,
   }) : super(key: key, child: child);
 
@@ -20,5 +20,7 @@ class BroadcastInjector extends InheritedWidget {
 
   @override
   bool updateShouldNotify(BroadcastInjector oldWidget) =>
-      broadcastListsInteractor != oldWidget.broadcastListsInteractor;
+      broadcastsInteractor != oldWidget.broadcastsInteractor ||
+      membersInteractor != oldWidget.membersInteractor ||
+      broadcastListInteractor != oldWidget.broadcastListInteractor;
 }

@@ -1,12 +1,15 @@
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/screens/members/member_detail_screen.dart';
+import 'package:ccis_app/screens/broadcast/broadcast_detail_screen.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
-class SearchMemberSearchDelegate extends SearchDelegate<String> {
-  final MembersInteractor interactor;
-  SearchMemberSearchDelegate({@required this.interactor});
+class BroadcastSearchDelegate extends SearchDelegate<String> {
+  final BroadcastInteractor broadcastInteractor;
+
+  BroadcastSearchDelegate({
+    @required this.broadcastInteractor,
+  });
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -29,34 +32,35 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    //final memberSearchBloc = this.initBloc();
-    final memberSearchBloc = MemberSearchBloc(this.interactor);
+    final broadcastSearchBloc = BroadcastSearchBloc(this.broadcastInteractor);
 
-    if (query.isEmpty || query.length < 3) return new Text(ArchSampleLocalizations.of(context).searchTextMinimum);
+    if (query.isEmpty || query.length < 3)
+      return new Center(
+          child: Text(ArchSampleLocalizations.of(context).searchTextMinimum));
 
-    memberSearchBloc.searchMember.add(query);
+    broadcastSearchBloc.searchBroadcast.add(query);
 
-    return StreamBuilder<List<Member>>(
-      stream: memberSearchBloc.searchMemberResult,
+    return StreamBuilder<List<Broadcast>>(
+      stream: broadcastSearchBloc.searchBroadcastResult,
       builder: (context, snapshot) => snapshot.hasData
           ? _SuggestionList(
               query: query,
-              onSelected: (String memberSuggestionId) {
-                //TODO: Fix bug on return, we can't edit search field after we comeback from detail view
+              onSelected: (String broadcastListId) {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) {
-                      return MemberDetailScreen(
-                        memberId: memberSuggestionId,
-                        initBloc: () => MemberBloc(this.interactor),
+                      return BroadcastDetailScreen(
+                        broadcastId: broadcastListId,
+                        broadcastInteractor: this.broadcastInteractor,
+                        initBloc: () => BroadcastBloc(this.broadcastInteractor),
                       );
                     },
                   ),
                 );
               },
-              membersSuggestions: snapshot.data,
+              broadcastsSuggestions: snapshot.data,
             )
-          : SpinnerLoading(key: ArchSampleKeys.membersLoading),
+          : SpinnerLoading(key: ArchSampleKeys.broadcastsLoading),
     );
   }
 
@@ -83,48 +87,45 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
 }
 
 class _SuggestionList extends StatelessWidget {
-  const _SuggestionList({this.query, this.onSelected, this.membersSuggestions});
+  const _SuggestionList(
+      {this.query, this.onSelected, this.broadcastsSuggestions});
 
   final String query;
   final ValueChanged<String> onSelected;
-  final List<Member> membersSuggestions;
+  final List<Broadcast> broadcastsSuggestions;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return ListView.builder(
-      itemCount: membersSuggestions.length,
+      itemCount: broadcastsSuggestions.length,
       itemBuilder: (BuildContext context, int i) {
-        final Member memberSuggestion = membersSuggestions[i];
+        final Broadcast suggestedBroadcast = broadcastsSuggestions[i];
 
         return ListTile(
           leading: null,
           title: RichText(
             text: TextSpan(
-              text: memberSuggestion.fullName.substring(0, query.length),
+              text: suggestedBroadcast.message.substring(0, query.length),
               style:
                   theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
               children: <TextSpan>[
                 TextSpan(
-                  text: memberSuggestion.fullName.substring(query.length),
+                  text: suggestedBroadcast.message.substring(query.length),
                   style: theme.textTheme.subhead,
                 ),
               ],
             ),
           ),
           subtitle: Text(
-            memberSuggestion.residenceBedroom +
-                " - " +
-                memberSuggestion.community.name +
-                " - " +
-                memberSuggestion.phoneNumber,
-            key: ArchSampleKeys.memberItemSubhead(memberSuggestion.id),
+            suggestedBroadcast.message,
+            key: ArchSampleKeys.broadcastListItemSubhead(suggestedBroadcast.id),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.subhead,
           ),
           onTap: () {
-            onSelected(memberSuggestion.id);
+            onSelected(suggestedBroadcast.id);
           },
         );
       },

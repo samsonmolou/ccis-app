@@ -21,7 +21,9 @@ void main() {
       broadcastInteractor: BroadcastInteractor(
           ReactiveBroadcastsRepositoryFlutter(
               repository:
-                  BroadcastRepositoryFlutter(sqlite: BroadcastSqlite()))));
+                  BroadcastRepositoryFlutter(sqlite: BroadcastSqlite())),
+          RankInteractor(ReactiveRankRepositoryFlutter(
+              repository: RankRepositoryFlutter(sqlite: RankSqlite())))));
 }
 
 class AnonymousUserRepository implements UserRepository {

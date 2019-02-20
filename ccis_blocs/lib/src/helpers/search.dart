@@ -2,7 +2,7 @@ import 'package:ccis_blocs/src/models/models.dart';
 
 class Search {
   static searchMember(List<Member> members, String query) {
-    query = query.toLowerCase();
+    query = query.toLowerCase().trim();
     final Iterable<Member> results = members.where((member) =>
     member.fullName.toLowerCase().contains(query) ||
         member.study.name.toLowerCase().contains(query) ||

@@ -37,6 +37,7 @@ class ReactiveBroadcastsRepositoryFlutter implements ReactiveBroadcastRepository
 
   @override
   Future<void> addNewBroadcast(BroadcastEntity broadcast) async {
+
     _subject.add(List.unmodifiable([]
       ..addAll(_subject.value ?? [])
       ..add(broadcast)));

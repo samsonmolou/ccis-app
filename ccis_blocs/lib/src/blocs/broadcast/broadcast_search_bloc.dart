@@ -1,27 +1,27 @@
 import 'dart:async';
 
-import 'package:ccis_blocs/src/interactors/broadcast_list_interactor.dart';
+import 'package:ccis_blocs/src/interactors/broadcast_interactor.dart';
 import 'package:ccis_blocs/src/models/models.dart';
 import 'package:rxdart/rxdart.dart';
 
-class BroadcastListSearchBloc {
+class BroadcastSearchBloc {
   // Inputs
-  Sink<String> searchBroadcastList;
+  Sink<String> searchBroadcast;
 
   // Outputs
-  final Stream<List<BroadcastList>> searchBroadcastListResult;
+  final Stream<List<Broadcast>> searchBroadcastResult;
 
   //Cleanup
   final List<StreamSubscription<dynamic>> _subscriptions;
 
-  factory BroadcastListSearchBloc(BroadcastListInteractor interactor) {
+  factory BroadcastSearchBloc(BroadcastInteractor interactor) {
     // We'll use a series of StreamControllers to glue together our inputs and
     // outputs.
     //
     // StreamControllers have both a Sink and a Stream. We'll expose the Sinks
     // publicly so users can send information to the Bloc. We'll use the Streams
     // internally to react to that user input.
-    final searchBroadcastListController = BehaviorSubject<String>(sync: true);
+    final searchBroadcastController = BehaviorSubject<String>(sync: true);
 
     // In some cases, we need to simply route user interactions to our data
     // layer. In this case, we'll listen to the streams. In order to clean
@@ -35,26 +35,27 @@ class BroadcastListSearchBloc {
     // Every time the members or the search query changes the visible items will emit
     // once again. We also convert the normal Stream into a BehaviorSubject
     // so the Stream can be listened to multiple times
-    final searchBroadcastListResultController = BehaviorSubject<List<BroadcastList>>();
+    final searchBroadcastResultController = BehaviorSubject<List<Broadcast>>();
 
-    Observable.combineLatest2<List<BroadcastList>, String, List<BroadcastList>>(
-      interactor.broadcastLists,
-      searchBroadcastListController.stream,
-      _searchBroadcastLists,
-    ).pipe(searchBroadcastListResultController);
+    Observable.combineLatest2<List<Broadcast>, String, List<Broadcast>>(
+      interactor.broadcasts,
+      searchBroadcastController.stream,
+      _searchBroadcasts,
+    ).pipe(searchBroadcastResultController);
 
-    return BroadcastListSearchBloc._(
-        searchBroadcastListController, searchBroadcastListResultController, subscriptions);
+    return BroadcastSearchBloc._(searchBroadcastController,
+        searchBroadcastResultController, subscriptions);
   }
 
-  BroadcastListSearchBloc._(this.searchBroadcastList,
-      this.searchBroadcastListResult, this._subscriptions);
+  BroadcastSearchBloc._(
+      this.searchBroadcast, this.searchBroadcastResult, this._subscriptions);
 
-  static List<BroadcastList> _searchBroadcastLists(
-      List<BroadcastList> broadcastLists, String query) {
-    //TODO: Use search helpers instead
-    final Iterable<BroadcastList> suggestions = broadcastLists
-        .where((broadcastList) => broadcastList.name.trim().toLowerCase().contains(query.trim().toLowerCase()));
+  static List<Broadcast> _searchBroadcasts(
+      List<Broadcast> broadcasts, String query) {
+    //TODO: Use Search helpers instead
+    final Iterable<Broadcast> suggestions = broadcasts.where(
+        (broadcast) =>
+            broadcast.message.toLowerCase().trim().contains(query.trim().toLowerCase()));
 
     return suggestions.toList();
   }
@@ -63,7 +64,7 @@ class BroadcastListSearchBloc {
   // subscriptions. This ensures we free up resources and don't trigger odd
   // bugs.
   void close() {
-    searchBroadcastList.close();
+    searchBroadcast.close();
     _subscriptions.forEach((subscription) => subscription.cancel());
   }
 }

@@ -5,7 +5,7 @@ import 'package:ccis_blocs/src/models/models.dart';
 import 'package:rxdart/rxdart.dart';
 
 
-class BroadcastListBloc {
+class BroadcastsListBloc {
   // Data
 
   // Inputs
@@ -21,7 +21,7 @@ class BroadcastListBloc {
   // Cleanup
   final List<StreamSubscription<dynamic>> _subscriptions;
 
-  factory BroadcastListBloc(BroadcastInteractor interactor) {
+  factory BroadcastsListBloc(BroadcastInteractor interactor) {
     // We'll use a series of StreamControllers to glue together our inputs and
     // outputs.
     //
@@ -60,7 +60,7 @@ class BroadcastListBloc {
     )
         .pipe(searchBroadcastResultController);
 
-    return BroadcastListBloc._(
+    return BroadcastsListBloc._(
       addBroadcastListController,
       deleteBroadcastListController,
       updateBroadcastController,
@@ -71,7 +71,7 @@ class BroadcastListBloc {
     );
   }
 
-  BroadcastListBloc._(
+  BroadcastsListBloc._(
       this.addBroadcast,
       this.deleteBroadcast,
       this.updateBroadcast,

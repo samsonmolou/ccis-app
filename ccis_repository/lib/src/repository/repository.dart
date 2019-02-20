@@ -5,3 +5,4 @@ export 'communities_repository.dart';
 export 'members_repository.dart';
 export 'studies_repository.dart';
 export 'user_repository.dart';
+export 'rank_repository.dart';

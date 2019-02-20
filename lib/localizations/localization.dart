@@ -21,6 +21,14 @@ class ArchSampleLocalizations {
         context, ArchSampleLocalizations);
   }
 
+
+  String get searchTextMinimum => Intl.message(
+    'Doit comporter au minimum 3 caractères',
+    name: 'searchTextMinimum',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get home => Intl.message(
     'Accueil',
     name: 'home',
@@ -28,8 +36,15 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
-  String get broadcast => Intl.message(
+  String get broadcasts => Intl.message(
     'Diffusions',
+    name: 'diffusion',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get broadcast => Intl.message(
+    'Diffusion',
     name: 'diffusion',
     args: [],
     locale: locale.toString(),
@@ -294,6 +309,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get editBroadcast => Intl.message(
+    'Editer diffusion',
+    name: 'editBroadcast',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get editBroadcastList => Intl.message(
     'Editer la liste',
     name: 'editBroadcastList',
@@ -323,6 +345,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get deleteBroadcast => Intl.message(
+    'Supprimer cette diffusion',
+    name: 'deleteBroadcast',
+    args: [],
+    locale: locale.toString(),
+  );
+
 
 
   String get memberDetails => Intl.message(
@@ -337,6 +366,13 @@ class ArchSampleLocalizations {
     '"$member" supprimé',
     name: 'memberDeleted',
     args: [member],
+    locale: locale.toString(),
+  );
+
+  String broadcastDeleted(String broadcast) => Intl.message(
+    '"$broadcast" supprimé',
+    name: 'broadcastDeleted',
+    args: [broadcast],
     locale: locale.toString(),
   );
 

@@ -21,7 +21,7 @@ class BroadcastListDetailScreen extends StatefulWidget {
       @required this.membersInteractor,
       @required this.broadcastListInteractor,
       @required this.initSearchBloc})
-      : super(key: ArchSampleKeys.memberDetailsScreen);
+      : super(key: ArchSampleKeys.broadcastDetailsScreen);
 
   @override
   BroadcastListDetailScreenState createState() {

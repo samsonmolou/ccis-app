@@ -16,7 +16,7 @@ class MemberDetailScreen extends StatefulWidget {
   MemberDetailScreen({
     @required this.memberId,
     @required this.initBloc,
-  }) : super(key: ArchSampleKeys.memberDetailsScreen);
+  }) : super(key: ArchSampleKeys.broadcastDetailsScreen);
 
   @override
   MemberDetailScreenState createState() {

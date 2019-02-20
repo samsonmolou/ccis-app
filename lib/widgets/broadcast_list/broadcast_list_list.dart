@@ -1,6 +1,6 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/dependency_injector/broadcast_list_injector.dart';
-import 'package:ccis_app/providers/broadcast_list_bloc_provider.dart';
+import 'package:ccis_app/providers/broadcasts_list_bloc_provider.dart';
 import 'package:ccis_app/screens/broadcast_list/broadcast_list_add_edit_screen.dart';
 import 'package:ccis_app/screens/broadcast_list/broadcast_list_detail_screen.dart';
 import 'package:ccis_app/widgets/broadcast_list/broadcast_list_item.dart';

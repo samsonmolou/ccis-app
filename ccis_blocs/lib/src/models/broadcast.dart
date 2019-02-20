@@ -10,14 +10,14 @@ class Broadcast {
   final String message;
   final String dateHeure;
 
-  //TODO: make name required
+  //TODO: make field required
   Broadcast(
       {String id,
-      int rank = 0,
+      int rank,
       String broadcastListId = '',
       String message = '',
       String dateHeure = ''})
-      : this.rank = rank ?? 0,
+      : this.rank = rank,
         this.broadcastListId = broadcastListId ?? '',
         this.message = message ?? '',
         this.dateHeure = dateHeure ?? DateTime.now().toString(),
@@ -25,10 +25,10 @@ class Broadcast {
 
   Broadcast copyWith(
       {String id,
-      int rank = 0,
-      String broadcastListId = '',
-      String message = '',
-      String dateHeure = ''}) {
+      int rank,
+      String broadcastListId,
+      String message,
+      String dateHeure}) {
     return Broadcast(
         id: id ?? this.id,
         rank: rank ?? this.rank,
