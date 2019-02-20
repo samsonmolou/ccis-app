@@ -27,7 +27,6 @@ class RankRepositoryFlutter implements RankRepository {
     } catch (e) {
       print(e);
       final rank = await rankMock.fetchRank();
-      print(rank);
       sqlite.newRank(rank);
       return rank;
     }

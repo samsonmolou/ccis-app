@@ -14,7 +14,6 @@ class RankMock {
 
   /// Mock that "fetches" some broadcasts from a "web service" after a short delay
   Future<RankEntity> fetchRank() async {
-    print("hello");
     //TODO: Put this to 0 on release
     return Future.delayed(
       delay,

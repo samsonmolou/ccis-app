@@ -12,6 +12,8 @@ class ArchSampleKeys {
 
   // Add Broadcast Screen
   static final addBroadcastScreen = const Key('__addBroadcastScreen__');
+  static final broadcastNameField = const Key('__broadcastNameField__');
+  static final broadcastItem = (String id) => Key('BroadcastItem__${id}');
 
   // Broadcast List Screen
   static final broadcastListScreen = const Key('__broadcastListScreen__');

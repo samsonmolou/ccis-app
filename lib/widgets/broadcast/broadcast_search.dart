@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 class BroadcastSearchDelegate extends SearchDelegate<String> {
   final BroadcastInteractor broadcastInteractor;
   final RankInteractor rankInteractor;
+  final BroadcastListInteractor broadcastListInteractor;
 
   BroadcastSearchDelegate({
     @required this.broadcastInteractor,
-    @required this.rankInteractor
+    @required this.rankInteractor,
+    @required this.broadcastListInteractor
   });
 
   @override
@@ -55,6 +57,7 @@ class BroadcastSearchDelegate extends SearchDelegate<String> {
                         broadcastId: broadcastListId,
                         broadcastInteractor: this.broadcastInteractor,
                         rankInteractor: this.rankInteractor,
+                        broadcastListInteractor: this.broadcastListInteractor,
                         initBloc: () => BroadcastBloc(this.broadcastInteractor),
                       );
                     },
@@ -107,26 +110,20 @@ class _SuggestionList extends StatelessWidget {
 
         return ListTile(
           leading: null,
-          title: RichText(
-            text: TextSpan(
-              text: suggestedBroadcast.message.substring(0, query.length),
-              style:
-                  theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
-              children: <TextSpan>[
-                TextSpan(
-                  text: suggestedBroadcast.message.substring(query.length),
-                  style: theme.textTheme.subhead,
-                ),
-              ],
-            ),
+          title: Text(
+            suggestedBroadcast.name + " #" + suggestedBroadcast.rank.toString()                                                                                                                                                                                                                   ,
+            key: ArchSampleKeys.broadcastItemHead(suggestedBroadcast.id),
+            style: Theme.of(context).textTheme.title,
           ),
           subtitle: Text(
-            suggestedBroadcast.message,
-            key: ArchSampleKeys.broadcastListItemSubhead(suggestedBroadcast.id),
-            maxLines: 1,
+            '${suggestedBroadcast.dateTime} - ${suggestedBroadcast.broadcastListId}\n${suggestedBroadcast.message}',
+            key: ArchSampleKeys.memberItemSubhead(suggestedBroadcast.id),
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.subhead,
+
           ),
+          isThreeLine: true,
           onTap: () {
             onSelected(suggestedBroadcast.id);
           },

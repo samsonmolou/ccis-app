@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:ccis_app/ccis_app.dart';
-import 'package:ccis_app/widgets/shared/spinner_loading.dart';
+import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +12,14 @@ class MemberAddEditScreen extends StatefulWidget {
   final CommunitiesInteractor communitiesInteractor;
   final StudiesInteractor studiesInteractor;
 
-  MemberAddEditScreen({
-    Key key,
-    this.member,
-    this.addMember,
-    this.updateTodo,
-    this.communitiesInteractor,
-    this.studiesInteractor
-  }) : super(key: key ?? ArchSampleKeys.addMemberScreen);
+  MemberAddEditScreen(
+      {Key key,
+      this.member,
+      this.addMember,
+      this.updateTodo,
+      this.communitiesInteractor,
+      this.studiesInteractor})
+      : super(key: key ?? ArchSampleKeys.addMemberScreen);
 
   @override
   _MemberAddEditScreen createState() => _MemberAddEditScreen();
@@ -47,7 +47,6 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
     studiesListBloc = StudiesListBloc(widget.studiesInteractor);
     _community = widget.member != null ? widget.member.community : _community;
     _study = widget.member != null ? widget.member.study : _study;
-
   }
 
   @override
@@ -62,8 +61,8 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
         actions: <Widget>[
           IconButton(
             key: isEditing
-              ? ArchSampleKeys.saveMemberFab
-              : ArchSampleKeys.saveNewMember,
+                ? ArchSampleKeys.saveMemberFab
+                : ArchSampleKeys.saveNewMember,
             icon: Icon(isEditing ? Icons.check : Icons.add),
             tooltip: isEditing
                 ? ArchSampleLocalizations.of(context).saveChanges
@@ -84,14 +83,14 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                       study: _study));
                 } else {
                   widget.addMember(Member(
-                      firstName: _firstName,
-                      secondName: _secondName,
-                      phoneNumber: _phoneNumber,
-                      residence: _residence,
-                      bedroomNumber: _bedroomNumber,
-                      community: _community,
-                      study: _study,
-                      ));
+                    firstName: _firstName,
+                    secondName: _secondName,
+                    phoneNumber: _phoneNumber,
+                    residence: _residence,
+                    bedroomNumber: _bedroomNumber,
+                    community: _community,
+                    study: _study,
+                  ));
                 }
                 Navigator.pop(context);
               }
@@ -114,7 +113,6 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                     widget.member != null ? widget.member.firstName : '',
                 key: ArchSampleKeys.firstNameField,
                 autofocus: isEditing ? false : true,
-
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context)
                       .newMemberFirstNameHint,
@@ -132,7 +130,6 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                     widget.member != null ? widget.member.secondName : '',
                 key: ArchSampleKeys.secondNameField,
                 autofocus: isEditing ? false : true,
-
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context)
                       .newMemberSecondNameHint,
@@ -150,7 +147,6 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
                     widget.member != null ? widget.member.phoneNumber : '',
                 key: ArchSampleKeys.phoneNumberField,
                 autofocus: isEditing ? false : true,
-
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context)
                       .newMemberPhoneNumberHint,
@@ -199,60 +195,64 @@ class _MemberAddEditScreen extends State<MemberAddEditScreen> {
               ),
               StreamBuilder(
                 stream: communitiesListBloc.communities,
-                builder: (context, snapshot) => snapshot.hasData ? DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context)
-                        .newMemberCommunityHint,
-                    labelText: ArchSampleLocalizations.of(context)
-                        .newMemberCommunityLabel,
-                    icon: Icon(Icons.people),
-                  ),
-                  validator: (val) => val == null
-                      ? ArchSampleLocalizations.of(context).emptyMemberError
-                      : null,
-                  items: snapshot.data.map<DropdownMenuItem<Community>>((Community value) {
-                    return DropdownMenuItem<Community>(
-                        value: value,
-                        child: Text(value.name)
-                    );
-                  }).toList(),
-                  onChanged: (Community newValue) {
-                    setState(() {
-                      _community = newValue;
-                    });
-                  },
-                  value: _community,
-                  onSaved: (Community value) => _community = value,
-                ) : SpinnerLoading(),
+                builder: (context, snapshot) => snapshot.hasData
+                    ? DropdownButtonFormField(
+                        decoration: InputDecoration(
+                          hintText: ArchSampleLocalizations.of(context)
+                              .newMemberCommunityHint,
+                          labelText: ArchSampleLocalizations.of(context)
+                              .newMemberCommunityLabel,
+                          icon: Icon(Icons.people),
+                        ),
+                        validator: (val) => val == null
+                            ? ArchSampleLocalizations.of(context)
+                                .emptyMemberError
+                            : null,
+                        items: snapshot.data.map<DropdownMenuItem<Community>>(
+                            (Community value) {
+                          return DropdownMenuItem<Community>(
+                              value: value, child: Text(value.name));
+                        }).toList(),
+                        onChanged: (Community newValue) {
+                          setState(() {
+                            _community = newValue;
+                          });
+                        },
+                        value: _community,
+                        onSaved: (Community value) => _community = value,
+                      )
+                    : LinearLoading(),
               ),
               StreamBuilder(
                 stream: studiesListBloc.studies,
-                builder: (context, snapshot) => snapshot.hasData ? DropdownButtonFormField(
-                  key: ArchSampleKeys.studyField,
-                  decoration: InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context)
-                        .newMemberStudyHint,
-                    labelText: ArchSampleLocalizations.of(context)
-                        .newMemberStudyLabel,
-                    icon: Icon(Icons.school),
-                  ),
-                  validator: (val) => val == null
-                      ? ArchSampleLocalizations.of(context).emptyMemberError
-                      : null,
-                  items: snapshot.data.map<DropdownMenuItem<Study>>((Study value) {
-                    return DropdownMenuItem<Study>(
-                        value: value,
-                        child: Text(value.name)
-                    );
-                  }).toList(),
-                  onChanged: (Study newValue) {
-                    setState(() {
-                      _study = newValue;
-                    });
-                  },
-                  value: _study,
-                  onSaved: (Study value) => _study = value,
-                ) : SpinnerLoading(),
+                builder: (context, snapshot) => snapshot.hasData
+                    ? DropdownButtonFormField(
+                        key: ArchSampleKeys.studyField,
+                        decoration: InputDecoration(
+                          hintText: ArchSampleLocalizations.of(context)
+                              .newMemberStudyHint,
+                          labelText: ArchSampleLocalizations.of(context)
+                              .newMemberStudyLabel,
+                          icon: Icon(Icons.school),
+                        ),
+                        validator: (val) => val == null
+                            ? ArchSampleLocalizations.of(context)
+                                .emptyMemberError
+                            : null,
+                        items: snapshot.data
+                            .map<DropdownMenuItem<Study>>((Study value) {
+                          return DropdownMenuItem<Study>(
+                              value: value, child: Text(value.name));
+                        }).toList(),
+                        onChanged: (Study newValue) {
+                          setState(() {
+                            _study = newValue;
+                          });
+                        },
+                        value: _study,
+                        onSaved: (Study value) => _study = value,
+                      )
+                    : LinearLoading(),
               ),
             ],
           ),

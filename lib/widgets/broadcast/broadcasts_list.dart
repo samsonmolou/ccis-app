@@ -22,7 +22,7 @@ class BroadcastsList extends StatelessWidget {
   }
 
   ListView _buildList(List<Broadcast> broadcasts) {
-    broadcasts.sort((a, b) => b.dateHeure.compareTo(a.dateHeure));
+    broadcasts.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return ListView.builder(
       key: ArchSampleKeys.broadcastLists,
       itemCount: broadcasts.length,
@@ -39,6 +39,7 @@ class BroadcastsList extends StatelessWidget {
             onDismissed: (direction) {
               _removeBroadcastList(context, broadcast);
             },
+            broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -48,6 +49,7 @@ class BroadcastsList extends StatelessWidget {
                       broadcastInteractor:
                       BroadcastInjector.of(context).broadcastsInteractor,
                       rankInteractor: BroadcastInjector.of(context).rankInteractor,
+                      broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
                       initBloc: () => BroadcastBloc(
                           BroadcastInjector.of(context).broadcastsInteractor),
                     );
@@ -79,9 +81,10 @@ class BroadcastsList extends StatelessWidget {
             broadcast: broadcast,
             updateBroadcast:
                 BroadcastsBlocProvider.of(context).updateBroadcast.add,
-            broadcastsInteractor:
+            broadcastInteractor:
                 BroadcastInjector.of(context).broadcastsInteractor,
             rankInteractor:  BroadcastInjector.of(context).rankInteractor,
+            broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
             key: ArchSampleKeys.editBroadcastScreen,
           );
         },

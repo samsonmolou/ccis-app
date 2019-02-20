@@ -5,10 +5,11 @@ class BroadcastEntity {
   final String message;
   final String broadcastListId;
   final int rank;
-  final String dateHeure;
+  final String dateTime;
+  final String name;
 
   BroadcastEntity(
-      this.id, this.rank, this.broadcastListId, this.message, this.dateHeure);
+      this.id, this.rank, this.broadcastListId, this.message, this.dateTime, this.name);
 
   @override
   bool operator ==(Object other) =>
@@ -18,7 +19,8 @@ class BroadcastEntity {
           id == other.id &&
           rank == other.rank &&
           broadcastListId == other.broadcastListId &&
-          dateHeure == other.dateHeure;
+          dateTime == other.dateTime &&
+          name == other.name;
 
   @override
   int get hashCode =>
@@ -26,7 +28,8 @@ class BroadcastEntity {
       rank.hashCode ^
       broadcastListId.hashCode ^
       message.hashCode ^
-      dateHeure.hashCode;
+      dateTime.hashCode ^
+      name.hashCode;
 
   @override
   String toString() {
@@ -34,7 +37,8 @@ class BroadcastEntity {
         'id: $id, '
         'rank: $rank, '
         'broadcastListId: $broadcastListId, '
-        'dateHeure: $dateHeure}';
+        'dateTime: $dateTime'
+        'name: $name}';
   }
 
   static BroadcastEntity fromJson(Map<String, Object> json) {
@@ -43,7 +47,8 @@ class BroadcastEntity {
         json["rank"] as int,
         json["broadcastListId"] as String,
         json["message"] as String,
-        json["dateHeure"] as String);
+        json["dateHeure"] as String,
+        json["name"] as String);
   }
 
   Map<String, Object> toJson() {
@@ -52,7 +57,8 @@ class BroadcastEntity {
       "rank": rank,
       "broadcastListId": broadcastListId,
       "message": message,
-      "dateHeure": dateHeure
+      "dateTime": dateTime,
+      "name": name
     };
   }
 }

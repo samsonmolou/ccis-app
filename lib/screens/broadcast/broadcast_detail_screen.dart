@@ -13,12 +13,14 @@ class BroadcastDetailScreen extends StatefulWidget {
   final BroadcastBloc Function() initBloc;
   final BroadcastInteractor broadcastInteractor;
   final RankInteractor rankInteractor;
+  final BroadcastListInteractor broadcastListInteractor;
 
   BroadcastDetailScreen(
       {@required this.broadcastId,
       @required this.initBloc,
       @required this.broadcastInteractor,
-      @required this.rankInteractor})
+      @required this.rankInteractor,
+      @required this.broadcastListInteractor})
       : super(key: ArchSampleKeys.broadcastDetailsScreen);
 
   @override
@@ -59,7 +61,9 @@ class BroadcastDetailScreenState extends State<BroadcastDetailScreen> {
         return Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
-            title: Text(broadcast.message),
+            title: Text(broadcast.name +
+                " #" +
+                broadcast.rank.toString()),
             actions: [
               IconButton(
                 key: ArchSampleKeys.deleteBroadcastButton,
@@ -80,7 +84,9 @@ class BroadcastDetailScreenState extends State<BroadcastDetailScreen> {
                       builder: (context) {
                         return BroadcastAddEditScreen(
                           broadcast: broadcast,
-                          broadcastsInteractor: widget.broadcastInteractor,
+                          broadcastInteractor: widget.broadcastInteractor,
+                          broadcastListInteractor:
+                              widget.broadcastListInteractor,
                           rankInteractor: widget.rankInteractor,
                           updateBroadcast: broadcastBloc.updateBroadcast.add,
                           key: ArchSampleKeys.editBroadcastScreen,

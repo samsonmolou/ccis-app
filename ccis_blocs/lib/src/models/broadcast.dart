@@ -2,13 +2,15 @@ import 'package:ccis_blocs/src/helpers/uuid.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 import 'package:meta/meta.dart';
 
+
 @immutable
 class Broadcast {
   final String id;
   final int rank;
   final String broadcastListId;
   final String message;
-  final String dateHeure;
+  final String dateTime;
+  final String name;
 
   //TODO: make field required
   Broadcast(
@@ -16,11 +18,13 @@ class Broadcast {
       int rank,
       String broadcastListId = '',
       String message = '',
-      String dateHeure = ''})
+      String dateTime = '',
+      String name = ''})
       : this.rank = rank,
         this.broadcastListId = broadcastListId ?? '',
         this.message = message ?? '',
-        this.dateHeure = dateHeure ?? DateTime.now().toString(),
+        this.dateTime = dateTime ?? DateTime.now().toString(),
+        this.name = name ?? '',
         this.id = id ?? Uuid().generateV4();
 
   Broadcast copyWith(
@@ -28,13 +32,15 @@ class Broadcast {
       int rank,
       String broadcastListId,
       String message,
-      String dateHeure}) {
+      String dateTime,
+      String name}) {
     return Broadcast(
         id: id ?? this.id,
         rank: rank ?? this.rank,
         broadcastListId: broadcastListId ?? this.broadcastListId,
         message: message ?? this.message,
-        dateHeure: dateHeure ?? this.dateHeure);
+        dateTime: dateTime ?? this.dateTime,
+        name: name ?? this.name);
   }
 
   @override
@@ -43,7 +49,8 @@ class Broadcast {
         rank.hashCode ^
         broadcastListId.hashCode ^
         message.hashCode ^
-        dateHeure.hashCode;
+        dateTime.hashCode ^
+        name.hashCode;
   }
 
   @override
@@ -55,7 +62,8 @@ class Broadcast {
             rank == other.rank &&
             broadcastListId == other.broadcastListId &&
             message == other.message &&
-            dateHeure == other.dateHeure;
+            dateTime == other.dateTime &&
+            name == other.name;
   }
 
   @override
@@ -64,11 +72,11 @@ class Broadcast {
         'rank: $rank'
         'broadcastListId: $broadcastListId'
         'message: $message'
-        'dateHeure: $dateHeure}';
+        'dateTime: $dateTime}';
   }
 
   BroadcastEntity toEntity() {
-    return BroadcastEntity(id, rank, broadcastListId, message, dateHeure);
+    return BroadcastEntity(id, rank, broadcastListId, message, dateTime, name);
   }
 
   static Broadcast fromEntity(BroadcastEntity entity) {
@@ -77,8 +85,8 @@ class Broadcast {
         rank: entity.rank,
         broadcastListId: entity.broadcastListId,
         message: entity.message,
-        dateHeure: entity.dateHeure
-    );
+        dateTime: entity.dateTime,
+        name: entity.name);
 
     return broadcast;
   }

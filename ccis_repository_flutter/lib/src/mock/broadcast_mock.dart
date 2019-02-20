@@ -23,22 +23,22 @@ class BroadcastMock {
                   1,
                   '1',
                   'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
-                  formatDate(DateTime.now(),
-                      [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])),
+                  DateTime.now().toString(),
+                  'Diffusion'),
               BroadcastEntity(
                   '2',
                   2,
                   '2',
                   'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
-                  formatDate(DateTime.now(),
-                      [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])),
+                  DateTime.now().toString(),
+                  'Diffusion'),
               BroadcastEntity(
                   '3',
                   3,
                   '3',
                   'Hello @nom, @prenom, @telephone, @communaute, @filiere, @residence, @chambre',
-                  formatDate(DateTime.now(),
-                      [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])),
+                  DateTime.now().toString(),
+                  'Diffusion'),
             ]);
   }
 

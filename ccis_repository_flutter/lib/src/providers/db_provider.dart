@@ -56,7 +56,8 @@ CREATE TABLE ${BroadcastsMetadata.tableName} (
   ${BroadcastsMetadata.rank} INTEGER,
   ${BroadcastsMetadata.broadcastListId} TEXT,
   ${BroadcastsMetadata.message} TEXT,
-  ${BroadcastsMetadata.dateHeure} TEXT
+  ${BroadcastsMetadata.dateTime} TEXT,
+  ${BroadcastsMetadata.name} TEXT
 )
       ''');
 
@@ -67,11 +68,7 @@ CREATE TABLE ${RankMetadata.tableName} (
 )
       ''');
 
-      await db.execute('''
-INSERT INTO ${RankMetadata.tableName} VALUES (
-  0
-)
-      ''');
+
 
       /*
 

@@ -8,5 +8,6 @@ class BroadcastsMetadata {
   static final String rank = "rank";
   static final String broadcastListId = "broadcastListId";
   static final String message = "message";
-  static final String dateHeure = "dateHeure";
+  static final String dateTime = "dateTime";
+  static final String name = "name";
 }

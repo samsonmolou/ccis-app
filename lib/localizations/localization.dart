@@ -162,6 +162,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get newBroadcastNameHint => Intl.message(
+    'Quel est le nom de la diffusion ?',
+    name: 'newBroadcastNameHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberSecondNameHint => Intl.message(
     'Quel est votre prénom ?',
     name: 'newMemberSecondNameHint',
@@ -218,6 +225,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get selectBroadcastListHint => Intl.message(
+    'A quelle liste de diffusion voulez-vous envoyer le message ?',
+    name: 'selectBroadcastList',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberStudyHint => Intl.message(
     'Quel est votre filière ?',
     name: 'newMemberStudyHint',
@@ -235,6 +249,13 @@ class ArchSampleLocalizations {
   String get newBroadcastListNameLabel => Intl.message(
     'Nom de la liste',
     name: 'newBroadcastListNameLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newBroadcastNameLabel => Intl.message(
+    'Nom de la diffusion',
+    name: 'newBroadcastNameLabel',
     args: [],
     locale: locale.toString(),
   );
@@ -274,6 +295,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get selectBroadcastListLabel => Intl.message(
+    'Liste de diffusion',
+    name: 'selectBroadcastListLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberStudyLabel => Intl.message(
     'Filière',
     name: 'newMemberStudyLabel',
@@ -297,7 +325,14 @@ class ArchSampleLocalizations {
 
   String get newBroadcastList => Intl.message(
     'Nouvelle liste',
-    name: 'addBroadcastList',
+    name: 'newBroadcastList',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newBroadcast => Intl.message(
+    'Nouvelle diffusion',
+    name: 'newBroadcast',
     args: [],
     locale: locale.toString(),
   );
@@ -310,7 +345,7 @@ class ArchSampleLocalizations {
   );
 
   String get editBroadcast => Intl.message(
-    'Editer diffusion',
+    'Editer la diffusion',
     name: 'editBroadcast',
     args: [],
     locale: locale.toString(),
@@ -322,6 +357,7 @@ class ArchSampleLocalizations {
     args: [],
     locale: locale.toString(),
   );
+
 
   String get saveChanges => Intl.message(
     'Enregistrer les changements',
@@ -433,9 +469,23 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get emptySelectedBroadcastListError => Intl.message(
+    'Vous devez sélectionné une liste de diffusion',
+    name: 'emptySelectedBroadcastListError',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get emptyBroadcastListNameError => Intl.message(
     'Veuillez entrer un texte',
     name: 'emptyBroadcastListNameError',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get emptyBroadcastNameError => Intl.message(
+    'Veuillez entrer un texte',
+    name: 'emptyBroadcastNameError',
     args: [],
     locale: locale.toString(),
   );
