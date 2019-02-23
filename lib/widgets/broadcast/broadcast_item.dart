@@ -2,7 +2,7 @@ import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:date_format/date_format.dart';
+import 'package:ccis_app/helpers/date_format.dart';
 import 'package:ccis_app/widgets/shared/linear_loading.dart';
 
 class BroadcastItem extends StatelessWidget {
@@ -35,7 +35,8 @@ class BroadcastItem extends StatelessWidget {
     return StreamBuilder<BroadcastList>(
       stream: broadcastListBloc.broadcastList(broadcast.broadcastListId),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearLoading();
+
+        if (!snapshot.hasData) return Container();
 
         final broadcastList = snapshot.data;
 
@@ -62,9 +63,8 @@ class BroadcastItem extends StatelessWidget {
               style: Theme.of(context).textTheme.title,
             ),
             subtitle: Text(
-              '${formatDate(DateTime.parse(broadcast.dateTime),
-                  [d, '-', M, '-', yyyy, ' ', HH, ':', nn, ':', ss])} '
-                  '- ${broadcastList.name}\n${broadcast.message}',
+              '${DateFormat.getDateFormat(broadcast.dateTime)}'
+                  ' - ${broadcastList.name}\n${broadcast.message}',
               key: ArchSampleKeys.memberItemSubhead(broadcast.id),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -72,7 +72,6 @@ class BroadcastItem extends StatelessWidget {
 
             ),
             isThreeLine: true,
-
           ),
         );
       },

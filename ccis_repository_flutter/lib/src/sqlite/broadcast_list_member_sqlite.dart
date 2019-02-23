@@ -6,7 +6,6 @@ import 'package:ccis_repository_flutter/src/providers/db_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BroadcastListMemberSqlite {
-
   const BroadcastListMemberSqlite();
 
   Future<List<BroadcastListMemberEntity>> getAllBroadcastListMembers() async {
@@ -15,27 +14,30 @@ class BroadcastListMemberSqlite {
     var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers);
     final broadcastListMembers = res.isNotEmpty
         ? res
-        .map((broadcastListMember) => BroadcastListMemberEntity.fromJson(broadcastListMember))
-        .toList()
+            .map((broadcastListMember) =>
+                BroadcastListMemberEntity.fromJson(broadcastListMember))
+            .toList()
         : [];
 
     return broadcastListMembers;
   }
 
-  Future newBroadcastListMember(BroadcastListMemberEntity newBroadcastListMember) async {
+  Future newBroadcastListMember(
+      BroadcastListMemberEntity newBroadcastListMember) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    var res = await db.insert(
-        DatabaseMetadata.tableBroadcastListsMembers, newBroadcastListMember.toJson());
+    var res = await db.insert(DatabaseMetadata.tableBroadcastListsMembers,
+        newBroadcastListMember.toJson());
 
     return res;
   }
 
-  Future updateBroadcastListMember(BroadcastListMemberEntity broadcastListMember) async {
+  Future updateBroadcastListMember(
+      BroadcastListMemberEntity broadcastListMember) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    var res = await db.update(
-        DatabaseMetadata.tableBroadcastListsMembers, broadcastListMember.toJson(),
+    var res = await db.update(DatabaseMetadata.tableBroadcastListsMembers,
+        broadcastListMember.toJson(),
         where: '''${DatabaseMetadata.columnBroadcastListsMembersId} = ?''',
         whereArgs: [broadcastListMember.id]);
 
@@ -50,31 +52,37 @@ class BroadcastListMemberSqlite {
         whereArgs: broadcastListMemberId);
   }
 
-  Future<List<BroadcastListMemberEntity>> getBroadcastListMembersByBroadcastListId(String broadcastListId) async {
+  Future<List<BroadcastListMemberEntity>>
+      getBroadcastListMembersByBroadcastListId(String broadcastListId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
     var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers,
-        where: '''${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId} = ?''',
+        where:
+            '''${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId} = ?''',
         whereArgs: [broadcastListId]);
     final broadcastListMembersByBroadcastId = res.isNotEmpty
         ? res
-        .map((broadcastListMember) => BroadcastListMemberEntity.fromJson(broadcastListMember))
-        .toList()
+            .map((broadcastListMember) =>
+                BroadcastListMemberEntity.fromJson(broadcastListMember))
+            .toList()
         : [];
 
     return broadcastListMembersByBroadcastId;
   }
 
-  Future<List<BroadcastListMemberEntity>> getBroadcastListMembersByMemberId(String memberId) async {
+  Future<List<BroadcastListMemberEntity>> getBroadcastListMembersByMemberId(
+      String memberId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
     var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers,
-        where: '''${DatabaseMetadata.columnBroadcastListsMembersMemberId} = ?''',
+        where:
+            '''${DatabaseMetadata.columnBroadcastListsMembersMemberId} = ?''',
         whereArgs: [memberId]);
     final broadcastListMembersByMemberId = res.isNotEmpty
         ? res
-        .map((broadcastListMember) => BroadcastListMemberEntity.fromJson(broadcastListMember))
-        .toList()
+            .map((broadcastListMember) =>
+                BroadcastListMemberEntity.fromJson(broadcastListMember))
+            .toList()
         : [];
 
     return broadcastListMembersByMemberId;

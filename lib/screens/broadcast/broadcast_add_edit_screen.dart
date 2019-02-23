@@ -48,12 +48,13 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
         BroadcastListListBloc(widget.broadcastListInteractor);
     broadcastListBloc = BroadcastListBloc(widget.broadcastListInteractor);
     if (isEditing) {
-      broadcastListBloc.broadcastList(widget.broadcast.broadcastListId).first.then(
-          (value) {
-            _broadcastList = value;
-            _broadcastListId = value.id;
-          }
-      );
+      broadcastListBloc
+          .broadcastList(widget.broadcast.broadcastListId)
+          .first
+          .then((value) {
+        _broadcastList = value;
+        _broadcastListId = value.id;
+      });
     }
   }
 
@@ -97,6 +98,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                           broadcastListId: _broadcastListId,
                           name: _name,
                           dateTime: DateTime.now().toString()));
+
                       rankBloc.updateRank.add(rank);
                     }
                     Navigator.pop(context);
@@ -119,17 +121,17 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
             children: [
               TextFormField(
                 initialValue:
-                widget.broadcast != null ? widget.broadcast.name : '',
+                    widget.broadcast != null ? widget.broadcast.name : '',
                 key: ArchSampleKeys.broadcastNameField,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context)
-                      .newBroadcastNameHint,
-                  labelText: ArchSampleLocalizations.of(context)
-                      .newBroadcastNameLabel,
+                  hintText:
+                      ArchSampleLocalizations.of(context).newBroadcastNameHint,
+                  labelText:
+                      ArchSampleLocalizations.of(context).newBroadcastNameLabel,
                 ),
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context)
-                    .emptyBroadcastNameError
+                        .emptyBroadcastNameError
                     : null,
                 onSaved: (value) => _name = value,
               ),
@@ -167,7 +169,42 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                       )
                     : LinearLoading(),
               ),
-
+              TextFormField(
+                initialValue:
+                    widget.broadcast != null ? widget.broadcast.message : '',
+                key: ArchSampleKeys.broadcastMessageField,
+                decoration: InputDecoration(
+                  helperText: ArchSampleLocalizations.of(context)
+                      .newBroadcastMessageHelp,
+                  hintText: ArchSampleLocalizations.of(context)
+                      .newBroadcastMessageHint,
+                  labelText: ArchSampleLocalizations.of(context)
+                      .newBroadcastMessageLabel,
+                ),
+                validator: (val) => val.trim().isEmpty
+                    ? ArchSampleLocalizations.of(context)
+                        .emptyBroadcastMessageError
+                    : null,
+                onSaved: (value) => _message = value,
+                maxLines: 10,
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              RaisedButton.icon(
+                label: Text(
+                    ArchSampleLocalizations.of(context).saveAndBroadcast,
+                    semanticsLabel:
+                        ArchSampleLocalizations.of(context).saveAndBroadcast),
+                icon: const Icon(
+                  Icons.send,
+                  size: 18.0,
+                ),
+                color: Theme.of(context).accentColor,
+                onPressed: () {
+                    // Perform some action
+                },
+              ),
             ],
           ),
         ),

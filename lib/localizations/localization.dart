@@ -169,6 +169,20 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get newBroadcastMessageHint => Intl.message(
+    'Quel est votre message ?',
+    name: 'newBroadcastMessageHint',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newBroadcastMessageHelp => Intl.message(
+    'Mot-clés : @nom, @prenom, @filiere, @communaute, \n @telephone, @residence, @chambre',
+    name: 'newBroadcastMessageHelp',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberSecondNameHint => Intl.message(
     'Quel est votre prénom ?',
     name: 'newMemberSecondNameHint',
@@ -256,6 +270,20 @@ class ArchSampleLocalizations {
   String get newBroadcastNameLabel => Intl.message(
     'Nom de la diffusion',
     name: 'newBroadcastNameLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get newBroadcastMessageLabel => Intl.message(
+    'Message',
+    name: 'newBroadcastMessageLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get saveAndBroadcast => Intl.message(
+    'Enregistrer et Diffuser',
+    name: 'saveAndBroadcast',
     args: [],
     locale: locale.toString(),
   );
@@ -486,6 +514,13 @@ class ArchSampleLocalizations {
   String get emptyBroadcastNameError => Intl.message(
     'Veuillez entrer un texte',
     name: 'emptyBroadcastNameError',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get emptyBroadcastMessageError => Intl.message(
+    'Veuillez entrer un texte',
+    name: 'emptyBroadcastMessageError',
     args: [],
     locale: locale.toString(),
   );

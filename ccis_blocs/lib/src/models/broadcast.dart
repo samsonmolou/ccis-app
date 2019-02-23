@@ -9,6 +9,9 @@ class Broadcast {
   final int rank;
   final String broadcastListId;
   final String message;
+  //TODO: Bug on dateTime, every time, we reload app, it's value change
+  /// Don't know how to solve it, so i'm going forward to be on time, i will
+  /// i will come back later to solve it
   final String dateTime;
   final String name;
 
@@ -18,12 +21,12 @@ class Broadcast {
       int rank,
       String broadcastListId = '',
       String message = '',
-      String dateTime = '',
+      @required String dateTime,
       String name = ''})
       : this.rank = rank,
         this.broadcastListId = broadcastListId ?? '',
         this.message = message ?? '',
-        this.dateTime = dateTime ?? DateTime.now().toString(),
+        this.dateTime = dateTime,
         this.name = name ?? '',
         this.id = id ?? Uuid().generateV4();
 

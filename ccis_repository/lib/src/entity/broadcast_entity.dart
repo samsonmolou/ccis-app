@@ -47,7 +47,7 @@ class BroadcastEntity {
         json["rank"] as int,
         json["broadcastListId"] as String,
         json["message"] as String,
-        json["dateHeure"] as String,
+        json["dateTime"] as String,
         json["name"] as String);
   }
 
