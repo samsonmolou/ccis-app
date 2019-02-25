@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ccis_repository_flutter/src/metadata/metadata.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

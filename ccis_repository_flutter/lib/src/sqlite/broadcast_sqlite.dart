@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:ccis_repository/src/entity/broadcast_entity.dart';
-import 'package:ccis_repository_flutter/src/metadata/broadcasts_metadata.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_repository_flutter/src/providers/db_provider.dart';
 import 'package:sqflite/sqflite.dart';
 

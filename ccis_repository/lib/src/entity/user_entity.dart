@@ -1,3 +1,4 @@
+//TODO: Refactoring to use metadata instead of plain String
 class UserEntity {
   final String id;
   final String displayName;

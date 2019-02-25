@@ -3,7 +3,7 @@ import 'package:ccis_app/dependency_injector/broadcast_injector.dart';
 import 'package:ccis_app/providers/broadcasts_bloc_provider.dart';
 import 'package:ccis_app/screens/broadcast/broadcast_add_edit_screen.dart';
 import 'package:ccis_app/screens/broadcast/broadcast_detail_screen.dart';
-import 'package:ccis_app/widgets/broadcast/broadcast_item.dart';
+import 'package:ccis_app/widgets/broadcasts/broadcast_item.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';

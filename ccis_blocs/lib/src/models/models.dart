@@ -5,3 +5,4 @@ export 'community.dart';
 export 'member.dart';
 export 'study.dart';
 export 'rank.dart';
+export 'message.dart';

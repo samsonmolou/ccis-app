@@ -1,7 +1,6 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/broadcast/broadcast_add_edit_screen.dart';
-import 'package:ccis_app/screens/broadcast/broadcast_detail_screen.dart';
-import 'package:ccis_app/widgets/broadcast/broadcast_item.dart';
+import 'package:ccis_app/widgets/broadcasts/broadcast_item.dart';
 import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';

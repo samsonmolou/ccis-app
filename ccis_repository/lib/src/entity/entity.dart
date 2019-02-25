@@ -6,3 +6,5 @@ export 'member_entity.dart';
 export 'study_entity.dart';
 export 'user_entity.dart';
 export 'rank_entity.dart';
+export 'member_entity.dart';
+export 'message_entity.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:ccis_repository/src/entity/community_entity.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 

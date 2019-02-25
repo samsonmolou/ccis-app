@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 void main({
   @required UserRepository userRepository,
   @required MembersInteractor membersInteractor,
-  @required broadcastListsInteractor,
-  @required broadcastInteractor,
-  @required rankInteractor,
+  @required BroadcastListInteractor broadcastListsInteractor,
+  @required BroadcastInteractor broadcastInteractor,
+  @required RankInteractor rankInteractor,
 }) {
   runApp(UserInjector(
       userRepository: userRepository,

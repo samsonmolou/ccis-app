@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:ccis_repository/src/entity/community_entity.dart';
-import 'package:ccis_repository/src/entity/member_entity.dart';
-import 'package:ccis_repository/src/entity/study_entity.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 
 /// A class that is meant to represent a Client that would be used to call a Web
 /// Service. It is responsible for fetching and persisting Members to and from the

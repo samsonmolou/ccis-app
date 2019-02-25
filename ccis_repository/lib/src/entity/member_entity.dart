@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:ccis_repository/src/entity/community_entity.dart';
-import 'package:ccis_repository/src/entity/study_entity.dart';
+import 'community_entity.dart';
+import 'study_entity.dart';
 
+//TODO: Refactoring to use metadata instead of plain String
 class MemberEntity {
   final String id;
   final String firstName;

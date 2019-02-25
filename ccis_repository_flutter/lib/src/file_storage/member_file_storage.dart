@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ccis_repository/src/entity/member_entity.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 
 /// Loads and saves a List of Members using a text file stored on the device.
 ///

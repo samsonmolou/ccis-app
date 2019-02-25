@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:ccis_repository/src/entity/broadcast_list_entity.dart';
-import 'package:ccis_repository_flutter/src/metadata/database_metadata.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_repository_flutter/src/providers/db_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -12,7 +11,7 @@ class BroadcastListSqlite {
   Future<List<BroadcastListEntity>> getAllBroadcastLists() async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    var res = await db.query(DatabaseMetadata.tableBroadcastList);
+    var res = await db.query(BroadcastListsMetadata.tableName);
     final broadcastLists = res.isNotEmpty
         ? res
             .map((broadcastList) => BroadcastListEntity.fromJson(broadcastList))
@@ -27,7 +26,7 @@ class BroadcastListSqlite {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
     var res = await db.insert(
-        DatabaseMetadata.tableBroadcastList, newBroadcastList.toJson());
+        BroadcastListsMetadata.tableName, newBroadcastList.toJson());
 
     return res;
   }
@@ -36,8 +35,8 @@ class BroadcastListSqlite {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
     var res = await db.update(
-        DatabaseMetadata.tableBroadcastList, broadcastList.toJson(),
-        where: '''${DatabaseMetadata.columnBroadcastListId} = ?''',
+        BroadcastListsMetadata.tableName, broadcastList.toJson(),
+        where: '''${BroadcastListsMetadata.id} = ?''',
         whereArgs: [broadcastList.id]);
 
     return res;
@@ -46,8 +45,8 @@ class BroadcastListSqlite {
   Future deleteBroadcastList(List<String> broadcastListId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    return await db.delete(DatabaseMetadata.tableBroadcastList,
-        where: '''${DatabaseMetadata.columnBroadcastListId} = ?''',
+    return await db.delete(BroadcastListsMetadata.tableName,
+        where: '''${BroadcastListsMetadata.id} = ?''',
         whereArgs: broadcastListId);
   }
 

@@ -50,6 +50,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get check => Intl.message(
+    'Vérification',
+    name: 'check',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get notFound => Intl.message(
     'Aucune correspondance',
     name: 'notFound',
@@ -88,6 +95,13 @@ class ArchSampleLocalizations {
   String get chooseFileToImport => Intl.message(
     'Sélectionner le fichier à importer',
     name: 'chooseFileToImport',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get editingMessage => Intl.message(
+    'Editer le message',
+    name: 'editingMessage',
     args: [],
     locale: locale.toString(),
   );
@@ -218,6 +232,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get startBroadcast => Intl.message(
+    "Commencer la diffusion",
+    name: 'startBroadcast',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newMemberResidenceHint => Intl.message(
     'Quelle est votre résidence ?',
     name: 'newMemberResidenceHint',
@@ -287,6 +308,15 @@ class ArchSampleLocalizations {
     args: [],
     locale: locale.toString(),
   );
+
+  String get next => Intl.message(
+    'Suivant',
+    name: 'next',
+    args: [],
+    locale: locale.toString(),
+  );
+
+
 
   String get newMemberSecondNameLabel => Intl.message(
     'Prénoms',

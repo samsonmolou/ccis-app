@@ -1,5 +1,5 @@
 
-
+//TODO: Refactoring to use metadata instead of plain String
 class BroadcastEntity {
   final String id;
   final String message;

@@ -1,3 +1,4 @@
+//TODO: Refactoring to use metadata instead of plain String
 class RankEntity {
   final int value;
 

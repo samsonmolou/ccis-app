@@ -174,10 +174,7 @@ class MembersImportScreenState extends State<MembersImportScreen> {
           onStepCancel: () {},
           controlsBuilder: (BuildContext context,
               {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
-            return Padding(
-              padding: EdgeInsets.only(top: 100.0),
-              child: new Row(),
-            );
+            return Container();
           },
         ),
       ),

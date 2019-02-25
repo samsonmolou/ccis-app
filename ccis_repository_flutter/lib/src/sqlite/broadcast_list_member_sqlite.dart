@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:ccis_repository/src/entity/broadcast_list_member_entity.dart';
-import 'package:ccis_repository_flutter/src/metadata/database_metadata.dart';
+import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_repository_flutter/src/providers/db_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -11,7 +10,7 @@ class BroadcastListMemberSqlite {
   Future<List<BroadcastListMemberEntity>> getAllBroadcastListMembers() async {
     //TODO: implement demeter law for less coupling between DBProvider and this
     Database db = await DBProvider.provider.database;
-    var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers);
+    var res = await db.query(BroadcastListMembersMetadata.tableName);
     final broadcastListMembers = res.isNotEmpty
         ? res
             .map((broadcastListMember) =>
@@ -26,7 +25,7 @@ class BroadcastListMemberSqlite {
       BroadcastListMemberEntity newBroadcastListMember) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    var res = await db.insert(DatabaseMetadata.tableBroadcastListsMembers,
+    var res = await db.insert(BroadcastListMembersMetadata.tableName,
         newBroadcastListMember.toJson());
 
     return res;
@@ -36,9 +35,9 @@ class BroadcastListMemberSqlite {
       BroadcastListMemberEntity broadcastListMember) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    var res = await db.update(DatabaseMetadata.tableBroadcastListsMembers,
+    var res = await db.update(BroadcastListMembersMetadata.tableName,
         broadcastListMember.toJson(),
-        where: '''${DatabaseMetadata.columnBroadcastListsMembersId} = ?''',
+        where: '''${BroadcastListMembersMetadata.id} = ?''',
         whereArgs: [broadcastListMember.id]);
 
     return res;
@@ -47,8 +46,8 @@ class BroadcastListMemberSqlite {
   Future deleteBroadcastListMember(List<String> broadcastListMemberId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    return await db.delete(DatabaseMetadata.tableBroadcastListsMembers,
-        where: '''${DatabaseMetadata.columnBroadcastListsMembersId} = ?''',
+    return await db.delete(BroadcastListMembersMetadata.tableName,
+        where: '''${BroadcastListMembersMetadata.id} = ?''',
         whereArgs: broadcastListMemberId);
   }
 
@@ -56,9 +55,9 @@ class BroadcastListMemberSqlite {
       getBroadcastListMembersByBroadcastListId(String broadcastListId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers,
+    var res = await db.query(BroadcastListMembersMetadata.tableName,
         where:
-            '''${DatabaseMetadata.columnBroadcastListsMembersBroadcastListId} = ?''',
+            '''${BroadcastListMembersMetadata.broadcastListId} = ?''',
         whereArgs: [broadcastListId]);
     final broadcastListMembersByBroadcastId = res.isNotEmpty
         ? res
@@ -74,9 +73,9 @@ class BroadcastListMemberSqlite {
       String memberId) async {
     //TODO: implement demeter law for less coupling
     Database db = await DBProvider.provider.database;
-    var res = await db.query(DatabaseMetadata.tableBroadcastListsMembers,
+    var res = await db.query(BroadcastListMembersMetadata.tableName,
         where:
-            '''${DatabaseMetadata.columnBroadcastListsMembersMemberId} = ?''',
+            '''${BroadcastListMembersMetadata.memberId} = ?''',
         whereArgs: [memberId]);
     final broadcastListMembersByMemberId = res.isNotEmpty
         ? res

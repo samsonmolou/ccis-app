@@ -39,6 +39,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
   String _broadcastListId;
   String _name;
   BroadcastList _broadcastList;
+  int _currentStep = 0;
 
   @override
   void initState() {
@@ -60,6 +61,110 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Step> steps = [
+      new Step(
+          title: Text(ArchSampleLocalizations.of(context).stepOne),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  initialValue:
+                  widget.broadcast != null ? widget.broadcast.name : '',
+                  key: ArchSampleKeys.broadcastNameField,
+                  decoration: InputDecoration(
+                    hintText:
+                    ArchSampleLocalizations.of(context).newBroadcastNameHint,
+                    labelText:
+                    ArchSampleLocalizations.of(context).newBroadcastNameLabel,
+                  ),
+                  validator: (val) => val.trim().isEmpty
+                      ? ArchSampleLocalizations.of(context)
+                      .emptyBroadcastNameError
+                      : null,
+                  onSaved: (value) => _name = value,
+                ),
+                StreamBuilder(
+                  stream: broadcastListListBloc.broadcastLists,
+                  builder: (context, snapshot) => snapshot.hasData
+                      ? DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      hintText: ArchSampleLocalizations.of(context)
+                          .selectBroadcastListHint,
+                      labelText: ArchSampleLocalizations.of(context)
+                          .selectBroadcastListLabel,
+                    ),
+                    validator: (val) => val == null
+                        ? ArchSampleLocalizations.of(context)
+                        .emptySelectedBroadcastListError
+                        : null,
+                    items: snapshot.data
+                        .map<DropdownMenuItem<BroadcastList>>(
+                            (BroadcastList value) {
+                          return DropdownMenuItem<BroadcastList>(
+                              value: value, child: Text(value.name));
+                        }).toList(),
+                    onChanged: (BroadcastList newValue) {
+                      setState(() {
+                        _broadcastList = newValue;
+                        _broadcastListId = newValue.id;
+                      });
+                    },
+                    value: _broadcastList,
+                    onSaved: (BroadcastList value) {
+                      _broadcastList = value;
+                      _broadcastListId = value.id;
+                    },
+                  )
+                      : LinearLoading(),
+                ),
+                TextFormField(
+                  initialValue:
+                  widget.broadcast != null ? widget.broadcast.message : '',
+                  key: ArchSampleKeys.broadcastMessageField,
+                  decoration: InputDecoration(
+                    helperText: ArchSampleLocalizations.of(context)
+                        .newBroadcastMessageHelp,
+                    hintText: ArchSampleLocalizations.of(context)
+                        .newBroadcastMessageHint,
+                    labelText: ArchSampleLocalizations.of(context)
+                        .newBroadcastMessageLabel,
+                  ),
+                  validator: (val) => val.trim().isEmpty
+                      ? ArchSampleLocalizations.of(context)
+                      .emptyBroadcastMessageError
+                      : null,
+                  onSaved: (value) => _message = value,
+                  maxLines: 8,
+                ),
+              ],
+            ),
+          ),
+          subtitle:
+              Text(ArchSampleLocalizations.of(context).editingMessage),
+          isActive: true),
+      new Step(
+          title: Text(ArchSampleLocalizations.of(context).stepTwo),
+          subtitle: Text(ArchSampleLocalizations.of(context).check),
+          isActive: true,
+          content: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(0.0),
+                child: Text("Hello"),
+              ),
+              Container(
+                padding: EdgeInsets.all(0.0),
+                alignment: FractionalOffset.bottomCenter,
+                child: Text("Hello"),
+              )
+            ],
+          ),
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -109,105 +214,90 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
           )
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
+      bottomNavigationBar: Card(
+        margin: EdgeInsets.zero,
+
+        shape: BeveledRectangleBorder(),
+        color: Theme.of(context).bottomAppBarColor,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(height: 3.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                _currentStep != 0 ? FlatButton(
+                  onPressed: () {
+                    final form = formKey.currentState;
+                    if (form.validate()) {
+                      setState(() {
+                        _currentStep = _currentStep - 1;
+                      });
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                          ArchSampleLocalizations.of(context).back,
+                          semanticsLabel:
+                          ArchSampleLocalizations.of(context).back),
+                    ],
+                  ),
+                ) : Container(),
+                FlatButton(
+                  onPressed: () {
+                    final form = formKey.currentState;
+                    if (form.validate()) {
+                      setState(() {
+                        if (_currentStep < 1)
+                          _currentStep = _currentStep + 1;
+                      });
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                          ArchSampleLocalizations.of(context).next,
+                          semanticsLabel:
+                          ArchSampleLocalizations.of(context).next),
+                      Icon(
+                        Icons.navigate_next,
+                        size: 18.0,
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+            SizedBox(height: 4.0)
+          ],
+        )
+      ),
+      body: Form(
           key: formKey,
           autovalidate: false,
           onWillPop: () {
             return Future(() => true);
           },
-          child: ListView(
-            children: [
-              TextFormField(
-                initialValue:
-                    widget.broadcast != null ? widget.broadcast.name : '',
-                key: ArchSampleKeys.broadcastNameField,
-                decoration: InputDecoration(
-                  hintText:
-                      ArchSampleLocalizations.of(context).newBroadcastNameHint,
-                  labelText:
-                      ArchSampleLocalizations.of(context).newBroadcastNameLabel,
-                ),
-                validator: (val) => val.trim().isEmpty
-                    ? ArchSampleLocalizations.of(context)
-                        .emptyBroadcastNameError
-                    : null,
-                onSaved: (value) => _name = value,
-              ),
-              StreamBuilder(
-                stream: broadcastListListBloc.broadcastLists,
-                builder: (context, snapshot) => snapshot.hasData
-                    ? DropdownButtonFormField(
-                        decoration: InputDecoration(
-                          hintText: ArchSampleLocalizations.of(context)
-                              .selectBroadcastListHint,
-                          labelText: ArchSampleLocalizations.of(context)
-                              .selectBroadcastListLabel,
-                        ),
-                        validator: (val) => val == null
-                            ? ArchSampleLocalizations.of(context)
-                                .emptySelectedBroadcastListError
-                            : null,
-                        items: snapshot.data
-                            .map<DropdownMenuItem<BroadcastList>>(
-                                (BroadcastList value) {
-                          return DropdownMenuItem<BroadcastList>(
-                              value: value, child: Text(value.name));
-                        }).toList(),
-                        onChanged: (BroadcastList newValue) {
-                          setState(() {
-                            _broadcastList = newValue;
-                            _broadcastListId = newValue.id;
-                          });
-                        },
-                        value: _broadcastList,
-                        onSaved: (BroadcastList value) {
-                          _broadcastList = value;
-                          _broadcastListId = value.id;
-                        },
-                      )
-                    : LinearLoading(),
-              ),
-              TextFormField(
-                initialValue:
-                    widget.broadcast != null ? widget.broadcast.message : '',
-                key: ArchSampleKeys.broadcastMessageField,
-                decoration: InputDecoration(
-                  helperText: ArchSampleLocalizations.of(context)
-                      .newBroadcastMessageHelp,
-                  hintText: ArchSampleLocalizations.of(context)
-                      .newBroadcastMessageHint,
-                  labelText: ArchSampleLocalizations.of(context)
-                      .newBroadcastMessageLabel,
-                ),
-                validator: (val) => val.trim().isEmpty
-                    ? ArchSampleLocalizations.of(context)
-                        .emptyBroadcastMessageError
-                    : null,
-                onSaved: (value) => _message = value,
-                maxLines: 10,
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              RaisedButton.icon(
-                label: Text(
-                    ArchSampleLocalizations.of(context).saveAndBroadcast,
-                    semanticsLabel:
-                        ArchSampleLocalizations.of(context).saveAndBroadcast),
-                icon: const Icon(
-                  Icons.send,
-                  size: 18.0,
-                ),
-                color: Theme.of(context).accentColor,
-                onPressed: () {
-                    // Perform some action
-                },
-              ),
-            ],
-          ),
-        ),
+          child: Stepper(
+            steps: steps,
+            currentStep: this._currentStep,
+            type: StepperType.horizontal,
+
+            controlsBuilder: (BuildContext context,
+                {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+              return Container();
+            },
+          )
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+//TODO: Refactoring to use metadata instead of plain String
 class BroadcastListEntity {
   final String id;
   final String name;
