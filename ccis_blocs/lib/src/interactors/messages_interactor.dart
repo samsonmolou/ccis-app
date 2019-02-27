@@ -30,4 +30,6 @@ class MessagesInteractor {
 
   Future<void> deleteMessage(String id) => repository.deleteMessage([id]);
 
+  Future<void> addMessages(List<Message> messages) => repository.addMessages(messages.map((message) => message.toEntity()).toList());
+
 }

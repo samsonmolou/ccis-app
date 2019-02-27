@@ -5,7 +5,9 @@ import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
-import 'package:ccis_app/widgets/messages/message_item.dart';
+import 'package:ccis_app/widgets/messages/waiting_message_item.dart';
+
+import 'broadcast_processing_screen.dart';
 
 class BroadcastAddEditScreen extends StatefulWidget {
   final Broadcast broadcast;
@@ -41,6 +43,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
   BroadcastListBloc broadcastListBloc;
   BroadcastListListBloc broadcastListListBloc;
   MessagesListBloc messagesListBloc;
+  MessagesBroadcastingBloc messagesBroadcastingBloc;
   MembersListBloc memberListBloc;
   String _message; // Le message a envoyé
   String _broadcastListId; // L'identifiant de la liste de diffusion
@@ -50,6 +53,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
   Broadcast _broadcast; // Représente la diffusion nouvellement crée
   List<Member> _members; // Les membres de la broadcast list
   Rank _rank; // Numero de sequence de la diffusion
+  List<Message> _waitingMessages;
 
   @override
   void initState() {
@@ -61,7 +65,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
     broadcastListBloc = BroadcastListBloc(widget.broadcastListInteractor);
     messagesListBloc = MessagesListBloc(widget.messagesInteractor);
     memberListBloc = MembersListBloc(widget.membersInteractor);
-
+    messagesBroadcastingBloc = MessagesBroadcastingBloc(widget.messagesInteractor);
     if (isEditing) {
       // On recupère le broadcast list associé a l'identifiant de la broadcast
       broadcastListBloc
@@ -162,19 +166,20 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
           isActive: _currentStep == 0 ? true : false),
       new Step(
         title: Text(ArchSampleLocalizations.of(context).stepTwo),
-        subtitle: Text(ArchSampleLocalizations.of(context).broadcast),
+        subtitle: Text(ArchSampleLocalizations.of(context).check),
         isActive: _currentStep == 1 ? true : false,
         content: _currentStep == 1
             ? StreamBuilder<List<Message>>(
-                stream: messagesListBloc.waitingMessages(_broadcast, _members),
+                stream: messagesBroadcastingBloc.waitingMessages(
+                    this._broadcast, this._members),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return SpinnerLoading();
 
-                  final messages = snapshot.data;
+                  this._waitingMessages = snapshot.data;
 
                   return Column(
-                      children: messages
-                          .map((message) => MessageItem(
+                      children: _waitingMessages
+                          .map((message) => WaitingMessageItem(
                                 onTap: () => {},
                                 message: message,
                                 messageInteractor: widget.messagesInteractor,
@@ -262,6 +267,13 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
+                              Icon(
+                                Icons.navigate_before,
+                                size: 18.0,
+                              ),
+                              SizedBox(
+                                width: 3.0,
+                              ),
                               Text(ArchSampleLocalizations.of(context).back,
                                   semanticsLabel:
                                       ArchSampleLocalizations.of(context).back),
@@ -289,9 +301,40 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                                   dateTime: DateTime.now().toString());
                           // On recupère les membres de la broadcast list selectionné par l'utilisateur
                           memberListBloc.members.listen((members) => _members =
-                              members.where((member) => _broadcastList.membersId
-                                  .contains(member.id)).toList());
-                          if (_currentStep < 1) _currentStep = _currentStep + 1;
+                              members
+                                  .where((member) => _broadcastList.membersId
+                                      .contains(member.id))
+                                  .toList());
+                          if (_currentStep < 1)
+                            _currentStep = _currentStep + 1;
+                          else {
+                            if (isEditing) {
+                              widget.updateBroadcast(_broadcast);
+                            } else {
+                              widget.addBroadcast(_broadcast);
+                              rankBloc.updateRank.add(_rank);
+                            }
+
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) {
+                                  return BroadcastProcessingScreen(
+                                    broadcast: this._broadcast,
+                                    messages: this._waitingMessages,
+                                    broadcastInteractor:
+                                    widget.broadcastInteractor,
+                                    rankInteractor: widget.rankInteractor,
+                                    messagesInteractor: widget.messagesInteractor,
+                                    broadcastListInteractor: widget.broadcastListInteractor,
+                                    membersInteractor: widget.membersInteractor,
+                                    addMessages: messagesBroadcastingBloc.addMessages.add,
+                                    initBloc: () => BroadcastBloc(
+                                       widget.broadcastInteractor),
+                                  );
+                                },
+                              ),
+                            );
+                          }
                         });
                       }
                     },
@@ -300,13 +343,28 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(ArchSampleLocalizations.of(context).next,
-                            semanticsLabel:
-                                ArchSampleLocalizations.of(context).next),
-                        Icon(
-                          Icons.navigate_next,
-                          size: 18.0,
+                        this._currentStep == 0
+                            ? Text(ArchSampleLocalizations.of(context).next,
+                                semanticsLabel:
+                                    ArchSampleLocalizations.of(context).next)
+                            : Text(
+                                ArchSampleLocalizations.of(context)
+                                    .startBroadcast,
+                                semanticsLabel:
+                                    ArchSampleLocalizations.of(context)
+                                        .startBroadcast),
+                        SizedBox(
+                          width: 3.0,
                         ),
+                        this._currentStep == 0
+                            ? Icon(
+                                Icons.navigate_next,
+                                size: 18.0,
+                              )
+                            : Icon(
+                                Icons.playlist_play,
+                                size: 18.0,
+                              ),
                       ],
                     ),
                   ),

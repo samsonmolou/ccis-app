@@ -20,4 +20,6 @@ abstract class ReactiveMessagesRepository {
   Stream<List<MessageEntity>> messages();
 
   Future<void> updateMessage(MessageEntity message);
+
+  Future<void> addMessages(List<MessageEntity> messages);
 }

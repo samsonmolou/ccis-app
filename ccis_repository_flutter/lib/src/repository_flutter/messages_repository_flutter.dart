@@ -44,6 +44,15 @@ class MessagesRepositoryFlutter implements MessagesRepository {
     ]);
   }
 
+  /// Persists list of messages to sqflite message table
+  @override
+  Future addMessages(List<MessageEntity> messages) {
+    // TODO: implement newMessage
+    return Future.wait<dynamic>([
+      sqlite.addMessages(messages)
+    ]);
+  }
+
   /// Update member into sqflite member table
   @override
   Future updateMessage(MessageEntity message) {

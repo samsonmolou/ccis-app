@@ -27,6 +27,14 @@ class MessageSqlite {
     return res;
   }
 
+  Future addMessages(List<MessageEntity> messages) async {
+    var res = messages.forEach((message) {
+      this.newMessage(message);
+    });
+
+    return res;
+  }
+
   Future updateMessage(MessageEntity message) async {
     //TODO: use Demeter Law for less coupling
     Database db = await DBProvider.provider.database;

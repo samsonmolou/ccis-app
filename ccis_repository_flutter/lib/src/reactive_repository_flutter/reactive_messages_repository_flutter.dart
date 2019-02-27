@@ -29,6 +29,15 @@ class ReactiveMessagesRepositoryFlutter implements ReactiveMessagesRepository {
   }
 
   @override
+  Future<void> addMessages(List<MessageEntity> messages) async {
+    _subject.add(List<MessageEntity>.unmodifiable([]
+      ..addAll(_subject.value ?? [])
+      ..addAll(messages)));
+
+    await _repository.addMessages(messages);
+  }
+
+  @override
   Future<void> deleteMessage(List<String> idList) async {
     _subject.add(
       List<MessageEntity>.unmodifiable(_subject.value.fold<List<MessageEntity>>(

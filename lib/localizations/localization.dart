@@ -484,6 +484,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get stopBroadcast => Intl.message(
+    'Arrêtez la diffusion',
+    name: 'stopBroadcast',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get searchMember => Intl.message(
     'Rechercher un membre',
     name: 'searchMember',

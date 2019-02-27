@@ -17,7 +17,7 @@ class MessageMock {
   Future<List<MessageEntity>> fetchMessages() async {
     return Future.delayed(
         delay,
-            () => [
+            () => [ /*
           MessageEntity(
               '1',
               '1',
@@ -40,7 +40,7 @@ class MessageMock {
               DateTime.now().toString(),
               DateTime.now().toString()
           ),
-        ]);
+        */]);
   }
 
   /// Mock that returns true or false for success or failure. In this case,

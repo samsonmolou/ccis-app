@@ -22,6 +22,8 @@ class ArchSampleKeys {
   static final broadcastListsLoading = const Key('__broadcastListsLoading__');
   static final addBroadcastListFab = const Key('__addBroadcastListFab__');
 
+
+
   static final broadcastListItemSubhead = (String id) => Key('BroadcastListItem__${id}__Subhead');
   static final broadcastListNameField = const Key('__broadcastListNameField__');
   static final addEditSearchField = const Key('__addEditSearchField__');
@@ -31,6 +33,9 @@ class ArchSampleKeys {
 
   // Add Edit Broadcast Screen
   static final addEditBroadcastScreen = const Key('__addEditBroadcastScreen__');
+
+  // Message Screen
+  static final messagesListsLoading = const Key('__messagesListsLoading__');
 
 
   // Home Screens
@@ -96,6 +101,10 @@ class ArchSampleKeys {
   static final broadcastDetailsScreen = const Key('__broadcastDetailsScreen__');
   static final deleteBroadcastButton = const Key('__deleteBroadcastButton__');
   static final editBroadcastButton = const Key('__editBroadcastButton__');
+
+  // Broadcast Processing Screen
+  static final broadcastProcessingScreen = const Key('__broadcastProcessingScreen__');
+
 
   // Broadcast List Detail Screen
   static final editBroadcastListButton = const Key('__editBroadcastListButton__');

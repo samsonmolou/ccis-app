@@ -25,4 +25,7 @@ abstract class MessagesRepository {
 
   /// Delete member into sqflite member table
   Future deleteMessage(List<String> messageId);
+
+  /// Add batch messages
+  Future addMessages(List<MessageEntity> messages);
 }
