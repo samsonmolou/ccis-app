@@ -8,12 +8,12 @@ import 'package:rxdart/subjects.dart';
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Members and Persist members.
 class ReactiveBroadcastsRepositoryFlutter implements ReactiveBroadcastRepository {
-  final BroadcastRepository _repository;
+  final BroadcastsRepository _repository;
   final BehaviorSubject<List<BroadcastEntity>> _subject;
   bool _loaded = false;
 
   ReactiveBroadcastsRepositoryFlutter({
-    @required BroadcastRepository repository,
+    @required BroadcastsRepository repository,
     List<BroadcastEntity> seedValue,
   })  : this._repository = repository,
         this._subject = BehaviorSubject<List<BroadcastEntity>>(seedValue: seedValue);

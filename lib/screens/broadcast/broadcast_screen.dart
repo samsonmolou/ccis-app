@@ -36,7 +36,9 @@ class BroadcastScreenState extends State<BroadcastScreen> {
     BroadcastSearchDelegate delegate = BroadcastSearchDelegate(
       broadcastInteractor: BroadcastInjector.of(context).broadcastsInteractor,
       rankInteractor: BroadcastInjector.of(context).rankInteractor,
-      broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor
+      messagesInteractor: BroadcastInjector.of(context).messagesInteractor,
+      broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
+      membersInteractor: BroadcastInjector.of(context).membersInteractor
     );
 
     return Scaffold(
@@ -56,6 +58,8 @@ class BroadcastScreenState extends State<BroadcastScreen> {
                 broadcastInteractor:
                     BroadcastInjector.of(context).broadcastsInteractor,
                 rankInteractor: BroadcastInjector.of(context).rankInteractor,
+                messagesInteractor: BroadcastInjector.of(context).messagesInteractor,
+                membersInteractor: BroadcastInjector.of(context).membersInteractor,
                 broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
                 key: ArchSampleKeys.addBroadcastListScreen,
               );

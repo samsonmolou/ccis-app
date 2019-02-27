@@ -5,9 +5,9 @@ class MessageEntity {
   final String id;
   final String broadcastId;
   final String memberId;
-  final bool isWaiting;
-  final bool isSent;
-  final bool isReceived;
+  final int isWaiting;
+  final int isSent;
+  final int isReceived;
   final String content;
   final String sentAt;
   final String receivedAt;
@@ -77,9 +77,9 @@ class MessageEntity {
         json[MessagesMetadata.id] as String,
         json[MessagesMetadata.broadcastId] as String,
         json[MessagesMetadata.memberId] as String,
-        json[MessagesMetadata.isWaiting] as bool,
-        json[MessagesMetadata.isSent] as bool,
-        json[MessagesMetadata.isReceived] as bool,
+        json[MessagesMetadata.isWaiting] as int,
+        json[MessagesMetadata.isSent] as int,
+        json[MessagesMetadata.isReceived] as int,
         json[MessagesMetadata.content] as String,
         json[MessagesMetadata.sentAt] as String,
         json[MessagesMetadata.receivedAt] as String

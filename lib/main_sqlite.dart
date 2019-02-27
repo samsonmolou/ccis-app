@@ -12,18 +12,20 @@ void main() {
           repository: MembersRepositoryFlutter(sqlite: MemberSqlite()))),
       broadcastListsInteractor: BroadcastListInteractor(
           ReactiveBroadcastListsRepositoryFlutter(
-              repository: BroadcastListRepositoryFlutter(
+              repository: BroadcastListsRepositoryFlutter(
                   sqlite: BroadcastListSqlite())),
           BroadcastListMemberInteractor(
               ReactiveBroadcastListMemberRepositoryFlutter(
-                  repository: BroadcastListMemberRepositoryFlutter(
+                  repository: BroadcastListMembersRepositoryFlutter(
                       sqlite: BroadcastListMemberSqlite())))),
       broadcastInteractor: BroadcastInteractor(
           ReactiveBroadcastsRepositoryFlutter(
               repository:
-                  BroadcastRepositoryFlutter(sqlite: BroadcastSqlite()))),
+                  BroadcastsRepositoryFlutter(sqlite: BroadcastSqlite()))),
       rankInteractor: RankInteractor(ReactiveRankRepositoryFlutter(
-          repository: RankRepositoryFlutter(sqlite: RankSqlite()))));
+          repository: RankRepositoryFlutter(sqlite: RankSqlite()))),
+      messagesInteractor: MessagesInteractor(ReactiveMessagesRepositoryFlutter(
+          repository: MessagesRepositoryFlutter(sqlite: MessageSqlite()))));
 }
 
 class AnonymousUserRepository implements UserRepository {

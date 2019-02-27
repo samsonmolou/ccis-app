@@ -3,31 +3,31 @@ import 'dart:async';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 
-class   MessagesInteractor {
-  final ReactiveMembersRepository repository;
+class MessagesInteractor {
+  final ReactiveMessagesRepository repository;
 
   MessagesInteractor(this.repository);
 
-  Stream<List<Member>> get members {
+  Stream<List<Message>> get messages {
     return repository
-        .members()
-        .map((entities) => entities.map(Member.fromEntity).toList());
+        .messages()
+        .map((entities) => entities.map(Message.fromEntity).toList());
   }
 
-  Stream<Member> member(String id) {
-    return members.map((members) {
-      return members.firstWhere(
-            (member) => member.id == id,
+  Stream<Message> message(String id) {
+    return messages.map((messages) {
+      return messages.firstWhere(
+            (message) => message.id == id,
         orElse: () => null,
       );
-    }).where((member) => member != null);
+    }).where((message) => message != null);
   }
 
 
-  Future<void> updateMember(Member member) => repository.updateMember(member.toEntity());
+  Future<void> updateMessage(Message message) => repository.updateMessage(message.toEntity());
 
-  Future<void> addNewMember(Member member) => repository.addNewMember(member.toEntity());
+  Future<void> addNewMessage(Message message) => repository.addNewMessage(message.toEntity());
 
-  Future<void> deleteMember(String id) => repository.deleteMember([id]);
+  Future<void> deleteMessage(String id) => repository.deleteMessage([id]);
 
 }

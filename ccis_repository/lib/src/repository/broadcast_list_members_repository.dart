@@ -11,7 +11,7 @@ import 'package:ccis_repository/src/entity/broadcast_list_member_entity.dart';
 /// The domain layer should depend on this abstract class, and each app can
 /// inject the correct implementation depending on the environment, such as
 /// web or Flutter.
-abstract class BroadcastListMemberRepository {
+abstract class BroadcastListMembersRepository {
   /// Loads broadcast list from database
   Future<List<BroadcastListMemberEntity>> getAllBroadcastListMembers();
 

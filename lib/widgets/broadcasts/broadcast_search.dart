@@ -8,11 +8,15 @@ class BroadcastSearchDelegate extends SearchDelegate<String> {
   final BroadcastInteractor broadcastInteractor;
   final RankInteractor rankInteractor;
   final BroadcastListInteractor broadcastListInteractor;
+  final MessagesInteractor messagesInteractor;
+  final MembersInteractor membersInteractor;
 
   BroadcastSearchDelegate({
     @required this.broadcastInteractor,
     @required this.rankInteractor,
-    @required this.broadcastListInteractor
+    @required this.broadcastListInteractor,
+    @required this.messagesInteractor,
+    @required this.membersInteractor
   });
 
   @override
@@ -58,6 +62,8 @@ class BroadcastSearchDelegate extends SearchDelegate<String> {
                         broadcastInteractor: this.broadcastInteractor,
                         rankInteractor: this.rankInteractor,
                         broadcastListInteractor: this.broadcastListInteractor,
+                        messagesInteractor: this.messagesInteractor,
+                        membersInteractor: this.membersInteractor,
                         initBloc: () => BroadcastBloc(this.broadcastInteractor),
                       );
                     },

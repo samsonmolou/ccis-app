@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 
-class   MembersInteractor {
+class MembersInteractor {
   final ReactiveMembersRepository repository;
   List<List<Member>> _importedMembers;
   String _filePath;

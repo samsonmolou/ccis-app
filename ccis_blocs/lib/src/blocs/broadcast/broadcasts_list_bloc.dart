@@ -28,8 +28,8 @@ class BroadcastsListBloc {
     // StreamControllers have both a Sink and a Stream. We'll expose the Sinks
     // publicly so users can send information to the Bloc. We'll use the Streams
     // internally to react to that user input.
-    final addBroadcastListController = StreamController<Broadcast>(sync: true);
-    final deleteBroadcastListController = StreamController<String>(sync: true);
+    final addBroadcastController = StreamController<Broadcast>(sync: true);
+    final deleteBroadcastController = StreamController<String>(sync: true);
     final updateBroadcastController = StreamController<Broadcast>(sync: true);
     final searchBroadcastController = BehaviorSubject<String>(sync: true);
 
@@ -39,8 +39,8 @@ class BroadcastsListBloc {
     // all of them in the `close` method when they are no longer needed.
     final subscriptions = <StreamSubscription<dynamic>>[
       // When a user adds an item, add it to the repository
-      addBroadcastListController.stream.listen(interactor.addNewBroadcast),
-      deleteBroadcastListController.stream.listen(interactor.deleteBroadcast),
+      addBroadcastController.stream.listen(interactor.addNewBroadcast),
+      deleteBroadcastController.stream.listen(interactor.deleteBroadcast),
       updateBroadcastController.stream.listen(interactor.updateBroadcast),
     ];
 
@@ -61,8 +61,8 @@ class BroadcastsListBloc {
         .pipe(searchBroadcastResultController);
 
     return BroadcastsListBloc._(
-      addBroadcastListController,
-      deleteBroadcastListController,
+      addBroadcastController,
+      deleteBroadcastController,
       updateBroadcastController,
       searchBroadcastController,
       searchBroadcastResultController,

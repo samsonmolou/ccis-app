@@ -5,3 +5,4 @@ export 'reactive_communities_repository.dart';
 export 'reactive_members_repository.dart';
 export 'reactive_studies_repository.dart';
 export 'reactive_rank_repository.dart';
+export 'reactive_message_repository.dart';

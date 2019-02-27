@@ -132,8 +132,8 @@ class MembersImportScreenState extends State<MembersImportScreen> {
                 List<Member> members = snapshot.data;
 
                 return new Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     RaisedButton(
                       onPressed: () {},

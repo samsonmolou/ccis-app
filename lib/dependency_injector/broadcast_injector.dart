@@ -7,6 +7,7 @@ class BroadcastInjector extends InheritedWidget {
   final BroadcastListInteractor broadcastListInteractor;
   final MembersInteractor membersInteractor;
   final RankInteractor rankInteractor;
+  final MessagesInteractor messagesInteractor;
 
   BroadcastInjector({
     Key key,
@@ -14,6 +15,7 @@ class BroadcastInjector extends InheritedWidget {
     @required this.membersInteractor,
     @required this.broadcastListInteractor,
     @required this.rankInteractor,
+    @required this.messagesInteractor,
     @required Widget child,
   }) : super(key: key, child: child);
 
@@ -24,5 +26,6 @@ class BroadcastInjector extends InheritedWidget {
   bool updateShouldNotify(BroadcastInjector oldWidget) =>
       broadcastsInteractor != oldWidget.broadcastsInteractor ||
       membersInteractor != oldWidget.membersInteractor ||
-      broadcastListInteractor != oldWidget.broadcastListInteractor;
+      broadcastListInteractor != oldWidget.broadcastListInteractor ||
+      messagesInteractor != oldWidget.messagesInteractor;
 }

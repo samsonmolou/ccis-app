@@ -7,11 +7,11 @@ import 'package:meta/meta.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Members and Persist members.
-class BroadcastRepositoryFlutter implements BroadcastRepository {
+class BroadcastsRepositoryFlutter implements BroadcastsRepository {
   final BroadcastMock broadcastMock;
   final BroadcastSqlite sqlite;
 
-  const BroadcastRepositoryFlutter({
+  const BroadcastsRepositoryFlutter({
     @required this.sqlite,
     this.broadcastMock = const BroadcastMock(),
   });

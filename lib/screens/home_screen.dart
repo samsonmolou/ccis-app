@@ -22,13 +22,15 @@ class HomeScreen extends StatefulWidget {
   final BroadcastListInteractor broadcastListsInteractor;
   final BroadcastInteractor broadcastInteractor;
   final RankInteractor rankInteractor;
+  final MessagesInteractor messagesInteractor;
 
   HomeScreen(
       {@required this.repository,
       @required this.membersInteractor,
       @required this.broadcastListsInteractor,
       @required this.broadcastInteractor,
-      @required this.rankInteractor})
+      @required this.rankInteractor,
+      @required this.messagesInteractor})
       : super(key: ArchSampleKeys.homeScreen);
 
   @override
@@ -80,6 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
                                 broadcastsInteractor:
                                     widget.broadcastInteractor,
                                 rankInteractor: widget.rankInteractor,
+                                messagesInteractor: widget.messagesInteractor,
                                 child: BroadcastsBlocProvider(
                                   bloc: BroadcastsListBloc(
                                       widget.broadcastInteractor),

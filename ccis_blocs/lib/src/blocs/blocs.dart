@@ -6,3 +6,4 @@ export 'studies/studies.dart';
 export 'users/user_bloc.dart';
 export 'broadcast/broadcast.dart';
 export 'rank/rank.dart';
+export 'messages/messages.dart';

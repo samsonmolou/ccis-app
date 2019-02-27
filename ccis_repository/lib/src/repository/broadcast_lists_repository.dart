@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 
-import 'package:ccis_repository/src/entity/broadcast_entity.dart';
+import 'package:ccis_repository/src/entity/broadcast_list_entity.dart';
 
 /// A class that Loads broadcast from database file. The data layer of the app.
 ///
@@ -11,16 +11,16 @@ import 'package:ccis_repository/src/entity/broadcast_entity.dart';
 /// The domain layer should depend on this abstract class, and each app can
 /// inject the correct implementation depending on the environment, such as
 /// web or Flutter.
-abstract class BroadcastRepository {
+abstract class BroadcastListsRepository {
   /// Loads broadcast list from database
-  Future<List<BroadcastEntity>> getAllBroadcasts();
+  Future<List<BroadcastListEntity>> getAllBroadcastLists();
 
   /// Persists broadcast list to sqflite corresponding table
-  Future newBroadcast(BroadcastEntity broadcast);
+  Future newBroadcastList(BroadcastListEntity broadcastList);
 
   /// Update broadcast list to sqflite corresponding table
-  Future updateBroadcast(BroadcastEntity broadcast);
+  Future updateBroadcastList(BroadcastListEntity broadcastList);
 
   /// Delete broadcast list to sqflite corresponding table
-  Future deleteBroadcast(List<String> broadcastId);
+  Future deleteBroadcastList(List<String> broadcastListId);
 }

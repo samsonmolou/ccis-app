@@ -68,7 +68,20 @@ CREATE TABLE ${RankMetadata.tableName} (
 )
       ''');
 
-
+      // Create Message table
+      await db.execute('''
+CREATE TABLE ${MessagesMetadata.tableName} (
+  ${MessagesMetadata.id} TEXT PRIMARY KEY,
+  ${MessagesMetadata.broadcastId} TEXT,
+  ${MessagesMetadata.memberId} TEXT,
+  ${MessagesMetadata.isWaiting} INTEGER,
+  ${MessagesMetadata.isSent} INTEGER,
+  ${MessagesMetadata.isReceived} INTEGER,
+  ${MessagesMetadata.content} TEXT,
+  ${MessagesMetadata.sentAt} TEXT,
+  ${MessagesMetadata.receivedAt} TEXT
+)
+''');
 
       /*
 

@@ -2,13 +2,14 @@ import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ccis_app/helpers/date_format.dart';
 import 'package:ccis_app/widgets/shared/linear_loading.dart';
+import 'package:ccis_app/helpers/parser.dart';
 
 class MessageItem extends StatelessWidget {
   final GestureTapCallback onTap;
   final Message message;
-  final BroadcastInteractor broadcastInteractor;
+  final MessagesInteractor messageInteractor;
+  final MembersInteractor membersInteractor;
 
   final String _simpleValue1 = 'Action 1';
   final String _simpleValue2 = 'Action 2';
@@ -19,7 +20,8 @@ class MessageItem extends StatelessWidget {
   MessageItem({
     @required this.onTap,
     @required this.message,
-    @required this.broadcastInteractor
+    @required this.messageInteractor,
+    @required this.membersInteractor
   });
 
   void showMenuSelection(String value) {
@@ -29,24 +31,37 @@ class MessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ListTile(
-      onTap: onTap,
-      title: Text(
-        message.broadcastId + " #" + message.memberId.toString()                                                                                                                                                                                                                   ,
-        key: ArchSampleKeys.broadcastItemHead(message.id),
-        style: Theme.of(context).textTheme.title,
-      ),
-      subtitle: Text(
-        '${DateFormat.getDateFormat(message.sentAt)}'
-            ' - ${message.receivedAt}\n${message.content}',
-        key: ArchSampleKeys.memberItemSubhead(message.id),
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.subhead,
+    MemberBloc memberBloc = MemberBloc(this.membersInteractor);
+    return StreamBuilder<Member>(
+      stream: memberBloc.member(this.message.memberId).where((member) => member != null),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearLoading();
 
-      ),
-      isThreeLine: true,
+        final member = snapshot.data;
+
+        return  ListTile(
+          dense: true,
+          onTap: onTap,
+          contentPadding: EdgeInsets.zero,
+          title: Text(
+            '${member.firstName} ${member.secondName}',
+            key: ArchSampleKeys.broadcastItemHead(message.id), //TODO: Change this to messageItem
+            style: Theme.of(context).textTheme.title,
+          ),
+          subtitle: Text(
+            '${member.phoneNumber} - ${member.community.name}\n${Parser.parse(member, message.content)}',
+            key: ArchSampleKeys.memberItemSubhead(message.id),
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.subhead,
+
+          ),
+          trailing: message.isWaiting == 1 ? Icon(Icons.hourglass_empty) : message.isSent == 1 ? Icon(Icons.hourglass_full) : message.isReceived == 1 ? Icon(Icons.check) : Icon(Icons.error),
+          isThreeLine: true,
+        );
+      },
     );
+
     /*
     BroadcastBloc broadcastListBloc = BroadcastBloc(this.broadcastInteractor);
     return StreamBuilder<BroadcastList>(

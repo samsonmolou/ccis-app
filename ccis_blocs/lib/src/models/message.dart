@@ -7,9 +7,9 @@ class Message {
   final String id;
   final String broadcastId;
   final String memberId;
-  final bool isWaiting;
-  final bool isSent;
-  final bool isReceived;
+  final int isWaiting;
+  final int isSent;
+  final int isReceived;
   final String content;
   final String sentAt; // Date d'envoi du message
   final String receivedAt;
@@ -18,17 +18,17 @@ class Message {
       {String id,
       String broadcastId,
       String memberId,
-      bool isWaiting = true,
-      bool isSent = false,
-      bool isReceived = false,
+      int isWaiting = 1,
+      int isSent = 0,
+      int isReceived = 0,
       String content,
       String sentAt,
       String receivedAt})
       : this.broadcastId = broadcastId ?? '',
         this.memberId = memberId ?? '',
-        this.isWaiting = isWaiting ?? true,
-        this.isSent = isSent ?? false,
-        this.isReceived = isReceived ?? false,
+        this.isWaiting = isWaiting ?? 1,
+        this.isSent = isSent ?? 0,
+        this.isReceived = isReceived ?? 0,
         this.content = content ?? '',
         this.sentAt = sentAt ?? '',
         this.receivedAt = receivedAt ?? '',

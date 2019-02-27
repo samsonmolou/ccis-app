@@ -13,13 +13,17 @@ class BroadcastDetailScreen extends StatefulWidget {
   final BroadcastInteractor broadcastInteractor;
   final RankInteractor rankInteractor;
   final BroadcastListInteractor broadcastListInteractor;
+  final MessagesInteractor messagesInteractor;
+  final MembersInteractor membersInteractor;
 
   BroadcastDetailScreen(
       {@required this.broadcastId,
       @required this.initBloc,
       @required this.broadcastInteractor,
       @required this.rankInteractor,
-      @required this.broadcastListInteractor})
+      @required this.broadcastListInteractor,
+      @required this.messagesInteractor,
+      @required this.membersInteractor})
       : super(key: ArchSampleKeys.broadcastDetailsScreen);
 
   @override
@@ -86,6 +90,8 @@ class BroadcastDetailScreenState extends State<BroadcastDetailScreen> {
                           broadcastInteractor: widget.broadcastInteractor,
                           broadcastListInteractor:
                               widget.broadcastListInteractor,
+                          messagesInteractor: widget.messagesInteractor,
+                          membersInteractor: widget.membersInteractor,
                           rankInteractor: widget.rankInteractor,
                           updateBroadcast: broadcastBloc.updateBroadcast.add,
                           key: ArchSampleKeys.editBroadcastScreen,
