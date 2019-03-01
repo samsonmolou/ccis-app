@@ -66,6 +66,7 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcast),
         actions: [],
+
       ),
       bottomNavigationBar: new StreamBuilder<List<SimCard>>(
           stream: simCardsBloc.getSimCards,
@@ -79,18 +80,24 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
             return new Card(
               shape: BeveledRectangleBorder(),
               margin: EdgeInsets.zero,
+
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: simCards
-                    .map((simCard) => Container(
-                          child: FlatButton(
-                              onPressed: () {},
+                    .map((simCard) => Expanded(
+                          child: RaisedButton(
+                              elevation: 10.0,
+                              onPressed: () {
+
+                              },
+                              color: Theme.of(context).primaryColor,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   SizedBox(height: 18.0),
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(
                                         Icons.sim_card,
