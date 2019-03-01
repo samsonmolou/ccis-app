@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_app/widgets/messages/waiting_message_item.dart';
-import 'package:ccis_app/dependency_injector/sim_cards_injector.dart';
+import 'package:ccis_app/providers/sim_cards_bloc_provider.dart';
 
 import 'broadcast_processing_screen.dart';
 
@@ -316,30 +316,32 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                               widget.addBroadcast(_broadcast);
                               rankBloc.updateRank.add(_rank);
                             }
+                            final simCardsBloc =
+                                new SimCardsBloc(SimCardsInteractor());
+                            simCardsBloc.loadSimCards();
 
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (_) {
-                                  return SimCardsInjector(
-                                    simCardsInteractor: SimCardsInteractor(),
-                                    child: BroadcastProcessingScreen(
-                                      broadcast: this._broadcast,
-                                      messages: this._waitingMessages,
-                                      broadcastInteractor:
-                                          widget.broadcastInteractor,
-                                      rankInteractor: widget.rankInteractor,
-                                      messagesInteractor:
-                                          widget.messagesInteractor,
-                                      broadcastListInteractor:
-                                          widget.broadcastListInteractor,
-                                      membersInteractor:
-                                          widget.membersInteractor,
-                                      addMessages: messagesBroadcastingBloc
-                                          .addMessages.add,
-                                      initBloc: () => BroadcastBloc(
-                                          widget.broadcastInteractor),
-                                    ),
-                                  );
+                                  return new SimCardsBlocProvider(
+                                      simCardBloc: simCardsBloc,
+                                      child: BroadcastProcessingScreen(
+                                        broadcast: this._broadcast,
+                                        messages: this._waitingMessages,
+                                        broadcastInteractor:
+                                            widget.broadcastInteractor,
+                                        rankInteractor: widget.rankInteractor,
+                                        messagesInteractor:
+                                            widget.messagesInteractor,
+                                        broadcastListInteractor:
+                                            widget.broadcastListInteractor,
+                                        membersInteractor:
+                                            widget.membersInteractor,
+                                        addMessages: messagesBroadcastingBloc
+                                            .addMessages.add,
+                                        initBloc: () => BroadcastBloc(
+                                            widget.broadcastInteractor),
+                                      ));
                                 },
                               ),
                             );

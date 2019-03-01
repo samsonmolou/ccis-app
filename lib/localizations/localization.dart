@@ -491,9 +491,9 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
-  String get sim1 => Intl.message(
-    'Sim 1',
-    name: 'sim1',
+  String get sim => Intl.message(
+    'Sim',
+    name: 'sim',
     args: [],
     locale: locale.toString(),
   );

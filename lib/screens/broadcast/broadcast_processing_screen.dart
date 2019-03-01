@@ -60,39 +60,58 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final simCardsBloc = SimCardsBloc(SimCardsInteractor());
-    simCardsBloc.loadSimCards();
+    final simCardsBloc = SimCardsBlocProvider.of(context);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcast),
         actions: [],
       ),
-      bottomNavigationBar: IconButton(
-          icon: new StreamBuilder<SimCard>(
-              stream: simCardsBloc.onSimCardChanged,
-              initialData: simCardsBloc.selectedSimCard,
-              builder: (context, snapshot) {
-                final simCard = snapshot.data;
+      bottomNavigationBar: new StreamBuilder<List<SimCard>>(
+          stream: simCardsBloc.getSimCards,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Container(height: 2, width: 2, child: LinearLoading());
 
-                return new Row(
-                  children: [
-                    new Icon(Icons.sim_card,
-                        color: simCard.state == SimCardState.Ready
-                            ? Colors.blue
-                            : Colors.grey),
-                    new Text(
-                      snapshot.data.slot.toString(),
-                      style: new TextStyle(
-                          color: simCard.state == SimCardState.Ready
-                              ? Colors.white
-                              : Colors.grey),
-                    ),
-                  ],
-                );
-              }),
-          onPressed: () {
-            simCardsBloc.toggleSelectedSim();
+            // On recupère la liste des cartes sim disponibles sur le téléphone
+            final simCards = snapshot.data;
+
+            return new Card(
+              shape: BeveledRectangleBorder(),
+              margin: EdgeInsets.zero,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: simCards
+                    .map((simCard) => Container(
+                          child: FlatButton(
+                              onPressed: () {},
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  SizedBox(height: 18.0),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.sim_card,
+                                        size: 18.0,
+                                      ),
+                                      SizedBox(
+                                        width: 3.0,
+                                      ),
+                                      Text(
+                                          '${ArchSampleLocalizations.of(context).sim} ${simCard.slot.toString()}',
+                                          semanticsLabel:
+                                              '${ArchSampleLocalizations.of(context).sim} ${simCard.slot.toString()}'),
+                                    ],
+                                  ),
+                                  SizedBox(height: 18.0),
+                                ],
+                              )),
+                        ))
+                    .toList(),
+              ),
+            );
           }),
       body: MessagesList(
         broadcast: widget.broadcast,

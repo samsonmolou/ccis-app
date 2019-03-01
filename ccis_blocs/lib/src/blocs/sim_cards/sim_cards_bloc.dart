@@ -24,7 +24,6 @@ class SimCardsBloc {
     this.interactor.selectSimCard(sim);
   }
 
-  Future<List<SimCard>> getSimCards () async {
-    return this.interactor.getSimCards();
-  }
+  Stream<List<SimCard>> get getSimCards => this.interactor.getSimCards;
 }
+

@@ -25,8 +25,6 @@ class RankBloc {
     final subscriptions = <StreamSubscription<dynamic>>[
       // When a user updates an item, update the repository
       updateRankController.stream.listen(interactor.updateRank),
-
-
     ];
 
     return RankBloc._(
