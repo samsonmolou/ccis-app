@@ -1,5 +1,5 @@
-name: ccis_blocs
-description: A new Flutter package.
+name: ccis_sms
+description: Module d&#x27;envoi de sms
 version: 0.0.1
 author:
 homepage:
@@ -10,15 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: 0.18.0
-  ccis_repository:
-    path: ../ccis_repository
-  ccis_sms:
-    path: ../ccis_sms
-  sqflite:
-  csv:
   sms: ^0.2.0
-
 
 dev_dependencies:
   flutter_test:

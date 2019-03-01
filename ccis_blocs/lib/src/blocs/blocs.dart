@@ -7,3 +7,4 @@ export 'users/user_bloc.dart';
 export 'broadcast/broadcast.dart';
 export 'rank/rank.dart';
 export 'messages/messages.dart';
+export 'sim_cards/sim_cards_bloc.dart';

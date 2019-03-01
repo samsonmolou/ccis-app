@@ -45,6 +45,7 @@ class MessagesListState extends State<MessagesList> {
   }
 
   ListView _buildList(List<Message> messages) {
+    messages.sort((Message a, Message b) => b.sentAt.compareTo(a.sentAt));
     return ListView.builder(
       key: ArchSampleKeys.broadcastLists,
       itemCount: messages.length,

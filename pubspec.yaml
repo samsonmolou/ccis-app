@@ -29,6 +29,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   sqflite:
   file_picker: ^1.1.1
+  sms: ^0.2.0
   csv:
   date_format: ^1.0.6
 

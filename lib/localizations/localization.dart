@@ -491,6 +491,20 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get sim1 => Intl.message(
+    'Sim 1',
+    name: 'sim1',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get sim2 => Intl.message(
+    'Sim 2',
+    name: 'sim2',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get searchMember => Intl.message(
     'Rechercher un membre',
     name: 'searchMember',

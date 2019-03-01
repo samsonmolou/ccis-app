@@ -7,6 +7,8 @@ import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ccis_app/providers/sim_cards_bloc_provider.dart';
+import 'package:sms/sms.dart';
 
 class BroadcastProcessingScreen extends StatefulWidget {
   final Broadcast broadcast;
@@ -58,42 +60,40 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    final simCardsBloc = SimCardsBloc(SimCardsInteractor());
+    simCardsBloc.loadSimCards();
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcast),
         actions: [],
       ),
-      bottomNavigationBar: RaisedButton(
-          padding: EdgeInsets.zero,
-          shape: BeveledRectangleBorder(),
-          color: Theme.of(context).accentColor,
-          onPressed: () {},
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              SizedBox(height: 18.0),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.stop,
-                    size: 18.0,
-                  ),
-                  SizedBox(
-                    width: 3.0,
-                  ),
-                  Text(ArchSampleLocalizations.of(context).stopBroadcast,
-                      semanticsLabel:
-                          ArchSampleLocalizations.of(context).stopBroadcast),
-                ],
-              ),
-              SizedBox(height: 18.0),
-            ],
-          )),
+      bottomNavigationBar: IconButton(
+          icon: new StreamBuilder<SimCard>(
+              stream: simCardsBloc.onSimCardChanged,
+              initialData: simCardsBloc.selectedSimCard,
+              builder: (context, snapshot) {
+                final simCard = snapshot.data;
+
+                return new Row(
+                  children: [
+                    new Icon(Icons.sim_card,
+                        color: simCard.state == SimCardState.Ready
+                            ? Colors.blue
+                            : Colors.grey),
+                    new Text(
+                      snapshot.data.slot.toString(),
+                      style: new TextStyle(
+                          color: simCard.state == SimCardState.Ready
+                              ? Colors.white
+                              : Colors.grey),
+                    ),
+                  ],
+                );
+              }),
+          onPressed: () {
+            simCardsBloc.toggleSelectedSim();
+          }),
       body: MessagesList(
         broadcast: widget.broadcast,
         messagesInteractor: widget.messagesInteractor,

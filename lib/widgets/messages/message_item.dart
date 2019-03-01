@@ -35,7 +35,7 @@ class MessageItem extends StatelessWidget {
       ),
       subtitle: Text(
         '${DateFormat.getDateFormat(message.sentAt)}'
-            ' - ${message.content}\n${message.content}',
+            ' - ${message.memberId}\n${message.content}',
         key: ArchSampleKeys.memberItemSubhead(message.id),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,

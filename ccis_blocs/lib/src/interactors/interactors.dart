@@ -6,3 +6,4 @@ export 'members_interactor.dart';
 export 'studies_interactor.dart';
 export 'rank_interactor.dart';
 export 'messages_interactor.dart';
+export 'sim_cards_interactor.dart';

@@ -32,4 +32,5 @@ class MessagesInteractor {
 
   Future<void> addMessages(List<Message> messages) => repository.addMessages(messages.map((message) => message.toEntity()).toList());
 
+
 }
