@@ -4,6 +4,7 @@ import 'package:ccis_app/main.dart' as app;
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
+import 'package:ccis_sms/ccis_sms.dart';
 
 void main() {
   app.main(
@@ -24,8 +25,9 @@ void main() {
                   BroadcastsRepositoryFlutter(sqlite: BroadcastSqlite()))),
       rankInteractor: RankInteractor(ReactiveRankRepositoryFlutter(
           repository: RankRepositoryFlutter(sqlite: RankSqlite()))),
-      messagesInteractor: MessagesInteractor(ReactiveMessagesRepositoryFlutter(
-          repository: MessagesRepositoryFlutter(sqlite: MessageSqlite()))));
+      messagesInteractor: MessagesInteractor(
+          ReactiveMessagesRepositoryFlutter(
+              repository: MessagesRepositoryFlutter(sqlite: MessageSqlite()))));
 }
 
 class AnonymousUserRepository implements UserRepository {

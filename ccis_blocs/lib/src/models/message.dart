@@ -11,8 +11,8 @@ class Message {
   final int isSent;
   final int isReceived;
   final String content;
-  final String sentAt; // Date d'envoi du message
   final String receivedAt;
+  final String sentAt; // Date d'envoi du message
 
   Message(
       {String id,
@@ -38,9 +38,9 @@ class Message {
       {String id,
       String broadcastId,
       String memberId,
-      bool isWaiting = true,
-      bool isSent = false,
-      bool isReceived = false,
+      int isWaiting,
+      int isSent,
+      int isReceived,
       String content,
       String sentAt,
       String receivedAt}) {

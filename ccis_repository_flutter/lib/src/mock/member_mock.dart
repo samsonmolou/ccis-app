@@ -24,7 +24,7 @@ class MemberMock {
             'Samson',
             'M',
             '65',
-            '+22549631223',
+            '(650) 555-1212',
             CommunityEntity("2", "MICI"),
             StudyEntity("3", "TSBU")
           ),
@@ -34,7 +34,7 @@ class MemberMock {
               'Ackerman',
               'M',
               '65',
-              '+22549631223',
+              '+1 650 555-6789',
               CommunityEntity("2", "MICI"),
               StudyEntity("3", "TSBU")
           ),

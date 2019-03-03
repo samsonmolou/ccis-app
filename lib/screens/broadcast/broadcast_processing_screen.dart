@@ -41,6 +41,9 @@ class BroadcastProcessingScreen extends StatefulWidget {
 
 class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
   BroadcastBloc broadcastBloc;
+  MemberBloc memberBloc;
+  MessageBloc messageBloc;
+  SmsSender _sender;
 
   static final GlobalKey<ScaffoldState> _scaffoldKey =
       GlobalKey<ScaffoldState>();
@@ -49,6 +52,9 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
   void initState() {
     super.initState();
     broadcastBloc = widget.initBloc();
+    memberBloc = MemberBloc(widget.membersInteractor);
+    messageBloc = MessageBloc(widget.messagesInteractor);
+    _sender = new SmsSender();
     widget.addMessages(widget.messages);
   }
 
@@ -66,7 +72,9 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).broadcast),
         actions: [],
-
+        bottom: PreferredSize(
+            child: Container(height: 2, child: LinearLoading()),
+            preferredSize: Size(double.maxFinite, 2)),
       ),
       bottomNavigationBar: new StreamBuilder<List<SimCard>>(
           stream: simCardsBloc.getSimCards,
@@ -80,7 +88,6 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
             return new Card(
               shape: BeveledRectangleBorder(),
               margin: EdgeInsets.zero,
-
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -89,7 +96,7 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
                           child: RaisedButton(
                               elevation: 10.0,
                               onPressed: () {
-
+                                _sendMessages(widget.messages, simCard);
                               },
                               color: Theme.of(context).primaryColor,
                               child: Column(
@@ -125,5 +132,54 @@ class BroadcastProcessingScreenState extends State<BroadcastProcessingScreen> {
         messagesInteractor: widget.messagesInteractor,
       ),
     );
+  }
+
+  void _sendMessages(List<Message> messages, SimCard simCard) {
+    messages.forEach((message) async {
+      memberBloc
+          .member(message.memberId)
+          .first
+          .then((member) async {
+        final SmsMessage smsMessage =
+        new SmsMessage(member.phoneNumber,
+            message.content);
+
+        await _sender.sendSms(smsMessage,
+            simCard: simCard);
+
+        smsMessage.onStateChanged
+            .listen((SmsMessageState state) {
+          if (state == SmsMessageState.Delivered) {
+            print(smsMessage.hashCode.toString());
+            messageBloc.updateMessage.add(
+                message.copyWith(
+                    isWaiting: 0,
+                    isReceived: 1,
+                    receivedAt:
+                    DateTime.now().toString()));
+          }
+          if (state == SmsMessageState.Sent) {
+            print(smsMessage.hashCode.toString());
+            messageBloc.updateMessage.add(
+                message.copyWith(
+                    isWaiting: 0,
+                    isSent: 1,
+                    sentAt:
+                    DateTime.now().toString()));
+          }
+          if (state == SmsMessageState.Fail) {
+            print(smsMessage.hashCode.toString());
+            messageBloc.updateMessage.add(
+                message.copyWith(
+                    isWaiting: 0,
+                    isSent: 0,
+                    isReceived: 0,
+                    sentAt:
+                    DateTime.now().toString()));
+          }
+        });
+
+      });
+    });
   }
 }

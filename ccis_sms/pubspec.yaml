@@ -1,5 +1,5 @@
 name: ccis_sms
-description: Module d&#x27;envoi de sms
+description: Module d envoi de sms
 version: 0.0.1
 author:
 homepage:
@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   sms: ^0.2.0
+  ccis_blocs:
+    path: ../ccis_blocs
+  ccis_repository:
+    path: ../ccis_repository
 
 dev_dependencies:
   flutter_test:

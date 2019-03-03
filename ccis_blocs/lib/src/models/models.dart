@@ -6,3 +6,4 @@ export 'member.dart';
 export 'study.dart';
 export 'rank.dart';
 export 'message.dart';
+export 'message_payload.dart';

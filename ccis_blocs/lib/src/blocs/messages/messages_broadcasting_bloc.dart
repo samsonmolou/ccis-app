@@ -11,6 +11,7 @@ class MessagesBroadcastingBloc {
 
   // Inputs
   final Sink<List<Message>> addMessages;
+  //final Sink<MessagePayload> sendMessages;
   final Sink<String> deleteMessage;
   final Sink<Message> updateMessage;
   final Sink<String> searchMessage;
@@ -30,6 +31,7 @@ class MessagesBroadcastingBloc {
     // publicly so users can send information to the Bloc. We'll use the Streams
     // internally to react to that user input.
     final addMessagesController = StreamController<List<Message>>(sync: true);
+    //final sendMessagesController = StreamController<MessagePayload>(sync: true);
     final deleteMessageController = StreamController<String>(sync: true);
     final updateMessageController = StreamController<Message>(sync: true);
     final searchMessageController = BehaviorSubject<String>(sync: true);
@@ -41,6 +43,7 @@ class MessagesBroadcastingBloc {
     final subscriptions = <StreamSubscription<dynamic>>[
       // When a user adds an item, add it to the repository
       addMessagesController.stream.listen(interactor.addMessages),
+
       deleteMessageController.stream.listen(interactor.deleteMessage),
       updateMessageController.stream.listen(interactor.updateMessage),
     ];
