@@ -1,7 +1,7 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/dependency_injector/broadcast_injector.dart';
 import 'package:ccis_app/providers/broadcasts_bloc_provider.dart';
-import 'package:ccis_app/screens/broadcast/broadcast_add_edit_screen.dart';
+import 'package:ccis_app/screens/broadcast/broadcast_add_forward_screen.dart';
 import 'package:ccis_app/screens/broadcast/broadcast_detail_screen.dart';
 import 'package:ccis_app/widgets/broadcasts/broadcast_item.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
@@ -79,7 +79,7 @@ class BroadcastsList extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return BroadcastAddEditScreen(
+          return BroadcastAddForwardScreen(
             broadcast: broadcast,
             updateBroadcast:
                 BroadcastsBlocProvider.of(context).updateBroadcast.add,

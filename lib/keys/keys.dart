@@ -101,6 +101,10 @@ class ArchSampleKeys {
   static final broadcastDetailsScreen = const Key('__broadcastDetailsScreen__');
   static final deleteBroadcastButton = const Key('__deleteBroadcastButton__');
   static final editBroadcastButton = const Key('__editBroadcastButton__');
+  static final forwardBroadcastButton = const Key('__forwardBroadcastButton__');
+  static final broadcastDetailDetailsTab = const Key('__broadcastDetailDetailsTab__');
+  static final broadcastDetailMessagesTab = const Key('__broadcastDetailMessage sTab__');
+
 
   // Broadcast Processing Screen
   static final broadcastProcessingScreen = const Key('__broadcastProcessingScreen__');
@@ -138,6 +142,7 @@ class ArchSampleKeys {
 
   // Edit Broadcast Screen
   static final editBroadcastScreen = const Key('__editBroadcastScreen__');
+  static final forwardBroadcastScreen = const Key('__forwardBroadcastScreen__');
 
   // Member Export Screen
   static final membersExportScreen = const Key('__membersExportScreen__');

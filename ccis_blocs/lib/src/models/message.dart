@@ -89,11 +89,11 @@ class Message {
     return '${MessagesMetadata.tableName}{${MessagesMetadata.id}: $id, '
         '${MessagesMetadata.broadcastId}: $broadcastId, '
         '${MessagesMetadata.memberId}: $memberId,'
-        '${MessagesMetadata.isWaiting}: $isWaiting'
-        '${MessagesMetadata.isSent}: $isSent'
-        '${MessagesMetadata.isReceived}: $isReceived'
-        '${MessagesMetadata.content}: $content'
-        '${MessagesMetadata.sentAt}: $sentAt'
+        '${MessagesMetadata.isWaiting}: $isWaiting,'
+        '${MessagesMetadata.isSent}: $isSent,'
+        '${MessagesMetadata.isReceived}: $isReceived,'
+        '${MessagesMetadata.content}: $content,'
+        '${MessagesMetadata.sentAt}: $sentAt,'
         '${MessagesMetadata.receivedAt}: $receivedAt}';
   }
 

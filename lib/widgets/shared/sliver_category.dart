@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MemberCategory extends StatelessWidget {
-  const MemberCategory({ Key key, this.icon, this.children }) : super(key: key);
+class SliverCategory extends StatelessWidget {
+  const SliverCategory({ Key key, this.icon, this.children }) : super(key: key);
 
   final IconData icon;
   final List<Widget> children;
@@ -10,13 +10,13 @@ class MemberCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: themeData.dividerColor)),
-          color: themeData.backgroundColor
+          color: themeData.canvasColor
       ),
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.headline,
+        style: Theme.of(context).textTheme.subhead,
 
         child: SafeArea(
           top: false,
@@ -25,7 +25,7 @@ class MemberCategory extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
+                  padding: const EdgeInsets.symmetric(vertical: 18.0),
                   width: 72.0,
                   child: Icon(icon, color: themeData.accentColor)
               ),
@@ -38,8 +38,8 @@ class MemberCategory extends StatelessWidget {
   }
 }
 
-class MemberItem extends StatelessWidget {
-  MemberItem({ Key key, this.icon, this.lines, this.tooltip, this.onPressed })
+class SliverItem extends StatelessWidget {
+  SliverItem({ Key key, this.icon, this.lines, this.tooltip, this.onPressed })
       : assert(lines.length > 1),
         super(key: key);
 

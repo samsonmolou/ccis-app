@@ -16,7 +16,7 @@ class BroadcastListAddEditSearchBloc {
   //Cleanup
   final List<StreamSubscription<dynamic>> _subscriptions;
 
-  factory BroadcastListAddEditSearchBloc(MembersInteractor interactor, BroadcastListInteractor interactor2) {
+  factory BroadcastListAddEditSearchBloc(MembersInteractor interactor) {
     // We'll use a series of StreamControllers to glue together our inputs and
     // outputs.
     //

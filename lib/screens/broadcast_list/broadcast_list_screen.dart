@@ -43,7 +43,7 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
         title: Text(ArchSampleLocalizations.of(context).broadcastList),
         actions: _buildActions(delegate),
       ),
-      drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
+      drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer, membersInteractor: BroadcastListInjector.of(context).membersInteractor,),
       body: BroadcastListList(),
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addBroadcastListFab,
@@ -55,7 +55,7 @@ class BroadcastListScreenState extends State<BroadcastListScreen> {
                 broadcastListsInteractor: BroadcastListInjector.of(context).broadcastListsInteractor,
                 key: ArchSampleKeys.addBroadcastListScreen,
                 initSearchBloc: () => BroadcastListAddEditSearchBloc(
-                    BroadcastListInjector.of(context).membersInteractor, BroadcastListInjector.of(context).broadcastListsInteractor),
+                    BroadcastListInjector.of(context).membersInteractor),
               );
             },
           ));

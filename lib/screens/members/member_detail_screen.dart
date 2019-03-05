@@ -1,13 +1,12 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/screens/members/member_add_edit_screen.dart';
-import 'package:ccis_app/widgets/members/member_category.dart';
+import 'package:ccis_app/widgets/shared/sliver_category.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository_flutter/ccis_repository_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 
 class MemberDetailScreen extends StatefulWidget {
   final String memberId;
@@ -27,7 +26,8 @@ class MemberDetailScreen extends StatefulWidget {
 class MemberDetailScreenState extends State<MemberDetailScreen> {
   MemberBloc memberBloc;
   final double _appBarHeight = 256.0;
-  static final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -44,7 +44,8 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Member>(
-      stream: memberBloc.member(widget.memberId).where((member) => member != null),
+      stream:
+          memberBloc.member(widget.memberId).where((member) => member != null),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return SpinnerLoading();
 
@@ -79,13 +80,13 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                         fit: BoxFit.cover,
                         height: _appBarHeight,
                       ),
-                      const DecoratedBox(decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment(0.0, -1.0),
-                            end: Alignment(0.0, -1.1),
-                            colors: <Color>[Color(0x60000000), Color(0x00000000)],
-                          )
-                      ))
+                      const DecoratedBox(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                        begin: Alignment(0.0, -1.0),
+                        end: Alignment(0.0, -1.1),
+                        colors: <Color>[Color(0x60000000), Color(0x00000000)],
+                      )))
                     ],
                   ),
                 ),
@@ -94,65 +95,69 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                 delegate: SliverChildListDelegate(<Widget>[
                   AnnotatedRegion<SystemUiOverlayStyle>(
                     value: SystemUiOverlayStyle.dark,
-                    child: MemberCategory(
+                    child: SliverCategory(
                       icon: Icons.phone,
                       children: <Widget>[
-                        MemberItem(
+                        SliverItem(
                           lines: <String>[
                             member.phoneNumber,
-                            ArchSampleLocalizations.of(context).newMemberPhoneNumberLabel
+                            ArchSampleLocalizations.of(context)
+                                .newMemberPhoneNumberLabel
                           ],
                         ),
                       ],
                     ),
                   ),
-                  MemberCategory(
+                  SliverCategory(
                     icon: Icons.home,
                     children: <Widget>[
-                      MemberItem(
+                      SliverItem(
                         lines: <String>[
                           member.residence,
-                          ArchSampleLocalizations.of(context).newMemberResidenceLabel
+                          ArchSampleLocalizations.of(context)
+                              .newMemberResidenceLabel
                         ],
                       ),
                     ],
                   ),
-                  MemberCategory(
+                  SliverCategory(
                     icon: Icons.hotel,
                     children: <Widget>[
-                      MemberItem(
+                      SliverItem(
                         lines: <String>[
                           member.bedroomNumber,
-                          ArchSampleLocalizations.of(context).newMemberBedroomNumberLabel
+                          ArchSampleLocalizations.of(context)
+                              .newMemberBedroomNumberLabel
                         ],
                       ),
                     ],
                   ),
-                  MemberCategory(
+                  SliverCategory(
                     icon: Icons.people,
                     children: <Widget>[
-                      MemberItem(
+                      SliverItem(
                         lines: <String>[
                           member.community.name,
-                          ArchSampleLocalizations.of(context).newMemberCommunityLabel
+                          ArchSampleLocalizations.of(context)
+                              .newMemberCommunityLabel
                         ],
                       ),
                     ],
                   ),
-                  MemberCategory(
+                  SliverCategory(
                     icon: Icons.school,
                     children: <Widget>[
-                      MemberItem(
+                      SliverItem(
                         lines: <String>[
                           member.study.name,
-                          ArchSampleLocalizations.of(context).newMemberStudyLabel
+                          ArchSampleLocalizations.of(context)
+                              .newMemberStudyLabel
                         ],
                       ),
                     ],
                   )
                 ]),
               ),
-
             ],
           ),
           floatingActionButton: FloatingActionButton(
@@ -167,14 +172,14 @@ class MemberDetailScreenState extends State<MemberDetailScreen> {
                       member: member,
                       updateTodo: memberBloc.updateMember.add,
                       key: ArchSampleKeys.editMemberScreen,
-                        communitiesInteractor: CommunitiesInteractor(
-                            ReactiveCommunitiesRepositoryFlutter(
-                                repository: CommunitiesRepositoryFlutter(
-                                    communitiesMetadata: CommunitiesMetadata()))),
-                        studiesInteractor: StudiesInteractor(
-                            ReactiveStudiesRepositoryFlutter(
-                                repository: StudiesRepositoryFlutter(
-                                    studiesMetadata: StudiesMetadata()))),
+                      communitiesInteractor: CommunitiesInteractor(
+                          ReactiveCommunitiesRepositoryFlutter(
+                              repository: CommunitiesRepositoryFlutter(
+                                  communitiesMetadata: CommunitiesMetadata()))),
+                      studiesInteractor: StudiesInteractor(
+                          ReactiveStudiesRepositoryFlutter(
+                              repository: StudiesRepositoryFlutter(
+                                  studiesMetadata: StudiesMetadata()))),
                     );
                   },
                 ),

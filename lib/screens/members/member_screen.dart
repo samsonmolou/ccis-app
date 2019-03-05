@@ -40,7 +40,7 @@ class MemberScreenState extends State<MemberScreen> {
         title: Text(ArchSampleLocalizations.of(context).members),
         actions: _buildActions(delegate),
       ),
-      drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
+      drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer, membersInteractor: MemberInjector.of(context).membersInteractor,),
       body: MemberList(),
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addMemberFab,

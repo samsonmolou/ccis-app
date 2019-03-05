@@ -96,8 +96,7 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
                               broadcastListBloc.updateBroadcastList.add,
                           key: ArchSampleKeys.editBroadcastListScreen,
                           initSearchBloc: () => BroadcastListAddEditSearchBloc(
-                              widget.membersInteractor,
-                              widget.broadcastListInteractor),
+                              widget.membersInteractor),
                         );
                       },
                     ),
@@ -148,31 +147,33 @@ class BroadcastListDetailScreenState extends State<BroadcastListDetailScreen> {
                         ? Center(
                             child: Text(
                                 ArchSampleLocalizations.of(context).noMembers))
-                        : ListView.builder(
-                            itemCount: members.length,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              final member = members[index];
+                        : Expanded(
+                      child: ListView.builder(
+                        itemCount: members.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          final member = members[index];
 
-                              return MemberItem(
-                                member: member,
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) {
-                                        return MemberDetailScreen(
-                                          memberId: member.id,
-                                          initBloc: () => MemberBloc(
-                                              widget.membersInteractor),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                                onDismissed: null,
+                          return MemberItem(
+                            member: member,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) {
+                                    return MemberDetailScreen(
+                                      memberId: member.id,
+                                      initBloc: () => MemberBloc(
+                                          widget.membersInteractor),
+                                    );
+                                  },
+                                ),
                               );
                             },
+                            onDismissed: null,
                           );
+                        },
+                      ),
+                    ) ;
                   },
                 )
               ],

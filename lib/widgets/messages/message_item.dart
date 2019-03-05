@@ -8,6 +8,7 @@ import 'package:ccis_app/widgets/shared/linear_loading.dart';
 class MessageItem extends StatelessWidget {
   final GestureTapCallback onTap;
   final Message message;
+  final MembersInteractor membersInteractor;
 
   final String _simpleValue1 = 'Action 1';
   final String _simpleValue2 = 'Action 2';
@@ -17,6 +18,7 @@ class MessageItem extends StatelessWidget {
   MessageItem({
     @required this.onTap,
     @required this.message,
+    @required this.membersInteractor
   });
 
   void showMenuSelection(String value) {
@@ -26,29 +28,41 @@ class MessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      title: Text(
-        message.memberId + " " + message.memberId,
-        key: ArchSampleKeys.broadcastItemHead(message.id),
-        style: Theme.of(context).textTheme.title,
-      ),
-      subtitle: Text(
-        '${DateFormat.getDateFormat(message.sentAt)}'
-            ' - ${message.memberId}\n${message.content}',
-        key: ArchSampleKeys.memberItemSubhead(message.id),
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.subhead,
-      ),
-      isThreeLine: true,
-      trailing: message.isWaiting == 1
-          ? Icon(Icons.schedule)
-          : message.isSent == 1
-              ? Icon(Icons.done)
+    MemberBloc memberBloc = MemberBloc(this.membersInteractor);
+
+    return StreamBuilder<Member>(
+      stream: memberBloc.member(this.message.memberId).where((member) => member != null),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearLoading();
+
+        final member = snapshot.data;
+
+        return ListTile(
+          onTap: onTap,
+          title: Text(
+            member.fullName,
+            key: ArchSampleKeys.broadcastItemHead(message.id),
+            style: Theme.of(context).textTheme.title,
+          ),
+          subtitle: Text(
+            '${DateFormat.getDateFormat(message.sentAt)}'
+                ' - ${member.phoneNumber}\n${message.content}',
+            key: ArchSampleKeys.memberItemSubhead(message.id),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.subhead,
+          ),
+          isThreeLine: true,
+          trailing: message.isWaiting == 1
+              ? Icon(Icons.schedule, color: Theme.of(context).accentColor,)
+              : message.isSent == 1
+              ? Icon(Icons.done, color: Theme.of(context).accentColor)
               : message.isReceived == 1
-                  ? Icon(Icons.done_all)
-                  : Icon(Icons.sms_failed),
+              ? Icon(Icons.done_all, color: Theme.of(context).accentColor)
+              : Icon(Icons.sms_failed, color: Theme.of(context).errorColor),
+        );
+      },
     );
+
   }
 }

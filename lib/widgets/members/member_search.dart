@@ -32,7 +32,7 @@ class SearchMemberSearchDelegate extends SearchDelegate<String> {
     //final memberSearchBloc = this.initBloc();
     final memberSearchBloc = MemberSearchBloc(this.interactor);
 
-    if (query.isEmpty || query.length < 3) return new Text(ArchSampleLocalizations.of(context).searchTextMinimum);
+    if (query.isEmpty || query.length < 3) return new Center(child: Text(ArchSampleLocalizations.of(context).searchTextMinimum));
 
     memberSearchBloc.searchMember.add(query);
 

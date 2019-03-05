@@ -7,10 +7,13 @@ import 'package:ccis_app/widgets/shared/linear_loading.dart';
 import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_app/widgets/messages/waiting_message_item.dart';
 import 'package:ccis_app/providers/sim_cards_bloc_provider.dart';
+import 'package:ccis_app/widgets/messages/messages_list.dart';
+import 'package:ccis_app/widgets/broadcasts/sim_card_dialog.dart';
+import 'package:sms/sms.dart';
 
 import 'broadcast_processing_screen.dart';
 
-class BroadcastAddEditScreen extends StatefulWidget {
+class BroadcastAddForwardScreen extends StatefulWidget {
   final Broadcast broadcast;
   //TODO: remove this later, using context
   final BroadcastInteractor broadcastInteractor;
@@ -22,7 +25,7 @@ class BroadcastAddEditScreen extends StatefulWidget {
   final Function(Broadcast) addBroadcast;
   final Function(Broadcast) updateBroadcast;
 
-  BroadcastAddEditScreen(
+  BroadcastAddForwardScreen(
       {Key key,
       this.broadcast,
       this.addBroadcast,
@@ -35,10 +38,10 @@ class BroadcastAddEditScreen extends StatefulWidget {
       : super(key: key ?? ArchSampleKeys.addEditBroadcastScreen);
 
   @override
-  _BroadcastAddEditScreen createState() => _BroadcastAddEditScreen();
+  _BroadcastAddForwardScreen createState() => _BroadcastAddForwardScreen();
 }
 
-class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
+class _BroadcastAddForwardScreen extends State<BroadcastAddForwardScreen> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   RankBloc rankBloc;
   BroadcastListBloc broadcastListBloc;
@@ -46,6 +49,8 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
   MessagesListBloc messagesListBloc;
   MessagesBroadcastingBloc messagesBroadcastingBloc;
   MembersListBloc memberListBloc;
+  SimCardsBloc simCardsBloc;
+
   String _message; // Le message a envoyé
   String _broadcastListId; // L'identifiant de la liste de diffusion
   String _name; // Le nom de la diffusion
@@ -59,7 +64,6 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
   @override
   void initState() {
     super.initState();
-
     rankBloc = RankBloc(widget.rankInteractor);
     broadcastListListBloc =
         BroadcastListListBloc(widget.broadcastListInteractor);
@@ -68,7 +72,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
     memberListBloc = MembersListBloc(widget.membersInteractor);
     messagesBroadcastingBloc =
         MessagesBroadcastingBloc(widget.messagesInteractor);
-    if (isEditing) {
+    if (isForwarding) {
       // On recupère le broadcast list associé a l'identifiant de la broadcast
       broadcastListBloc
           .broadcastList(widget.broadcast.broadcastListId)
@@ -78,6 +82,8 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
         _broadcastListId = value.id;
       });
     }
+    simCardsBloc = SimCardsBloc(SimCardsInteractor());
+    simCardsBloc.loadSimCards();
   }
 
   @override
@@ -184,7 +190,6 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                           .map((message) => WaitingMessageItem(
                                 onTap: () => {},
                                 message: message,
-                                messageInteractor: widget.messagesInteractor,
                                 membersInteractor: widget.membersInteractor,
                               ))
                           .toList());
@@ -196,8 +201,8 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          isEditing
-              ? ArchSampleLocalizations.of(context).editBroadcast
+          isForwarding
+              ? ArchSampleLocalizations.of(context).newBroadcast
               : ArchSampleLocalizations.of(context).newBroadcast,
         ),
         actions: <Widget>[
@@ -207,11 +212,11 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
               if (!snapshot.hasData) return SpinnerLoading();
               _rank = snapshot.data;
               return IconButton(
-                key: isEditing
+                key: isForwarding
                     ? ArchSampleKeys.saveNewBroadcastList
                     : ArchSampleKeys.saveNewBroadcastList,
-                icon: Icon(isEditing ? Icons.check : Icons.add),
-                tooltip: isEditing
+                icon: Icon(isForwarding ? Icons.check : Icons.add),
+                tooltip: isForwarding
                     ? ArchSampleLocalizations.of(context).saveChanges
                     : ArchSampleLocalizations.of(context).newBroadcastList,
                 onPressed: () {
@@ -219,7 +224,7 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                   if (form.validate()) {
                     form.save();
 
-                    if (isEditing) {
+                    if (isForwarding) {
                       widget.updateBroadcast(widget.broadcast.copyWith(
                           message: _message,
                           broadcastListId: _broadcastListId,
@@ -283,101 +288,123 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
                           ),
                         )
                       : Container(),
-                  FlatButton(
-                    onPressed: () {
-                      final form = formKey.currentState;
-                      if (form.validate()) {
-                        form.save();
-                        setState(() {
-                          _broadcast = isEditing
-                              ? widget.broadcast.copyWith(
-                                  message: _message,
-                                  broadcastListId: _broadcastListId,
-                                  name: _name,
-                                  dateTime: DateTime.now().toString())
-                              : Broadcast(
-                                  message: _message,
-                                  rank: _rank.value,
-                                  broadcastListId: _broadcastListId,
-                                  name: _name,
-                                  dateTime: DateTime.now().toString());
-                          // On recupère les membres de la broadcast list selectionné par l'utilisateur
-                          memberListBloc.members.listen((members) => _members =
-                              members
-                                  .where((member) => _broadcastList.membersId
-                                      .contains(member.id))
-                                  .toList());
-                          if (_currentStep < 1)
-                            _currentStep = _currentStep + 1;
-                          else {
-                            if (isEditing) {
-                              widget.updateBroadcast(_broadcast);
-                            } else {
-                              widget.addBroadcast(_broadcast);
-                              rankBloc.updateRank.add(_rank);
-                            }
-                            final simCardsBloc =
-                                new SimCardsBloc(SimCardsInteractor());
-                            simCardsBloc.loadSimCards();
+                  StreamBuilder<List<SimCard>>(
+                    stream: simCardsBloc.getSimCards,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData)
+                        return Container(
+                            height: 2, width: 2, child: LinearLoading());
 
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) {
-                                  return new SimCardsBlocProvider(
-                                      simCardBloc: simCardsBloc,
-                                      child: BroadcastProcessingScreen(
-                                        broadcast: this._broadcast,
-                                        messages: this._waitingMessages,
-                                        broadcastInteractor:
-                                            widget.broadcastInteractor,
-                                        rankInteractor: widget.rankInteractor,
-                                        messagesInteractor:
-                                            widget.messagesInteractor,
-                                        broadcastListInteractor:
-                                            widget.broadcastListInteractor,
-                                        membersInteractor:
-                                            widget.membersInteractor,
-                                        addMessages: messagesBroadcastingBloc
-                                            .addMessages.add,
-                                        initBloc: () => BroadcastBloc(
-                                            widget.broadcastInteractor),
-                                      ));
-                                },
-                              ),
-                            );
+                      final simCards = snapshot.data;
+
+                      return FlatButton(
+                        onPressed: () {
+                          final form = formKey.currentState;
+                          if (form.validate()) {
+                            form.save();
+                            setState(() {
+                              _broadcast = Broadcast(
+                                      message: _message,
+                                      rank: _rank.value,
+                                      broadcastListId: _broadcastListId,
+                                      name: _name,
+                                      dateTime: DateTime.now().toString());
+                              // On recupère les membres de la broadcast list selectionné par l'utilisateur
+                              memberListBloc.members.listen((members) =>
+                                  _members = members
+                                      .where((member) => _broadcastList
+                                          .membersId
+                                          .contains(member.id))
+                                      .toList());
+                              if (_currentStep < 1)
+                                _currentStep = _currentStep + 1;
+                              else {
+
+                                  widget.addBroadcast(_broadcast);
+                                  rankBloc.updateRank.add(_rank);
+
+
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => SimpleDialog(
+                                          title: Text(
+                                              ArchSampleLocalizations.of(
+                                                      context)
+                                                  .selectSimCard),
+                                          children: simCards
+                                              .map((simCard) =>
+                                                  SimCardDialogItem(
+                                                    icon: Icons.sim_card,
+                                                    text:
+                                                        '${ArchSampleLocalizations.of(context).sim} ${simCard.slot.toString()}',
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          context, simCard);
+                                                    },
+                                                  ))
+                                              .toList(),
+                                        )).then<void>((simCard) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) {
+                                        return new BroadcastProcessingScreen(
+                                          broadcast: this._broadcast,
+                                          messages: this._waitingMessages,
+                                          simCard: simCard,
+                                          broadcastInteractor:
+                                              widget.broadcastInteractor,
+                                          rankInteractor: widget.rankInteractor,
+                                          messagesInteractor:
+                                              widget.messagesInteractor,
+                                          broadcastListInteractor:
+                                              widget.broadcastListInteractor,
+                                          membersInteractor:
+                                              widget.membersInteractor,
+                                          addMessages: messagesBroadcastingBloc
+                                              .addMessages.add,
+                                          initBloc: () => BroadcastBloc(
+                                              widget.broadcastInteractor),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                });
+                              }
+                            });
                           }
-                        });
-                      }
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        this._currentStep == 0
-                            ? Text(ArchSampleLocalizations.of(context).next,
-                                semanticsLabel:
-                                    ArchSampleLocalizations.of(context).next)
-                            : Text(
-                                ArchSampleLocalizations.of(context)
-                                    .startBroadcast,
-                                semanticsLabel:
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            this._currentStep == 0
+                                ? Text(ArchSampleLocalizations.of(context).next,
+                                    semanticsLabel:
+                                        ArchSampleLocalizations.of(context)
+                                            .next)
+                                : Text(
                                     ArchSampleLocalizations.of(context)
-                                        .startBroadcast),
-                        SizedBox(
-                          width: 3.0,
+                                        .startBroadcast,
+                                    semanticsLabel:
+                                        ArchSampleLocalizations.of(context)
+                                            .startBroadcast),
+                            SizedBox(
+                              width: 3.0,
+                            ),
+                            this._currentStep == 0
+                                ? Icon(
+                                    Icons.navigate_next,
+                                    size: 18.0,
+                                  )
+                                : Icon(
+                                    Icons.playlist_play,
+                                    size: 18.0,
+                                  ),
+                          ],
                         ),
-                        this._currentStep == 0
-                            ? Icon(
-                                Icons.navigate_next,
-                                size: 18.0,
-                              )
-                            : Icon(
-                                Icons.playlist_play,
-                                size: 18.0,
-                              ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -405,5 +432,5 @@ class _BroadcastAddEditScreen extends State<BroadcastAddEditScreen> {
     );
   }
 
-  bool get isEditing => widget.broadcast != null;
+  bool get isForwarding => widget.broadcast != null;
 }

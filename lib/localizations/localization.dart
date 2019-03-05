@@ -21,6 +21,19 @@ class ArchSampleLocalizations {
         context, ArchSampleLocalizations);
   }
 
+  String get broadcastDetailDetailsTab => Intl.message(
+    'DÉTAILS',
+    name: 'broadcastDetailDetailsTab',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get broadcastDetailReportTab => Intl.message(
+    'RAPPORT',
+    name: 'broadcastDetailReportTab',
+    args: [],
+    locale: locale.toString(),
+  );
 
   String get searchTextMinimum => Intl.message(
     'Doit comporter au minimum 3 caractères',
@@ -66,6 +79,13 @@ class ArchSampleLocalizations {
 
   String get noMembers => Intl.message(
     'Aucun membre',
+    name: 'notMembers',
+    args: [],
+    locale: locale.toString(),
+  );
+
+  String get noMessages => Intl.message(
+    'Pas de message',
     name: 'notMembers',
     args: [],
     locale: locale.toString(),
@@ -295,6 +315,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String get newBroadcastDateTimeLabel => Intl.message(
+    'Date de diffusion',
+    name: 'newBroadcastDateTimeLabel',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get newBroadcastMessageLabel => Intl.message(
     'Message',
     name: 'newBroadcastMessageLabel',
@@ -409,6 +436,14 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+
+  String get forwardBroadcast => Intl.message(
+    'Transférer la diffusion',
+    name: 'forwardBroadcast',
+    args: [],
+    locale: locale.toString(),
+  );
+
   String get editBroadcastList => Intl.message(
     'Editer la liste',
     name: 'editBroadcastList',
@@ -470,6 +505,13 @@ class ArchSampleLocalizations {
     locale: locale.toString(),
   );
 
+  String forward(String rank) => Intl.message(
+    'Diffusion $rank',
+    name: 'forward',
+    args: [rank],
+    locale: locale.toString(),
+  );
+
   String get undo => Intl.message(
     'Annuler',
     name: 'undo',
@@ -480,6 +522,14 @@ class ArchSampleLocalizations {
   String get back => Intl.message(
     'Retour',
     name: 'back',
+    args: [],
+    locale: locale.toString(),
+  );
+
+
+  String get selectSimCard => Intl.message(
+    'Selectionné la carte SIM',
+    name: 'selectSimCard',
     args: [],
     locale: locale.toString(),
   );

@@ -13,8 +13,6 @@ dependencies:
   rxdart: 0.18.0
   ccis_repository:
     path: ../ccis_repository
-  ccis_sms:
-    path: ../ccis_sms
   sqflite:
   csv:
   sms: ^0.2.0

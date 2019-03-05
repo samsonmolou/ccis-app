@@ -8,64 +8,60 @@ import 'package:ccis_app/widgets/shared/spinner_loading.dart';
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
-import 'message_item.dart';
-
-class MessagesList extends StatefulWidget {
-  final Broadcast broadcast;
-  final MessagesInteractor messagesInteractor;
-  final MembersInteractor membersInteractor;
-
-  MessagesList(
-      {Key key, @required this.broadcast, @required this.messagesInteractor, @required this.membersInteractor})
-      : super(key: key);
-
-  @override
-  MessagesListState createState() {
-    return MessagesListState();
-  }
-}
-
-class MessagesListState extends State<MessagesList> {
-  MessagesListBloc messagesListBloc;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    messagesListBloc = MessagesListBloc(widget.messagesInteractor);
-  }
+class BroadcastDetailMessages extends StatelessWidget {
+  BroadcastDetailMessages({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    return StreamBuilder<List<Message>>(
-      stream: messagesListBloc.messages.map((messages) => messages.where((message) => message.broadcastId == widget.broadcast.id).toList()),
+    return StreamBuilder<List<Broadcast>>(
+      stream: BroadcastsBlocProvider.of(context).broadcasts,
       builder: (context, snapshot) => snapshot.hasData
           ? _buildList(snapshot.data)
-          : SpinnerLoading(key: ArchSampleKeys.messagesListsLoading),
+          : SpinnerLoading(key: ArchSampleKeys.broadcastListsLoading),
     );
   }
 
-  ListView _buildList(List<Message> messages) {
-    messages.sort((Message a, Message b) => b.sentAt.compareTo(a.sentAt));
+  ListView _buildList(List<Broadcast> broadcasts) {
+    broadcasts.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return ListView.builder(
       key: ArchSampleKeys.broadcastLists,
-      itemCount: messages.length,
-      shrinkWrap: true,
+      itemCount: broadcasts.length,
       itemBuilder: (BuildContext context, int index) {
-        final message = messages[index];
+        final broadcast = broadcasts[index];
 
         return Container(
           decoration: BoxDecoration(
               color: Theme.of(context).canvasColor,
-              border: Border(
-                  bottom: BorderSide(color: Theme.of(context).dividerColor))),
-          child: MessageItem(
-            message: message,
-            membersInteractor:
-              widget.membersInteractor,
+              border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor))
+          ),
+          child: BroadcastItem(
+            broadcast: broadcast,
+            onDismissed: (direction) {
+              _removeBroadcastList(context, broadcast);
+            },
+            broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
             onTap: () {
-
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) {
+                    return BroadcastDetailScreen(
+                      broadcastId: broadcast.id,
+                      broadcastInteractor:
+                      BroadcastInjector.of(context).broadcastsInteractor,
+                      rankInteractor: BroadcastInjector.of(context).rankInteractor,
+                      messagesInteractor: BroadcastInjector.of(context).messagesInteractor,
+                      broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
+                      membersInteractor: BroadcastInjector.of(context).membersInteractor,
+                      initBloc: () => BroadcastBloc(
+                          BroadcastInjector.of(context).broadcastsInteractor),
+                    );
+                  },
+                ),
+              ).then((broadcast) {
+                if (broadcast is Broadcast) {
+                  _showUndoSnackbar(context, broadcast);
+                }
+              });
             },
           ),
         );
@@ -86,15 +82,13 @@ class MessagesListState extends State<MessagesList> {
           return BroadcastAddForwardScreen(
             broadcast: broadcast,
             updateBroadcast:
-                BroadcastsBlocProvider.of(context).updateBroadcast.add,
+            BroadcastsBlocProvider.of(context).updateBroadcast.add,
             broadcastInteractor:
-                BroadcastInjector.of(context).broadcastsInteractor,
-            messagesInteractor:
-                BroadcastInjector.of(context).messagesInteractor,
+            BroadcastInjector.of(context).broadcastsInteractor,
+            messagesInteractor: BroadcastInjector.of(context).messagesInteractor,
             membersInteractor: BroadcastInjector.of(context).membersInteractor,
-            rankInteractor: BroadcastInjector.of(context).rankInteractor,
-            broadcastListInteractor:
-                BroadcastInjector.of(context).broadcastListInteractor,
+            rankInteractor:  BroadcastInjector.of(context).rankInteractor,
+            broadcastListInteractor: BroadcastInjector.of(context).broadcastListInteractor,
             key: ArchSampleKeys.editBroadcastScreen,
           );
         },

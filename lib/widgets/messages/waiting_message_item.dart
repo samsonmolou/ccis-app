@@ -3,29 +3,19 @@ import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ccis_app/widgets/shared/linear_loading.dart';
-import 'package:ccis_app/helpers/parser.dart';
 
 class WaitingMessageItem extends StatelessWidget {
   final GestureTapCallback onTap;
   final Message message;
-  final MessagesInteractor messageInteractor;
   final MembersInteractor membersInteractor;
 
-  final String _simpleValue1 = 'Action 1';
-  final String _simpleValue2 = 'Action 2';
-  final String _simpleValue3 = 'Action 3';
-  String _simpleValue;
+
 
   WaitingMessageItem(
       {@required this.onTap,
       @required this.message,
-      @required this.messageInteractor,
       @required this.membersInteractor});
 
-  void showMenuSelection(String value) {
-    if (<String>[_simpleValue1, _simpleValue2, _simpleValue3].contains(value))
-      _simpleValue = value;
-  }
 
   @override
   Widget build(BuildContext context) {

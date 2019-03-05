@@ -43,6 +43,7 @@ class BroadcastSearchBloc {
       _searchBroadcasts,
     ).pipe(searchBroadcastResultController);
 
+
     return BroadcastSearchBloc._(searchBroadcastController,
         searchBroadcastResultController, subscriptions);
   }

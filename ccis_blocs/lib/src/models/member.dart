@@ -81,10 +81,10 @@ class Member {
     return 'Member{id: $id, '
         'firstName: $firstName, '
         'secondName: $secondName,'
-        'residence: $residence'
-        'bedroomNumber: $bedroomNumber'
-        'phoneNumber: $phoneNumber'
-        'community: $community'
+        'residence: $residence,'
+        'bedroomNumber: $bedroomNumber,'
+        'phoneNumber: $phoneNumber,'
+        'community: $community,'
         'study: $study}';
   }
 

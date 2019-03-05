@@ -5,7 +5,8 @@ import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:flutter/material.dart';
 
 class NavigationDrawer extends StatelessWidget {
-  NavigationDrawer({Key key}) : super(key: key);
+  final MembersInteractor membersInteractor;
+  NavigationDrawer({Key key, @required this.membersInteractor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class NavigationDrawer extends StatelessWidget {
                         builder: (_) {
                           return MembersImportScreen(
                             initBloc: () =>
-                                MembersImportBloc(MemberInjector.of(context).membersInteractor),
+                                MembersImportBloc(this.membersInteractor),
                           );
                         },
                       )

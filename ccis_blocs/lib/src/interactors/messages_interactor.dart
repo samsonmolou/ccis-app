@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:ccis_blocs/ccis_blocs.dart';
 import 'package:ccis_repository/ccis_repository.dart';
-import 'package:ccis_sms/ccis_sms.dart';
 
 class MessagesInteractor {
   final ReactiveMessagesRepository repository;
@@ -32,6 +31,4 @@ class MessagesInteractor {
   Future<void> deleteMessage(String id) => repository.deleteMessage([id]);
 
   Future<void> addMessages(List<Message> messages) => repository.addMessages(messages.map((message) => message.toEntity()).toList());
-
-  //Future<void> sendMessages(MessagePayload payload) => sender.sendMessages(payload.messages, payload.simCard);
 }

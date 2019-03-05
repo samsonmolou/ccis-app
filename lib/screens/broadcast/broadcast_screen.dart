@@ -1,7 +1,7 @@
 import 'package:ccis_app/ccis_app.dart';
 import 'package:ccis_app/dependency_injector/broadcast_injector.dart';
 import 'package:ccis_app/providers/broadcasts_bloc_provider.dart';
-import 'package:ccis_app/screens/broadcast/broadcast_add_edit_screen.dart';
+import 'package:ccis_app/screens/broadcast/broadcast_add_forward_screen.dart';
 import 'package:ccis_app/widgets/broadcasts/broadcasts_list.dart';
 import 'package:ccis_app/widgets/broadcasts/broadcast_search.dart';
 import 'package:ccis_app/widgets/shared/navigation_drawer.dart';
@@ -46,14 +46,14 @@ class BroadcastScreenState extends State<BroadcastScreen> {
         title: Text(ArchSampleLocalizations.of(context).broadcasts),
         actions: _buildActions(delegate),
       ),
-      drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer),
+      drawer: NavigationDrawer(key: ArchSampleKeys.navigationDrawer, membersInteractor: BroadcastInjector.of(context).membersInteractor,),
       body: BroadcastsList(),
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addBroadcastFab,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (_) {
-              return BroadcastAddEditScreen(
+              return BroadcastAddForwardScreen(
                 addBroadcast: broadcastsBloc.addBroadcast.add,
                 broadcastInteractor:
                     BroadcastInjector.of(context).broadcastsInteractor,
